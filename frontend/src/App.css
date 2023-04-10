@@ -7,6 +7,97 @@
   pointer-events: none;
 }
 
+.logo-letras{
+  overflow: hidden;
+  height: 90px;
+  width: 100%;
+  background-image: url('./assets/logo.svg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: none;
+  margin-bottom: 150px;
+}
+
+.logo-aifa{
+  overflow: hidden;
+  height: 300px;
+  width: 500px;
+  background-image: url('./assets/logo-aifa.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.letras-aifa{
+  height: 250px;
+  width: 1000px;
+  background-image: url('./assets/letras.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+}
+@media (max-width: 1700px) {
+  .letras-aifa{
+    height: 200px;
+    width: 700px;
+  }
+  .logo-aifa{
+    height: 200px;
+    width: 400px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .letras-aifa{
+    height: 150px;
+    width: 550px;
+  }
+  .logo-aifa{
+    height: 150px;
+    width: 300px;
+  }
+}
+
+@media (max-width: 940px) {
+  .letras-aifa{
+    height: 100px;
+    width: 300px;
+  }
+  .logo-aifa{
+    height: 100px;
+    width: 200px;
+  }
+}
+@media (max-width: 940px) {
+  .logo-letras{
+    display: block;
+  }
+  .ocultar-logos{
+    display: none;
+  }
+}
+
+
+.contenedor {
+  position: relative;
+}
+
+.hijo {
+  background-color: red;
+  /* centrar vertical y horizontalmente */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -25px 0 0 -25px; /* aplicar a top y al margen izquierdo un valor negativo para completar el centrado del elemento hijo */
+}
+
+.borde-division{
+  border-right: #b43c3c solid;
+  height: 50%;
+}
+
+body {
+  font-family: (--font-family);
+}          
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
