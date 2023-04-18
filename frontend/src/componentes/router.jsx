@@ -2,11 +2,12 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 //import Dashboard from "./Dashboard.jsx";
 import DefaultLayout from "./defaulLayout/defaultLayout";
 import GuestLayout from "./guestLayout/guestLayout";
-import {Login} from "./Login/login";
-import {NotFound} from "./notFound/notfound";
-import {Signup} from "./signup/signup";
-import {Users} from "./users/users";
-import {UserForm} from "./users/userForm";
+import { Login } from "./Login/login";
+import { NotFound } from "./notFound/notfound";
+import { Signup } from "./signup/signup";
+import { Users } from "./users/users";
+import { UserForm } from "./users/userForm";
+import { GraficasCanvas } from "./graficos/graficos"
 
 const router = createBrowserRouter([
     {
@@ -15,11 +16,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Navigate to="/users" />
+                element: <Navigate to="/dashboard" />
             },
             {
                 path: '/dashboard',
-                element: <div>hola</div>
+                element: <GraficasCanvas/>
             },
             {
                 path: '/users',

@@ -34,6 +34,31 @@
   background-size: 100% 100%;
 
 }
+
+.degradado {
+  background: linear-gradient(#0d414e, #165268) !important;
+  border: none !important;
+  border-radius: 0px !important;
+}
+
+.p-menuitem-text{
+  color: white !important;
+}
+
+.p-menuitem-icon{
+  color: white !important;
+}
+
+.p-menuitem-text:hover{
+  color: #6c757d !important;
+}
+
+.p-menuitem-icon:hover{
+  color: #6c757d !important;
+}
+
+
+
 @media (max-width: 1700px) {
   .letras-aifa{
     height: 200px;

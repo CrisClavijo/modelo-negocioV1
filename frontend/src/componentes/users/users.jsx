@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { Link } from "react-router-dom";
 import { useStateContext } from "../context/contextProvider";
+import { Button } from 'primereact/button';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 
 export const Users = () => {
     const [users, setUsers] = useState([]);
@@ -34,51 +37,33 @@ export const Users = () => {
                 setLoading(false)
             })
     }
+    const header = (
+        <div className="flex flex-wrap align-items-center justify-content-between gap-2">
+            <span className="text-xl text-900 font-bold">Usuarios</span>
+            <Link className="btn-add" to="/users/new"><Button label="Agregar usuario" severity="success" /></Link>
+        </div>
+    );
+
+    const actionBodyTemplate = (data) => {
+        return (
+            <div>
+                <Link className="btn-edit" to={'/users/' + data.id}><Button icon="pi pi-pencil" rounded outlined className="mr-2" /></Link>
+
+                <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={ev => onDeleteClick(data)} />
+            </div>
+        );
+    };
 
     return (
         <div>
-            <div style={{ display: 'flex', justifyContent: "space-between", alignItems: "center" }}>
-                <h1>Users</h1>
-                <Link className="btn-add" to="/users/new">Add new</Link>
-            </div>
-            <div className="card animated fadeInDown">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Create Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    {loading &&
-                        <tbody>
-                            <tr>
-                                <td colSpan="5" class="text-center">
-                                    Loading...
-                                </td>
-                            </tr>
-                        </tbody>
-                    }
-                    {!loading &&
-                        <tbody>
-                            {users.map(u => (
-                                <tr key={u.id}>
-                                    <td>{u.id}</td>
-                                    <td>{u.name}</td>
-                                    <td>{u.email}</td>
-                                    <td>{u.created_at}</td>
-                                    <td>
-                                        <Link className="btn-edit" to={'/users/' + u.id}>Edit</Link>
-                                        &nbsp;
-                                        <button className="btn-delete" onClick={ev => onDeleteClick(u)}>Delete</button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    }
-                </table>
+            <div className="">
+                <DataTable value={users} header={header} tableStyle={{ minWidth: '60rem' }}>
+                    <Column field="id" header="No."></Column>
+                    <Column header="Nombre" field="name"></Column>
+                    <Column field="email" header="Correo" ></Column>
+                    <Column field="created_at" header="Fecha de registro"></Column>
+                    <Column body={actionBodyTemplate} ></Column>
+                </DataTable>
             </div>
         </div>
     )

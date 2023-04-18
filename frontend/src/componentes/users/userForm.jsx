@@ -17,8 +17,9 @@ export const UserForm = () => {
     const [loading, setLoading] = useState(false)
     const { setNotification } = useStateContext()
 
-    /*if (id) {
-        useEffect(() => {
+
+    useEffect(() => {
+        if (id) {
             setLoading(true)
             axiosClient.get(`/users/${id}`)
                 .then(({ data }) => {
@@ -28,8 +29,9 @@ export const UserForm = () => {
                 .catch(() => {
                     setLoading(false)
                 })
-        }, [])
-    }*/
+        }
+    }, [])
+
 
     const onSubmit = ev => {
         ev.preventDefault()
