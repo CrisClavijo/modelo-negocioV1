@@ -6,6 +6,7 @@ import { FormInputText } from "../customComponente/formInputText";
 import { FormInputTextPassword } from "../customComponente/formInputTextPasword"
 import { Chart } from 'primereact/chart';
 import { Knob } from 'primereact/knob';
+import { GoogleTrends } from "../customGraficos/mapaSubregion"
 
 export const GraficasCanvas = () => {
     const [chartData, setChartData] = useState({});
@@ -46,7 +47,12 @@ export const GraficasCanvas = () => {
     return (
         <div className=" w-screen h-screen flex flex-wrap justify-content-center overflow-x-hidden">
             <div className="col-12 flex flex-wrap p-0">
-                <div className="col-3 border-800 border-1 p-0"></div>
+                <div className="col-3 border-800 border-1 p-0">
+                    <div className="col-3">
+                        <iframe href="https://ssl.gstatic.com/trends_nrtr/3316_RC01/embed_loader.js"></iframe>
+                    </div>
+
+                </div>
                 <div className="col-2 border-800 border-1 p-0">
                     <div className="">
                         <h3>Actividades clave</h3>
