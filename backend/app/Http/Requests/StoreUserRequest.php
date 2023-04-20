@@ -32,7 +32,8 @@ class StoreUserRequest extends FormRequest
                 Password::min(8)
                     ->letters()
                     ->symbols(),
-            ]
+            ],
+            'user_access' => 'required|int',
         ];
     }
 }

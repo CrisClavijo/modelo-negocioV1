@@ -2,6 +2,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/contextProvider";
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import { Dropdown } from 'primereact/dropdown';
+
 
 export const UserForm = () => {
     const navigate = useNavigate();
@@ -11,12 +15,17 @@ export const UserForm = () => {
         name: '',
         email: '',
         password: '',
-        password_confirmation: ''
+        password_confirmation: '',
+        user_access: null
     })
     const [errors, setErrors] = useState(null)
     const [loading, setLoading] = useState(false)
     const { setNotification } = useStateContext()
-
+    const roles = [
+        { tipo: 'Administrador', code: 1 },
+        { tipo: 'Editor', code: 2 },
+        { tipo: 'Solo vista', code: 3 }
+    ];
 
     useEffect(() => {
         if (id) {
@@ -48,7 +57,16 @@ export const UserForm = () => {
                     }
                 })
         } else {
-            axiosClient.post('/users', user)
+            let userPrepare = {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                password: user.password,
+                password_confirmation: user.password_confirmation,
+                user_access: user?.user_access?.code
+            }
+            console.log(userPrepare)
+            axiosClient.post('/users', userPrepare)
                 .then(() => {
                     setNotification('User was successfully created')
                     navigate('/users')
@@ -64,8 +82,8 @@ export const UserForm = () => {
 
     return (
         <>
-            {user.id && <h1>Update User: {user.name}</h1>}
-            {!user.id && <h1>New User</h1>}
+            {user.id && <h1>Editar usuario: {user.name}</h1>}
+            {!user.id && <h1>Nuevo usuario</h1>}
             <div className="card animated fadeInDown">
                 {loading && (
                     <div className="text-center">
@@ -73,20 +91,26 @@ export const UserForm = () => {
                     </div>
                 )}
                 {errors &&
-                    <div className="alert">
+                    <div className="alert col-5 mx-auto">
                         {Object.keys(errors).map(key => (
                             <p key={key}>{errors[key][0]}</p>
                         ))}
                     </div>
                 }
                 {!loading && (
-                    <form onSubmit={onSubmit}>
-                        <input value={user.name} onChange={ev => setUser({ ...user, name: ev.target.value })} placeholder="Name" />
-                        <input value={user.email} onChange={ev => setUser({ ...user, email: ev.target.value })} placeholder="Email" />
-                        <input type="password" onChange={ev => setUser({ ...user, password: ev.target.value })} placeholder="Password" />
-                        <input type="password" onChange={ev => setUser({ ...user, password_confirmation: ev.target.value })} placeholder="Password Confirmation" />
-                        <button className="btn">Save</button>
-                    </form>
+                    <div className="col-10 flex flex-wrap p-fluid mx-auto justify-content-center">
+                        <form onSubmit={onSubmit} className="card">
+                            <InputText value={user.name} onChange={ev => setUser({ ...user, name: ev.target.value })} placeholder="Nombre" />
+                            <InputText value={user.email} onChange={ev => setUser({ ...user, email: ev.target.value })} placeholder="Correo" className="my-4" />
+                            <InputText type="password" onChange={ev => setUser({ ...user, password: ev.target.value })} placeholder="Contraseña" />
+                            <InputText type="password" onChange={ev => setUser({ ...user, password_confirmation: ev.target.value })} placeholder="Confirmar contraseña" className="my-4" />
+                            <Dropdown value={user.user_access} onChange={ev => setUser({ ...user, user_access: ev.target.value })} options={roles} optionLabel="tipo"
+                                placeholder="Selecciona un rol"/>
+                            <div className="col-4 mx-auto">
+                                <Button label="Guardar" severity="success" rounded />
+                            </div>
+                        </form>
+                    </div>
                 )}
             </div>
         </>

@@ -57,7 +57,16 @@
   color: #6c757d !important;
 }
 
+.alert{
+  background-color: #ee3737;
+  color: #fff;
+  padding: 5px;
+  border-radius: 6px;
+}
 
+.tamanio-graficas{
+  height: 300px !important;
+}
 
 @media (max-width: 1700px) {
   .letras-aifa{
