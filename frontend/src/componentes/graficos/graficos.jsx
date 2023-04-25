@@ -9,43 +9,55 @@ import { TablaLocalesComerciales } from "./customGraficos/localesComerciales";
 import { GraficaIngresos } from "./customGraficos/ingresosGrafica";
 import { GraficaEgresos } from "./customGraficos/egresosGrafica";
 import { GraficaTrends } from "./graficosTrends/graficaTrends";
+import MapaGoogleTrends from './graficosTrends/mapaTrendsAifa'
+import ActividadesClaveGoogleTrends from "./graficosTrends/actividadesClave";
+import TimeSeriesGoogleTrends from "./graficosTrends/timeSeries";
+import { ScrollPanel } from 'primereact/scrollpanel';
 
 export const GraficasCanvas = () => {
 
     return (
-        <div className=" w-screen h-screen flex flex-wrap justify-content-center overflow-x-hidden">
-            <div className="col-12 flex flex-wrap p-0">
-                <div className="col-3 border-800 border-1 p-0">
-                    <div className="">
-                        <iframe href="https://ssl.gstatic.com/trends_nrtr/3316_RC01/embed_loader.js"></iframe>
-                    </div>
-                    <TablasAerolineas />
-                    <TablaLocalesComerciales />
+        <div className=" w-screen h-screen flex flex-wrap justify-content-center overflow-x-hidden ">
+
+            <div className="col-12 flex flex-wrap p-0 tamanio-columnas">
+                <div className="col-3 border-800 border-1 p-0 tamanio-columnas">
+                    <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
+                        <MapaGoogleTrends />
+
+                        <TablasAerolineas />
+                        <TablaLocalesComerciales />
+                    </ScrollPanel>
                 </div>
-                <div className="col-2 border-800 border-1 p-0">
-                    <div className="">
-                        <h3>Actividades clave</h3>
-                        d
-                    </div>
-                    <TasaUtilizacionInstalada />
+                <div className="col-2 border-800 border-1 p-0 tamanio-columnas">
+                    <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
+                        <div className="">
+                            <h3 className="text-center">Actividades clave</h3>
+                            <ActividadesClaveGoogleTrends />
+                        </div>
+                        <TasaUtilizacionInstalada />
+                    </ScrollPanel>
                 </div>
-                <div className="col-2 border-800 border-1 p-0 text-center">
+                <div className="col-2 border-800 border-1 p-0 text-center tamanio-columnas">
                     <TasasDesenpenio />
                 </div>
-                <div className="col-2 border-800 border-1 p-0">
-                    <h3>Relaciones con clientes</h3>
-                    <div className="">
-                        d
-                    </div>
-                    <div className="border-800 border-1">
-                        <GraficaTrends />
-                    </div>
+                <div className="col-2 border-800 border-1 p-0 tamanio-columnas">
+                    <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
+                        <h3 className="text-center">Relaciones con clientes</h3>
+                        <div className="">
+                            <GraficaTrends />
+                        </div>
+                        <div className="">
+                            <TimeSeriesGoogleTrends />
+                        </div>
+                    </ScrollPanel>
                 </div>
-                <div className="col-3 border-800 border-1 p-0">
-                    <GraficasClientes />
+                <div className="col-3 border-800 border-1 p-0 tamanio-columnas">
+                    <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
+                        <GraficasClientes />
+                    </ScrollPanel>
                 </div>
             </div>
-            <div className="col-12 flex flex-wrap p-0 h-22rem">
+            <div className="col-12 flex flex-wrap p-0 tamanio-columnas-abajo">
                 <div className="col-4 border-800 border-1 p-0">
                     <GraficaIngresos />
                 </div>

@@ -38,6 +38,7 @@ const DefaultLayout = () => {
         {
             label: 'Editar',
             icon: 'pi pi-fw pi-pencil',
+            url: "/edit"
         },
         {
             label: 'Usuarios',

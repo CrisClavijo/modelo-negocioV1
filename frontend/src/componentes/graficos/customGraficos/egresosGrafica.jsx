@@ -59,7 +59,7 @@ export const GraficaEgresos = () => {
 
     return (
         <div>
-            <h3 className="text-center">Ingresos 2022</h3>
+            <h3 className="text-center">Egresos 2022</h3>
             <Chart className="tamanio-graficas"  type="line" data={chartData} options={chartOptions} />
         </div>
     )

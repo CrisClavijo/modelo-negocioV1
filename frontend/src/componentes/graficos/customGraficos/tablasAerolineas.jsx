@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import logoAeromexico from '../../../assets/aeromexico-logo.png'
+import '../../../App.css'
 
 export const TablasAerolineas = () => {
-    const [aeromexico, setAeromexico] = useState([{fop: '71.43%', oper: 452}]);
-    const [vivaAerobus, setVivaAerobus] = useState([{fop: '71.97%', oper: 290}]);
-    const [volaris, setVolaris] = useState([{fop: '82.97%', oper: 98}]);
-    const [conviasa, setConviasa] = useState([{fop: '0%', oper: 6}]);
-    const [magni, setMagni] = useState([{fop: '0%', oper: 20}]);
-    const [arajet, setArajet] = useState([{fop: '0%', oper: 18}])
-    const [copaAirlines, setCopaAirlines] = useState([{fop: '0%', oper: 14}]);
+    const [aeromexico, setAeromexico] = useState([{ fop: '71.43%', oper: 452 }]);
+    const [vivaAerobus, setVivaAerobus] = useState([{ fop: '71.97%', oper: 290 }]);
+    const [volaris, setVolaris] = useState([{ fop: '82.97%', oper: 98 }]);
+    const [conviasa, setConviasa] = useState([{ fop: '0%', oper: 6 }]);
+    const [magni, setMagni] = useState([{ fop: '0%', oper: 20 }]);
+    const [arajet, setArajet] = useState([{ fop: '0%', oper: 18 }])
+    const [copaAirlines, setCopaAirlines] = useState([{ fop: '0%', oper: 14 }]);
 
     const headerAeromexico = (
         <div className="flex flex-wrap align-items-center justify-content-between">
-            <span className="text-xl text-900 font-bold">Aeromexico</span>
+            <div className="logo-aeromexico"></div>
         </div>
     );
     const headerViva = (
@@ -46,7 +48,7 @@ export const TablasAerolineas = () => {
             <span className="text-xl text-900 font-bold">Copa  AirLines</span>
         </div>
     );
-    
+
 
     return (
         <div className="border-800 border-1 text-center">

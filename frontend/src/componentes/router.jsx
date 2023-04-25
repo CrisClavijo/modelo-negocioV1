@@ -8,6 +8,7 @@ import { Signup } from "./signup/signup";
 import { Users } from "./users/users";
 import { UserForm } from "./users/userForm";
 import { GraficasCanvas } from "./graficos/graficos"
+import { Editar } from "./editar/editar";
 
 const router = createBrowserRouter([
     {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard',
-                element: <GraficasCanvas/>
+                element: <GraficasCanvas />
             },
             {
                 path: '/users',
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path: '/users/:id',
                 element: <UserForm key="userUpdate" />
+            },
+            {
+                path: '/edit',
+                element: <Editar />
             }
         ]
     },

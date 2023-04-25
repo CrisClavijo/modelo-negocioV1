@@ -67,8 +67,8 @@ export const IngresosEgresos = () => {
     }, []);
 
     return (
-        <div className="card">
-            <Chart type="bar" data={chartData} options={chartOptions} />
+        <div className="card ">
+            <Chart type="bar" style={{ 'height' : '250px' }} className='tamanio-grafics' data={chartData} options={chartOptions} />
         </div>
     )
 }

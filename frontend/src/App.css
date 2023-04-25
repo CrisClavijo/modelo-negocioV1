@@ -1,10 +1,24 @@
 .App {
   text-align: center;
 }
-
+.content{
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+
+
+.card {
+  background: #ffffff;
+  padding: 1.25rem;
+  border: 0 none;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
 }
 
 .logo-letras{
@@ -65,7 +79,21 @@
 }
 
 .tamanio-graficas{
-  height: 300px !important;
+  height: 150px !important;
+}
+
+
+
+.p-0.tamanio-columnas {
+  height: 75vh !important;
+}
+
+.tamanio-columnas-abajo {
+  height: 25vh ;
+}
+
+.tamanio-panelc{
+  height: 80vh !important;
 }
 
 @media (max-width: 1700px) {
@@ -107,6 +135,18 @@
   .ocultar-logos{
     display: none;
   }
+}
+
+
+
+
+.logo-aeromexico{
+  height: 40px;
+  width: 100px;
+  background-image: url('./assets/aeromexico-logo.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
 }
 
 
