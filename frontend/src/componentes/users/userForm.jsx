@@ -16,7 +16,7 @@ export const UserForm = () => {
         email: '',
         password: '',
         password_confirmation: '',
-        user_access: null
+        rol: null
     })
     const [errors, setErrors] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -63,7 +63,7 @@ export const UserForm = () => {
                 name: user.name,
                 password: user.password,
                 password_confirmation: user.password_confirmation,
-                user_access: user?.user_access?.code
+                rol: user?.rol?.code
             }
             console.log(userPrepare)
             axiosClient.post('/users', userPrepare)
@@ -104,7 +104,7 @@ export const UserForm = () => {
                             <InputText value={user.email} onChange={ev => setUser({ ...user, email: ev.target.value })} placeholder="Correo" className="my-4" />
                             <InputText type="password" onChange={ev => setUser({ ...user, password: ev.target.value })} placeholder="Contraseña" />
                             <InputText type="password" onChange={ev => setUser({ ...user, password_confirmation: ev.target.value })} placeholder="Confirmar contraseña" className="my-4" />
-                            <Dropdown value={user.user_access} onChange={ev => setUser({ ...user, user_access: ev.target.value })} options={roles} optionLabel="tipo"
+                            <Dropdown value={user.rol} onChange={ev => setUser({ ...user, rol: ev.target.value })} options={roles} optionLabel="tipo"
                                 placeholder="Selecciona un rol"/>
                             <div className="col-4 mx-auto">
                                 <Button label="Guardar" severity="success" rounded />

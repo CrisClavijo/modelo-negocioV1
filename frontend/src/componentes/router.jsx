@@ -9,6 +9,9 @@ import { Users } from "./users/users";
 import { UserForm } from "./users/userForm";
 import { GraficasCanvas } from "./graficos/graficos"
 import { Editar } from "./editar/editar";
+import { useAuthStore } from "../redux/hooks/useAuthStore";
+
+
 
 const router = createBrowserRouter([
     {

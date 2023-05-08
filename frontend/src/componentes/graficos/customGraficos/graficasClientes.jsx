@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from 'primereact/chart';
+import { useTablasGeneralStore } from "../../../redux/hooks/useTablasGenerales";
 
 export const GraficasClientes = () => {
+
+    const {
+        pasajeros,
+        pasajerosValorComercial
+    } = useTablasGeneralStore();
+
     const [datosPasajerosComer, setDatosPasajerosComer] = useState({});
     const [opcionesPasajerosComer, setOpcionesPasajerosComer] = useState({});
     const [generalPasajeros, setGeneralPasajeros] = useState({});
@@ -9,17 +16,18 @@ export const GraficasClientes = () => {
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
 
+
     useEffect(() => {
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
         const data = {
-            labels: ['Mar 22', 'Abril 22', 'May 22', 'Jun 22', 'Jul 22', 'Ago 22', 'Sep 22', 'Oct 22', 'Nov 22', 'Dic 22', 'Ene 23', 'Feb 23', 'Mar 23', 'Abril 23'],
+            labels: pasajeros,
             datasets: [
                 {
                     label: 'Pasajeros comerciales',
-                    data: [14225, 35593, 36405, 33354, 36280, 53580, 102521, 185617, 203094, 211746, 186572, 165315, 196339, 91997],
+                    data: pasajerosValorComercial,
                     fill: false,
                     borderColor: documentStyle.getPropertyValue('--blue-500'),
                     tension: 0.4
@@ -58,7 +66,7 @@ export const GraficasClientes = () => {
 
         setDatosPasajerosComer(data);
         setOpcionesPasajerosComer(options);
-    }, []);
+    }, [pasajeros]);
 
     useEffect(() => {
         const documentStyle = getComputedStyle(document.documentElement);

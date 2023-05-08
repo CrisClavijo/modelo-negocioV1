@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useStateContext } from "../context/contextProvider";
 import { Button } from 'primereact/button';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { useSelector } from "react-redux";
 
 export const Users = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const { setNotification } = useStateContext()
+    const { userInfo } = useSelector(state => state.user)
 
     useEffect(() => {
         getUsers();
     }, [])
+
+    if (userInfo?.rol === 3) {
+        return <Navigate to="/" />
+    }
 
     const onDeleteClick = user => {
         if (!window.confirm("Are you sure you want to delete this user?")) {

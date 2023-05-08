@@ -13,6 +13,8 @@ import { useStateContext } from "../context/contextProvider";
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import Swal from 'sweetalert2'
+import { useDispatch } from "react-redux";
+import { datosUsuario } from "../../redux/userSlice";
 
 export const Login = () => {
     /*const methods = useForm();
@@ -40,6 +42,7 @@ export const Login = () => {
             .then(({ data }) => {
                 setUser(data.user)
                 setToken(data.token);
+                localStorage.setItem('AuthUser' , JSON.stringify(data.user))
             })
             .catch((err) => {
                 const response = err.response;

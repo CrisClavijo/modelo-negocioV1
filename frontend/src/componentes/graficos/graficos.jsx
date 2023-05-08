@@ -13,8 +13,22 @@ import MapaGoogleTrends from './graficosTrends/mapaTrendsAifa'
 import ActividadesClaveGoogleTrends from "./graficosTrends/actividadesClave";
 import TimeSeriesGoogleTrends from "./graficosTrends/timeSeries";
 import { ScrollPanel } from 'primereact/scrollpanel';
+import { useTablasGeneralStore } from "../../redux/hooks/useTablasGenerales";
 
 export const GraficasCanvas = () => {
+    const {
+        pasajeros,
+        getPasajerosComerciales
+    } = useTablasGeneralStore();
+
+
+    useEffect(() => {
+        const fechas = {
+            fechaDesde : "2022-08",
+            fechaHasta :"2023-01"
+        }
+        getPasajerosComerciales(fechas)
+    }, [])
 
     return (
         <div className=" w-screen h-screen flex flex-wrap justify-content-center overflow-x-hidden ">
@@ -53,7 +67,7 @@ export const GraficasCanvas = () => {
                 </div>
                 <div className="col-3 border-800 border-1 p-0 tamanio-columnas">
                     <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
-                        <GraficasClientes />
+                        <GraficasClientes/>
                     </ScrollPanel>
                 </div>
             </div>

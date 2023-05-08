@@ -4,9 +4,17 @@ import axiosClient from "../axios-client";
 import { useEffect } from "react";
 import { Menubar } from 'primereact/menubar';
 import "../../App.css"
+import { useSelector } from "react-redux";
+import { useAuthStore } from "../../redux/hooks/useAuthStore";
 
 const DefaultLayout = () => {
     const { user, token, setUser, setToken, notification } = useStateContext();
+    const { userInfo } = useSelector(state => state.user)
+    const { startLogin, onStartLogout } = useAuthStore();
+    useEffect(() => {
+        startLogin();
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     if (!token) {
         return <Navigate to="/login" />
@@ -19,6 +27,8 @@ const DefaultLayout = () => {
             .then(() => {
                 setUser({})
                 setToken(null)
+                onStartLogout(null)
+                localStorage.removeItem('AuthUser');
             })
     }
 
@@ -43,7 +53,8 @@ const DefaultLayout = () => {
         {
             label: 'Usuarios',
             icon: 'pi pi-fw pi-user',
-            url: "/users"
+            url: "/users",
+            visible: userInfo?.rol===3 ? false : true 
         },
         {
             label: 'Salir',
@@ -55,7 +66,7 @@ const DefaultLayout = () => {
     ];
 
     const start = <img alt="logo" src="https://aifa.aero/lib/img/logo.svg" height="60" className="mr-2"></img>;
-    const end = <div className="text-center">Bienvenido {user.name}</div>
+    const end = <div className="text-center">Bienvenido {userInfo?.name}</div>
     return (
         <div id="defaultLayout" className="overflow-x-hidden">
             {/*<aside>

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TablasGeneralesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/pasajeros-comerciales', [TablasGeneralesController::class, 'getpasajeroscomerciales']);
+Route::post('/pasajeros-comerciales', [TablasGeneralesController::class, 'guardarPasajerosComerciales']);
+Route::put('/pasajeros-comerciales/{id}', [TablasGeneralesController::class, 'actualizarPasajerosComerciales']);
