@@ -24,7 +24,8 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "sweetalert2": "^11.7.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xdate": "0.8.2"
   },
   "scripts": {
     "start": "react-scripts start",

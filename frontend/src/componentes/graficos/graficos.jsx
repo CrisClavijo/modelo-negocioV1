@@ -17,17 +17,15 @@ import { useTablasGeneralStore } from "../../redux/hooks/useTablasGenerales";
 
 export const GraficasCanvas = () => {
     const {
+        valoresDefecto,
         pasajeros,
+        getValoresDefecto,
         getPasajerosComerciales
     } = useTablasGeneralStore();
 
 
     useEffect(() => {
-        const fechas = {
-            fechaDesde : "2022-08",
-            fechaHasta :"2023-01"
-        }
-        getPasajerosComerciales(fechas)
+        getValoresDefecto()
     }, [])
 
     return (
@@ -67,7 +65,7 @@ export const GraficasCanvas = () => {
                 </div>
                 <div className="col-3 border-800 border-1 p-0 tamanio-columnas">
                     <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
-                        <GraficasClientes/>
+                        <GraficasClientes />
                     </ScrollPanel>
                 </div>
             </div>

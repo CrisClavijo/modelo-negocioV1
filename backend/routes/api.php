@@ -28,6 +28,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/valores-defecto', [TablasGeneralesController::class, 'getvaloresdefecto']);
+Route::put('/valores-defecto/{id}', [TablasGeneralesController::class, 'actualizarValoresDefecto']);
+
+
 Route::get('/pasajeros-comerciales', [TablasGeneralesController::class, 'getpasajeroscomerciales']);
 Route::post('/pasajeros-comerciales', [TablasGeneralesController::class, 'guardarPasajerosComerciales']);
 Route::put('/pasajeros-comerciales/{id}', [TablasGeneralesController::class, 'actualizarPasajerosComerciales']);
+

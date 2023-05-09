@@ -8,11 +8,35 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\PasajerosComerciales;
+use App\Models\ValoresDefecto;
 use App\Http\Controllers\Normalize\ValidateRoule;
 use App\Http\Controllers\Normalize\NormalizeResult;
 
 class TablasGeneralesController extends Controller
 {
+    public function getvaloresdefecto()
+    {
+        $data = ValoresDefecto::all();
+
+        return NormalizeResult::index($data->toArray());
+    }
+
+    public function actualizarValoresDefecto(Request $request, $id)
+    {
+        $data = $request->toArray();
+        $valida = ValidateRoule::valida($data, [
+            'fechaFinal' => ['required', 'string'],
+            'fechaInicial' => ['required', 'string'],
+        ]);
+        if ($valida["status"] == "error") {
+            return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);
+        } else {
+            $agenda = ValoresDefecto::findOrFail($id);
+            $agenda->fill($data)->save();
+            return NormalizeResult::index([$agenda], 200);
+        }
+    }
+
     /**
      *
      * Mostramos el listado de los regitros solicitados.
@@ -29,9 +53,9 @@ class TablasGeneralesController extends Controller
             pasajeos_comerciales.valor
             ")
             ->when($request->fechaDesde, function ($query) use ($request) {
-                $query->whereDate('pasajeos_comerciales.fecha', '>=', "$request->fechaDesde-01");
+                $query->whereDate('pasajeos_comerciales.fecha', '>=', "$request->fechaDesde");
             })->when($request->fechaHasta, function ($query) use ($request) {
-                $query->whereDate('pasajeos_comerciales.fecha', '<=', "$request->fechaHasta-01");
+                $query->whereDate('pasajeos_comerciales.fecha', '<=', "$request->fechaHasta");
             });
 
         $data = NormalizeResult::paginate($data, $request);
@@ -84,4 +108,6 @@ class TablasGeneralesController extends Controller
             return NormalizeResult::index([$agenda], 200);
         }
     }
+
+
 }
