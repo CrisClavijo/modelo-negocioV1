@@ -1,10 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Knob } from 'primereact/knob';
-
+import { useTablasGeneralStore } from "../../../redux/hooks/useTablasGenerales";
 export const TasasDesenpenio = () => {
-    const [infraestrutura, setInfraestrutura] = useState(90.38);
-    const [infoVuelos, setInfoVuelos] = useState(93.29);
-    const [atencion, setAtencion] = useState(86.28);
+
+    const {
+        infraestructura,
+        infoVuelos,
+        atencionPersonalizada
+    } = useTablasGeneralStore();
+
+    const [infraestrutura, setInfraestrutura] = useState(0);
+    const [informacionVuelos, setinformacionVuelos] = useState(0);
+    const [atencion, setAtencion] = useState(0);
+
+    useEffect(() => {
+        if(atencionPersonalizada){
+        setInfraestrutura(infraestructura[0]?.valor)
+        setinformacionVuelos(infoVuelos[0]?.valor)
+        setAtencion(atencionPersonalizada[0]?.valor)
+    }
+    }, [infraestructura, infoVuelos, atencionPersonalizada]);
 
     return (
         <>
@@ -21,11 +36,11 @@ export const TasasDesenpenio = () => {
             </div>
             <div className="card flex flex-wrap justify-content-center my-3">
                 <Knob
-                    value={infoVuelos}
+                    value={informacionVuelos}
                     //onChange={(e) => setInfoVuelos(e.infoVuelos)}
                     valueTemplate={'{value}%'}
                     valueColor="#F4D03F"
-                    step={infoVuelos}
+                    step={informacionVuelos}
                 />
                 <h5 className="m-1">Informacion de vuelos precisa y oportuna</h5>
             </div>

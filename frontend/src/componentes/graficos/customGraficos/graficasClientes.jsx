@@ -6,7 +6,11 @@ export const GraficasClientes = () => {
 
     const {
         pasajeros,
-        pasajerosValorComercial
+        pasajerosValorComercial,
+        aviacionMeses,
+        aviacionValores,
+        cargaMeses,
+        cargaValores,
     } = useTablasGeneralStore();
 
     const [datosPasajerosComer, setDatosPasajerosComer] = useState({});
@@ -74,11 +78,11 @@ export const GraficasClientes = () => {
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
         const data = {
-            labels: ['Mar 22', 'Abril 22', 'May 22', 'Jun 22', 'Jul 22', 'Ago 22', 'Sep 22', 'Oct 22', 'Nov 22', 'Dic 22', 'Ene 23', 'Feb 23', 'Mar 23', 'Abril 23'],
+            labels: aviacionMeses,
             datasets: [
                 {
                     label: 'Aviacion general pasajeros',
-                    data: [31, 43, 165, 67, 70, 32, 82, 263, 575, 150, 460, 379, 166],
+                    data: aviacionValores,
                     fill: false,
                     borderColor: documentStyle.getPropertyValue('--green-500'),
                     tension: 0.4
@@ -117,7 +121,7 @@ export const GraficasClientes = () => {
 
         setGeneralPasajeros(data);
         setOpcionesGeneralesP(options);
-    }, []);
+    }, [aviacionMeses, aviacionValores]);
 
     useEffect(() => {
         const documentStyle = getComputedStyle(document.documentElement);
@@ -125,11 +129,11 @@ export const GraficasClientes = () => {
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
         const data = {
-            labels: ['Ene 23', 'Feb 23', 'Mar 23', 'Abril 23'],
+            labels: cargaMeses,
             datasets: [
                 {
                     label: 'Carga',
-                    data: [0, 5, 83, 32],
+                    data: cargaValores,
                     fill: false,
                     borderColor: documentStyle.getPropertyValue('--red-500'),
                     tension: 0.4
@@ -168,7 +172,7 @@ export const GraficasClientes = () => {
 
         setChartData(data);
         setChartOptions(options);
-    }, []);
+    }, [cargaMeses, cargaValores]);
 
     return (
         <>

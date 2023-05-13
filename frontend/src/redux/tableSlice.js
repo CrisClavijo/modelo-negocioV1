@@ -3,7 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     valoresDefecto : null,
     pasajeros: null,
-    pasajerosValorComercial: null
+    pasajerosValorComercial: null,
+    aviacionMeses: null,
+    aviacionValores: null,
+    cargaMeses: null,
+    cargaValores: null,
+    encuestaSatisfaccion: null,
+    infraestructura: null,
+    infoVuelos: null,
+    atencionPersonalizada: null,
+    ingresos: null,
+    egresos: null,
+    tablaLocales: null
 }
 
 export const tableSlice = createSlice({
@@ -16,12 +27,50 @@ export const tableSlice = createSlice({
         guardarPasajerosComerciales: (state, action) => {
             state.pasajeros = action.payload[1]
             state.pasajerosValorComercial = action.payload[0]
-        }
+        },
+        getAviacionGeneral: (state, action) => {
+            state.aviacionMeses = action.payload[1]
+            state.aviacionValores = action.payload[0]
+        },
+        getCarga: (state, action) => {
+            state.cargaMeses = action.payload[1]
+            state.cargaValores = action.payload[0]
+        },
+        getSatisfaccion: (state, action) => {
+            state.encuestaSatisfaccion = action.payload
+        },
+        getInfraestructura: (state, action) => {
+            state.infraestructura = action.payload
+        },
+        getInfoVuelos: (state, action) => {
+            state.infoVuelos = action.payload
+        },
+        getAtencionPersonalizada: (state, action) => {
+            state.atencionPersonalizada = action.payload
+        },
+        getIngresosReducer: (state, action) => {
+            state.ingresos = action.payload
+        },
+        getEgresosReducer: (state, action) => {
+            state.egresos = action.payload
+        },
+        getTablaLocalesReducer: (state, action) => {
+            state.tablaLocales = action.payload
+        },
     }
 })
 
 export const {
     obtenerValoresDefecto,
-    guardarPasajerosComerciales
+    guardarPasajerosComerciales,
+    getAviacionGeneral,
+    getCarga,
+    getSatisfaccion,
+    getInfraestructura,
+    getInfoVuelos,
+    getAtencionPersonalizada,
+    getIngresosReducer,
+    getEgresosReducer,
+    getTablaLocalesReducer
 } = tableSlice.actions;
 export default tableSlice.reducer
