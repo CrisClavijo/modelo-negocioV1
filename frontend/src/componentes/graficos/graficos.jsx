@@ -17,10 +17,7 @@ import { useTablasGeneralStore } from "../../redux/hooks/useTablasGenerales";
 
 export const GraficasCanvas = () => {
     const {
-        valoresDefecto,
-        pasajeros,
         getValoresDefecto,
-        getPasajerosComerciales
     } = useTablasGeneralStore();
 
 

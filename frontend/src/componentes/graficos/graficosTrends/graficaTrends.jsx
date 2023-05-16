@@ -1,9 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from 'primereact/chart';
+import { useTablasGeneralStore } from "../../../redux/hooks/useTablasGenerales";
 
 export const GraficaTrends = () => {
+
+    const {
+        encuestaSatisfaccion
+    } = useTablasGeneralStore();
+
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
+    const [arrayCompleto, setArray] = useState(null);
+    useEffect(() => {
+        if(encuestaSatisfaccion){
+            let array= [
+                encuestaSatisfaccion[0].seguridad,
+                encuestaSatisfaccion[0].limpieza,
+                encuestaSatisfaccion[0].tiemDeEsper,
+                encuestaSatisfaccion[0].infoVuelos,
+                encuestaSatisfaccion[0].senializacion,
+                encuestaSatisfaccion[0].atencionCliente,
+                encuestaSatisfaccion[0].infraestructura,
+                encuestaSatisfaccion[0].servComerciales,
+                encuestaSatisfaccion[0].conectividadVial
+            ]
+            setArray(array)
+        }
+    }, [encuestaSatisfaccion]);
 
     useEffect(() => {
         const documentStyle = getComputedStyle(document.documentElement);
@@ -17,7 +40,7 @@ export const GraficaTrends = () => {
                     label: 'Satisfacción',
                     backgroundColor: '#3498DB',
                     borderColor: '#3498DB',
-                    data: [99.39, 98.17, 91.26, 93.29, 92.99, 84.15, 86.89, 63.41, 63.41]
+                    data: arrayCompleto
                 },
             ]
         };
@@ -59,7 +82,7 @@ export const GraficaTrends = () => {
 
         setChartData(data)
         setChartOptions(options);
-    }, []);
+    }, [encuestaSatisfaccion]);
 
     return (
         <div>
