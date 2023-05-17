@@ -72,3 +72,6 @@ Route::put('/egresos/{id}', [TablasGeneralesController::class, 'actualizarEgreso
 
 Route::get('/locales-comerciales', [TablasGeneralesController::class, 'getLocalesComerciales']);
 Route::put('/locales-comerciales/{id}', [TablasGeneralesController::class, 'actualizarLocalesComerciales']);
+
+Route::get('/aerolineas', [TablasGeneralesController::class, 'getAerolineas']);
+

@@ -1,18 +1,3 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing:border-box;
-}
-
-body{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin:0 auto 0 auto;
-}
-
 .container{
     position: relative;
     display: flex;
@@ -30,17 +15,18 @@ body{
     align-items: center;
 }
 
-
 .ring:nth-child(1){
     border-bottom-width: 8px;
     border-color: rgb(0,104,71);
 animation: rotate 2s linear infinite;
 }
+
 .ring:nth-child(2){
     border-right-width: 8px;
     border-color: rgb(65, 64, 64);
 animation: rotate2 2s linear infinite;
 }
+
 .ring:nth-child(3){
     border-top-width: 8px;
     border-color: rgb(206, 17, 38);
@@ -81,4 +67,5 @@ animation: rotate3 2s linear infinite;
     color: white;
     justify-content: center;
     align-items: center;
+    z-index: 9999;
 }

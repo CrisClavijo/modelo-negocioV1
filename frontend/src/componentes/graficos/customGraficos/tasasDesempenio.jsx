@@ -26,7 +26,7 @@ export const TasasDesenpenio = () => {
             <h3>Tasa de desempeño de Propuesta de Valor</h3>
             <div className="card flex flex-wrap justify-content-center">
                 <Knob
-                    value={infraestrutura}
+                    value={infraestrutura||0}
                     //onChange={(e) => console.log(e)}
                     valueTemplate={'{value}%'}
                     valueColor="#9B59B6"
@@ -36,7 +36,7 @@ export const TasasDesenpenio = () => {
             </div>
             <div className="card flex flex-wrap justify-content-center my-3">
                 <Knob
-                    value={informacionVuelos}
+                    value={informacionVuelos||0}
                     //onChange={(e) => setInfoVuelos(e.infoVuelos)}
                     valueTemplate={'{value}%'}
                     valueColor="#F4D03F"
@@ -46,7 +46,7 @@ export const TasasDesenpenio = () => {
             </div>
             <div className="card flex flex-wrap justify-content-center">
                 <Knob
-                    value={atencion}
+                    value={atencion||0}
                     //onChange={(e) => setAtencion(e.atencion)}
                     valueTemplate={'{value}%'}
                     valueColor="#58D68D"

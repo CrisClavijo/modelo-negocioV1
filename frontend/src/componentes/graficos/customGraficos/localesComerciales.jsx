@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { useTablasGeneralStore } from "../../../redux/hooks/useTablasGenerales";
-import { ColumnGroup } from 'primereact/columngroup';
-import { Row } from 'primereact/row';
 
 export const TablaLocalesComerciales = () => {
     const {
         tablaLocales
     } = useTablasGeneralStore();
 
+    const [nuevaTabla, setNuevaTabla] = useState(tablaLocales)
+
     useEffect(() => {
         if (tablaLocales) {
+            let _tabla = [...tablaLocales]
             let totalExistentes = 0;
             let totalarrendados = 0;
             let totaloperando = 0;
@@ -28,22 +29,15 @@ export const TablaLocalesComerciales = () => {
                 totalempresas += item.empresas;
             });
             let total = { giros: 'TOTAL', existentes: totalExistentes, arrendados: totalarrendados, operando: totaloperando, enAdaptacion: totalenAdaptacion, disponibles: totaldisponibles, empresas: totalempresas }
-            console.log(total)
+            _tabla.push(total)
+            setNuevaTabla(_tabla)
         }
     }, [tablaLocales]);
-
-    const headerAeromexico = (
-        <div className="flex flex-wrap align-items-center justify-content-between">
-            <span className="text-xl text-900 font-bold">Aeromexico</span>
-        </div>
-    );
-
-
 
 
     return (
         <div className="border-800 border-1 text-center">
-            <DataTable value={tablaLocales || []} className="">
+            <DataTable value={nuevaTabla || []} className="">
                 <Column field="giros" header="GIROS"></Column>
                 <Column field="existentes" header="EXISTENTES" ></Column>
                 <Column field="arrendados" header="ARRENDADOS" ></Column>

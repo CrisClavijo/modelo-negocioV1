@@ -1,3 +1,21 @@
+#root{
+  background-color: #f5f5f5;
+  
+}
+*{
+  font-family: 'Montserrat';
+  font-weight: 800;
+}
+.color-fondo{
+  background-color: #cfcfcfcf;
+  height: 100vh;
+}
+
+.color-seccion{
+  background-color: white;
+  border-radius: 15px;
+  border: #464646 solid 1px;
+}
 .App {
   text-align: center;
 }
@@ -193,4 +211,17 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+
+.btn-pasajeros:enabled:hover, .btn-pasajeros:not(button):not(a):not(.p-disabled):hover{
+  background: #165268 ;
+  border-color: #165268 ;
+}
+.btn-pasajeros{
+  background: #0d414e;
+  border-color: #0d414e;
+}
+
+.swal2-html-container{
+  font-weight: 900 !important;
 }

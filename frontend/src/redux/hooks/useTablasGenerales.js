@@ -10,9 +10,12 @@ import {
     getAtencionPersonalizada,
     getIngresosReducer,
     getEgresosReducer,
-    getTablaLocalesReducer
+    getTablaLocalesReducer,
+    getTablaAerolineasReducer
 } from "../../redux/tableSlice";
 import axiosClient from "../../componentes/axios-client";
+import { useLoadingStore } from "../../redux/hooks/useLoadingStore";
+import { alertNotification } from "../../componentes/customComponente/helpers/helpers";
 
 export const useTablasGeneralStore = () => {
     const dispatch = useDispatch();
@@ -28,10 +31,17 @@ export const useTablasGeneralStore = () => {
         infraestructura,
         infoVuelos,
         atencionPersonalizada,
-        tablaLocales
+        tablaLocales,
+        aerolineas,
+        egresos,
+        ingresos
     } = useSelector((state) => state.table);
+    const { startLoading } = useLoadingStore();
+
+    //Obtener valores
 
     const getValoresDefecto = async () => {
+        startLoading(true)
         const url = `valores-defecto`;
         await axiosClient
             .get(url)
@@ -47,20 +57,26 @@ export const useTablasGeneralStore = () => {
                 getAtencionPersonalizadaValores(response[5].fechaInicial);
                 getEgresosValores(response[11].fechaInicial);
                 getIngresosValores(response[10].fechaInicial);
-                getLocalesComerciales(response[1].fechaInicial)
-            }).catch((error) => {
-                console.log(error)
-            });
-    }
+                getLocalesComerciales(response[1].fechaInicial);
+                getAerolineasExistentes()
+                setTimeout(() => {
+                    startLoading(false)
+                }, 15000);
 
-    const updateValoresDefecto = async (body, id) => {
-        const url = `/valores-defecto/${id}`;
-        await axiosClient
-            .put(url, body)
-            .then(({ data }) => {
-                console.log(data)
+
             }).catch((error) => {
-                console.log(error)
+                alertNotification({
+                    title: `Ha ocurrido un error al obtener los datos`,
+                    text: error?.response?.data?.error_msg,
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: "#6e7881",
+                    html: `<h5>${error?.response?.data?.error_msg || "Hubo un problema"
+                        }</h5>
+                        <div id="lista-errores"></div>
+                    `,
+                });
+                startLoading(false)
             });
     }
 
@@ -207,6 +223,52 @@ export const useTablasGeneralStore = () => {
             });
     }
 
+    const getAerolineasExistentes = async () => {
+        const url = `aerolineas`;
+        await axiosClient
+            .get(url)
+            .then(({ data }) => {
+                dispatch(getTablaAerolineasReducer(data?.data))
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+
+    //Guardar nuevos valores
+
+
+
+    //Actualizar valores
+
+    const updateValoresDefecto = async (body, id) => {
+        startLoading(true)
+        const url = `valores-defecto/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Filtro Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+
+
     return {
         /**Propiedades **/
         valoresDefecto,
@@ -221,6 +283,9 @@ export const useTablasGeneralStore = () => {
         infoVuelos,
         atencionPersonalizada,
         tablaLocales,
+        aerolineas,
+        egresos,
+        ingresos,
         /** Métodos **/
         getValoresDefecto,
         updateValoresDefecto,

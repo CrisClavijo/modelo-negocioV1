@@ -15,6 +15,7 @@ import { Password } from 'primereact/password';
 import Swal from 'sweetalert2'
 import { useDispatch } from "react-redux";
 import { datosUsuario } from "../../redux/userSlice";
+import { useLoadingStore } from "../../redux/hooks/useLoadingStore";
 
 export const Login = () => {
     /*const methods = useForm();
@@ -23,7 +24,7 @@ export const Login = () => {
     const handleChangePassword = (e) => {
         setPassword(e.target.value);
     };*/
-
+    const { startLoading } = useLoadingStore();
 
 
     const emailRef = createRef()
@@ -33,7 +34,7 @@ export const Login = () => {
 
     const onSubmit = ev => {
         ev.preventDefault()
-
+        startLoading(true)
         const payload = {
             email: emailRef.current.value,
             password: passwordRef.current.value,
@@ -43,12 +44,14 @@ export const Login = () => {
                 setUser(data.user)
                 setToken(data.token);
                 localStorage.setItem('AuthUser' , JSON.stringify(data.user))
+                startLoading(false)
             })
             .catch((err) => {
                 const response = err.response;
                 if (response && response.status === 422) {
                     setMessage(response.data.message)
                 }
+                startLoading(false)
             })
     }
 

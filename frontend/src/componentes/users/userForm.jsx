@@ -23,8 +23,10 @@ export const UserForm = () => {
     const { setNotification } = useStateContext()
     const roles = [
         { tipo: 'Administrador', code: 1 },
-        { tipo: 'Editor', code: 2 },
-        { tipo: 'Solo vista', code: 3 }
+        { tipo: 'Solo vista', code: 2 },
+        { tipo: 'Departamento operaciones', code: 3 },
+        { tipo: 'Departamento finanzas', code: 4 },
+        { tipo: 'Departamento planeacion', code: 5 },
     ];
 
     useEffect(() => {

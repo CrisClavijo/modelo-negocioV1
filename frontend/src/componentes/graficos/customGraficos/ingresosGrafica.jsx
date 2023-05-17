@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from 'primereact/chart';
+import { useTablasGeneralStore } from "../../../redux/hooks/useTablasGenerales";
 
 export const GraficaIngresos = () => {
+
+    const {
+        ingresos
+    } = useTablasGeneralStore();
+
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
 
@@ -15,7 +21,7 @@ export const GraficaIngresos = () => {
             datasets: [
                 {
                     label: 'Carga',
-                    data: [1700000000.00, 100000000.00, 1000.00, 10000],
+                    data: [ingresos?.participaciones, ingresos?.ventaBienes, ingresos?.ingresosFinancieros, ingresos?.otros],
                     fill: false,
                     borderColor: 'rgb(142, 68, 173)',
                     tension: 0.4
@@ -54,7 +60,7 @@ export const GraficaIngresos = () => {
 
         setChartData(data);
         setChartOptions(options);
-    }, []);
+    }, [ingresos]);
 
     return (
         <div>

@@ -6,11 +6,13 @@ import { Menubar } from 'primereact/menubar';
 import "../../App.css"
 import { useSelector } from "react-redux";
 import { useAuthStore } from "../../redux/hooks/useAuthStore";
-
+import { Loading } from '../loaderUi/loader';
+import { useLoadingStore } from "../../redux/hooks/useLoadingStore";
 const DefaultLayout = () => {
     const { user, token, setUser, setToken, notification } = useStateContext();
     const { userInfo } = useSelector(state => state.user)
     const { startLogin, onStartLogout } = useAuthStore();
+    const { loading } = useLoadingStore();
     useEffect(() => {
         startLogin();
         //eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,13 +50,14 @@ const DefaultLayout = () => {
         {
             label: 'Editar',
             icon: 'pi pi-fw pi-pencil',
-            url: "/edit"
+            url: "/edit",
+            visible: userInfo?.rol != 2 || userInfo?.rol === 1 ? true : false
         },
         {
             label: 'Usuarios',
             icon: 'pi pi-fw pi-user',
             url: "/users",
-            visible: userInfo?.rol===3 ? false : true 
+            visible: userInfo?.rol != 1 ? false : true
         },
         {
             label: 'Salir',
@@ -68,14 +71,18 @@ const DefaultLayout = () => {
     const start = <img alt="logo" src="https://aifa.aero/lib/img/logo.svg" height="60" className="mr-2"></img>;
     const end = <div className="text-center">Bienvenido {userInfo?.name}</div>
     return (
-        <div id="defaultLayout" className="overflow-x-hidden">
+        <div id="defaultLayout" className="overflow-x-hidden deafult-color">
+
+            {loading ? (
+                <Loading />
+            ) : null}
             {/*<aside>
                 <Link to="/dashboard">Dashboard</Link>
                 <Link to="/users">Users</Link>
             </aside>*/}
             <div className="content">
                 <header>
-                    <Menubar model={items} start={start} end={end} className="degradado text-200"/>
+                    <Menubar model={items} start={start} end={end} className="degradado text-200" />
                     {/*<div>
                         {user.name} &nbsp; &nbsp;
                         <a onClick={onLogout} className="btn-logout" href="#">Logout</a>

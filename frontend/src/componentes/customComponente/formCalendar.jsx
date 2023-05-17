@@ -98,6 +98,8 @@ export const FormCalendar = ({ handleChangeCalendar, ...props }) => {
                             monthNavigatorTemplate={monthTemplate}
                             yearNavigatorTemplate={yearTemplate}
                             showIcon
+                            view="month"
+                            dateFormat="mm/yy"
                         />
                         <label
                             htmlFor={props.label || ""}

@@ -26,10 +26,10 @@ export const GraficasCanvas = () => {
     }, [])
 
     return (
-        <div className=" w-screen h-screen flex flex-wrap justify-content-center overflow-x-hidden ">
+        <div className=" w-screen h-screen flex flex-wrap justify-content-center overflow-x-hidden color-fondo">
 
             <div className="col-12 flex flex-wrap p-0 tamanio-columnas">
-                <div className="col-3 border-800 border-1 p-0 tamanio-columnas">
+                <div className="col-3 p-0 tamanio-columnas color-seccion">
                     <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
                         <MapaGoogleTrends />
 
@@ -37,7 +37,7 @@ export const GraficasCanvas = () => {
                         <TablaLocalesComerciales />
                     </ScrollPanel>
                 </div>
-                <div className="col-2 border-800 border-1 p-0 tamanio-columnas">
+                <div className="col-2 p-0 tamanio-columnas color-seccion">
                     <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
                         <div className="">
                             <h3 className="text-center">Actividades clave</h3>
@@ -46,10 +46,10 @@ export const GraficasCanvas = () => {
                         <TasaUtilizacionInstalada />
                     </ScrollPanel>
                 </div>
-                <div className="col-2 border-800 border-1 p-0 text-center tamanio-columnas">
+                <div className="col-2 p-0 text-center tamanio-columnas color-seccion">
                     <TasasDesenpenio />
                 </div>
-                <div className="col-2 border-800 border-1 p-0 tamanio-columnas">
+                <div className="col-2 p-0 tamanio-columnas color-seccion">
                     <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
                         <h3 className="text-center">Relaciones con clientes</h3>
                         <div className="">
@@ -60,20 +60,20 @@ export const GraficasCanvas = () => {
                         </div>
                     </ScrollPanel>
                 </div>
-                <div className="col-3 border-800 border-1 p-0 tamanio-columnas">
+                <div className="col-3 p-0 tamanio-columnas color-seccion">
                     <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
                         <GraficasClientes />
                     </ScrollPanel>
                 </div>
             </div>
-            <div className="col-12 flex flex-wrap p-0 tamanio-columnas-abajo">
-                <div className="col-4 border-800 border-1 p-0">
+            <div className="col-12 flex flex-wrap p-0 tamanio-columnas-abajo ">
+                <div className="col-4 p-0 color-seccion">
                     <GraficaIngresos />
                 </div>
-                <div className="col-4 border-800 border-1 p-0">
+                <div className="col-4 p-0 color-seccion">
                     <IngresosEgresos />
                 </div>
-                <div className="col-4 border-800 border-1 p-0">
+                <div className="col-4 p-0 color-seccion">
                     <GraficaEgresos />
                 </div>
             </div>

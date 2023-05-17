@@ -14,7 +14,8 @@ const initialState = {
     atencionPersonalizada: null,
     ingresos: null,
     egresos: null,
-    tablaLocales: null
+    tablaLocales: null,
+    aerolineas: null,
 }
 
 export const tableSlice = createSlice({
@@ -57,6 +58,9 @@ export const tableSlice = createSlice({
         getTablaLocalesReducer: (state, action) => {
             state.tablaLocales = action.payload
         },
+        getTablaAerolineasReducer: (state, action) => {
+            state.aerolineas = action.payload
+        },
     }
 })
 
@@ -71,6 +75,7 @@ export const {
     getAtencionPersonalizada,
     getIngresosReducer,
     getEgresosReducer,
-    getTablaLocalesReducer
+    getTablaLocalesReducer,
+    getTablaAerolineasReducer
 } = tableSlice.actions;
 export default tableSlice.reducer
