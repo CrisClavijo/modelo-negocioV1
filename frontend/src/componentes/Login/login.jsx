@@ -1,31 +1,14 @@
 import React, { useState } from "react";
 import { Button } from 'primereact/button';
-import { FormProvider, useForm } from "react-hook-form";
 import '../../App.css';
-import { FormInputText } from "../customComponente/formInputText";
-import { FormInputTextPassword } from "../customComponente/formInputTextPasword"
 import { createRef } from "react";
-
-import { Link } from "react-router-dom";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../context/contextProvider";
-
 import { InputText } from 'primereact/inputtext';
-import { Password } from 'primereact/password';
-import Swal from 'sweetalert2'
-import { useDispatch } from "react-redux";
-import { datosUsuario } from "../../redux/userSlice";
 import { useLoadingStore } from "../../redux/hooks/useLoadingStore";
 
 export const Login = () => {
-    /*const methods = useForm();
-
-    const [password, setPassword] = useState('');
-    const handleChangePassword = (e) => {
-        setPassword(e.target.value);
-    };*/
     const { startLoading } = useLoadingStore();
-
 
     const emailRef = createRef()
     const passwordRef = createRef()
@@ -43,7 +26,7 @@ export const Login = () => {
             .then(({ data }) => {
                 setUser(data.user)
                 setToken(data.token);
-                localStorage.setItem('AuthUser' , JSON.stringify(data.user))
+                localStorage.setItem('AuthUser', JSON.stringify(data.user))
                 startLoading(false)
             })
             .catch((err) => {
@@ -73,26 +56,24 @@ export const Login = () => {
                     <h2 className="col-12">
                         Iniciar Sesion
                     </h2>
-                    
+
                     {message &&
                         <div className="alert col-11 mx-auto">
                             <p>{message}</p>
                         </div>
                     }
                     <form onSubmit={onSubmit}>
-                        {/*<FormProvider {...methods}>*/}
                         <div className=" p-fluid grid pt-5 flex flex-wrap p-4">
                             <div className="mt-2 col-12">
                                 <InputText ref={emailRef} name="usuario" placeholder="Usuario" className="w-full" />
                             </div>
                             <div className="mt-2 col-12">
-                                <InputText ref={passwordRef} toggleMask /*handleChangePassword={handleChangePassword}*/ />
+                                <InputText ref={passwordRef} type="password"  name="contrasena" placeholder="Contraseña" className="w-full"/>
                             </div>
                             <div className="lg:col-5 col-12 mx-auto mt-2">
                                 <Button label="Iniciar sesion" severity="success" />
                             </div>
                         </div>
-                        {/*</FormProvider>*/}
                     </form>
                 </div>
             </div>
