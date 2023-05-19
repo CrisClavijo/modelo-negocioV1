@@ -18,7 +18,7 @@ export const GraficaEgresos = () => {
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
         const data = {
-            labels: ['Servicios generales', 'Servicios personales', 'Materiales y suministros', 'Estimaciones, depreciaciones, deterioros, obsidencia y amortiguaciones', 'Otros gastos'],
+            labels: ['Serv. gen', 'Serv. pers', 'Mat. y sum.', 'Estim., deprec., deter., obsol. y amort.', 'Otros gastos'],
             datasets: [
                 {
                     label: 'Egresos',

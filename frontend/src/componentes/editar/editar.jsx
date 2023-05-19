@@ -73,7 +73,7 @@ export const Editar = () => {
             {userInfo?.rol === 1 || userInfo?.rol === 3 ? (
                 <div className="flex flex-wrap gap-3 mb-3">
                     <h2 className="col-12 m-0">Departamento de Operaciones</h2>
-                    <div className="p-card col-2 text-center">
+                    <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Tasa de Utilización de la Capacidad Instalada</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
@@ -84,7 +84,7 @@ export const Editar = () => {
                             }} />
                         </div>
                     </div>
-                    <div className="p-card col-2 text-center">
+                    <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Infraestructura y Tecnología Aeropuertuaria</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
@@ -95,7 +95,7 @@ export const Editar = () => {
                             }} />
                         </div>
                     </div>
-                    <div className="p-card col-2 text-center">
+                    <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Información de Vuelos Precisa y Oportuna</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
@@ -107,7 +107,7 @@ export const Editar = () => {
                                 }} />
                         </div>
                     </div>
-                    <div className="p-card col-2 text-center">
+                    <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
@@ -118,7 +118,7 @@ export const Editar = () => {
                             }} />
                         </div>
                     </div>
-                    <div className="p-card col-2 text-center">
+                    <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Encuesta de Satisfacción</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
@@ -129,7 +129,7 @@ export const Editar = () => {
                             }} />
                         </div>
                     </div>
-                    <div className="p-card col-2 text-center">
+                    <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aviación Comercial Pasajeros</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
@@ -140,7 +140,7 @@ export const Editar = () => {
                             }} />
                         </div>
                     </div>
-                    <div className="p-card col-2 text-center">
+                    <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aviación General Pasajeros</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
@@ -151,7 +151,7 @@ export const Editar = () => {
                             }} />
                         </div>
                     </div>
-                    <div className="p-card col-2 text-center">
+                    <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aviación de Carga Kg</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
@@ -167,7 +167,7 @@ export const Editar = () => {
             {userInfo?.rol === 1 || userInfo?.rol === 4 ? (
                 <div className="flex flex-wrap gap-3 mb-3">
                     <h2 className="col-12 m-0">Departamento de finanzas</h2>
-                    <div className="p-card col-2 text-center">
+                    <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Ingresos</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
@@ -179,7 +179,7 @@ export const Editar = () => {
                         </div>
                     </div>
 
-                    <div className="p-card col-2 text-center">
+                    <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Egresos</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
@@ -196,7 +196,7 @@ export const Editar = () => {
             {userInfo?.rol === 1 || userInfo?.rol === 5 ? (
                 <div className="flex flex-wrap gap-3 mb-3">
                     <h2 className="col-12 m-0">Departamento de Planeación</h2>
-                    <div className="p-card col-2 text-center">
+                    <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aerolíneas</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" onClick={() => setMostrarAerolineas(true)} />
@@ -204,7 +204,7 @@ export const Editar = () => {
                         </div>
 
                     </div>
-                    <div className="p-card col-2 text-center">
+                    <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Locales Comerciales</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />

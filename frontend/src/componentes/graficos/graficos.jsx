@@ -47,7 +47,9 @@ export const GraficasCanvas = () => {
                     </ScrollPanel>
                 </div>
                 <div className="col-2 p-0 text-center tamanio-columnas color-seccion">
-                    <TasasDesenpenio />
+                    <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
+                        <TasasDesenpenio />
+                    </ScrollPanel>
                 </div>
                 <div className="col-2 p-0 tamanio-columnas color-seccion">
                     <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
