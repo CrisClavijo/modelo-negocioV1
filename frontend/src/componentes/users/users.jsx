@@ -46,7 +46,7 @@ export const Users = () => {
     const header = (
         <div className="flex flex-wrap align-items-center justify-content-between gap-2">
             <span className="text-xl text-900 font-bold">Usuarios</span>
-            <Link className="btn-add" to="/users/new"><Button label="Agregar usuario" severity="success" /></Link>
+            <Link className="btn-add" to="/users/new"><Button label="Agregar Usuario" severity="success" /></Link>
         </div>
     );
 
@@ -67,7 +67,7 @@ export const Users = () => {
                     <Column field="id" header="No."></Column>
                     <Column header="Nombre" field="name"></Column>
                     <Column field="email" header="Correo" ></Column>
-                    <Column field="created_at" header="Fecha de registro"></Column>
+                    <Column field="created_at" header="Fecha de Registro"></Column>
                     <Column body={actionBodyTemplate} ></Column>
                 </DataTable>
             </div>

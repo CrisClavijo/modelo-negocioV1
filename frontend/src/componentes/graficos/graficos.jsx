@@ -40,7 +40,7 @@ export const GraficasCanvas = () => {
                 <div className="col-2 p-0 tamanio-columnas color-seccion">
                     <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
                         <div className="">
-                            <h3 className="text-center">Actividades clave</h3>
+                            <h3 className="text-center">ACTIVIDADES CLAVE</h3>
                             <ActividadesClaveGoogleTrends />
                         </div>
                         <TasaUtilizacionInstalada />
@@ -51,7 +51,7 @@ export const GraficasCanvas = () => {
                 </div>
                 <div className="col-2 p-0 tamanio-columnas color-seccion">
                     <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
-                        <h3 className="text-center">Relaciones con clientes</h3>
+                        <h3 className="text-center">RELACIONES CON CLIENTES</h3>
                         <div className="">
                             <GraficaTrends />
                         </div>

@@ -23,26 +23,26 @@ export const TasasDesenpenio = () => {
 
     return (
         <>
-            <h3>Tasa de desempeño de Propuesta de Valor</h3>
+            <h3>TASA DE DESEMPEÑO DE PROPUESTA DE VALOR</h3>
             <div className="card flex flex-wrap justify-content-center">
                 <Knob
                     value={infraestrutura||0}
                     //onChange={(e) => console.log(e)}
                     valueTemplate={'{value}%'}
-                    valueColor="#9B59B6"
+                    valueColor="#58D68D"
                     step={infraestrutura}
                 />
-                <h5 className="m-1">Infraestructura y tecnologia aeropuertaria</h5>
+                <h5 className="m-1">Infraestructura y tecnología aeropuertaria</h5>
             </div>
             <div className="card flex flex-wrap justify-content-center my-3">
                 <Knob
                     value={informacionVuelos||0}
                     //onChange={(e) => setInfoVuelos(e.infoVuelos)}
                     valueTemplate={'{value}%'}
-                    valueColor="#F4D03F"
+                    valueColor="#58D68D"
                     step={informacionVuelos}
                 />
-                <h5 className="m-1">Informacion de vuelos precisa y oportuna</h5>
+                <h5 className="m-1">Información de vuelos precisa y oportuna</h5>
             </div>
             <div className="card flex flex-wrap justify-content-center">
                 <Knob
@@ -52,7 +52,7 @@ export const TasasDesenpenio = () => {
                     valueColor="#58D68D"
                     step={atencion}
                 />
-                <h5 className="m-1">Atencion personalizada en un entorno seguro y con calidad en el servicio</h5>
+                <h5 className="m-1">Atención personalizada en un entorno seguro y con calidad en el servicio</h5>
             </div>
         </>
     )

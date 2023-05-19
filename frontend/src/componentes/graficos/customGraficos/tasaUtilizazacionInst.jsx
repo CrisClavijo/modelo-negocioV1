@@ -76,7 +76,7 @@ export const TasaUtilizacionInstalada = () => {
 
     return (
         <div className="flex flex-wrap text-center">
-            <h4 className="m-0 p-1">Tasa de utilizacion de la capacidad instalada</h4>
+            <h4 className="m-0 p-1">Tasa de utilización de la capacidad instalada</h4>
             <div className="col-6 p-0">
                 <h5 className="m-0 p-1">Terminal de pasajeros</h5>
                 <Chart type="pie" data={dataPasajeros} options={optionsPasajeros} />

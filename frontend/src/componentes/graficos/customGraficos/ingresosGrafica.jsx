@@ -20,10 +20,10 @@ export const GraficaIngresos = () => {
             labels: ['Participaciones', 'Ingresos por venta', 'Ingresos financieros', 'Otros ingresos'],
             datasets: [
                 {
-                    label: 'Carga',
+                    label: 'Ingresos',
                     data: [ingresos?.participaciones, ingresos?.ventaBienes, ingresos?.ingresosFinancieros, ingresos?.otros],
                     fill: false,
-                    borderColor: 'rgb(142, 68, 173)',
+                    borderColor: 'rgb(75, 192, 192)',
                     tension: 0.4
                 },
             ]
@@ -64,7 +64,7 @@ export const GraficaIngresos = () => {
 
     return (
         <div>
-            <h3 className="text-center">Ingresos 2022</h3>
+            <h3 className="text-center">INGRESOS 2022</h3>
             <Chart className="tamanio-graficas" type="line" data={chartData} options={chartOptions} />
         </div>
     )

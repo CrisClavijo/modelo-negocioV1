@@ -51,10 +51,10 @@ export const Login = () => {
             <div className="lg:col-4 sm:col-8 col-11 justify-content-center my-auto">
                 <div className="">
                     <h1 className="col-12 m-0" style={{ color: "#b43c3c" }}>
-                        Modelo de negocio
+                        <center>Modelo de Negocio</center>
                     </h1>
                     <h2 className="col-12">
-                        Iniciar Sesion
+                        <center>Iniciar Sesión</center>
                     </h2>
 
                     {message &&
@@ -71,7 +71,7 @@ export const Login = () => {
                                 <InputText ref={passwordRef} type="password"  name="contrasena" placeholder="Contraseña" className="w-full"/>
                             </div>
                             <div className="lg:col-5 col-12 mx-auto mt-2">
-                                <Button label="Iniciar sesion" severity="success" />
+                                <Button label="Iniciar Sesión" severity="success" />
                             </div>
                         </div>
                     </form>

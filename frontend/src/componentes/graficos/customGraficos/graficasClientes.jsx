@@ -30,7 +30,7 @@ export const GraficasClientes = () => {
             labels: pasajeros,
             datasets: [
                 {
-                    label: 'Pasajeros comerciales',
+                    label: 'Aviación Comercial Pasajeros',
                     data: pasajerosValorComercial,
                     fill: false,
                     borderColor: documentStyle.getPropertyValue('--blue-500'),
@@ -81,10 +81,10 @@ export const GraficasClientes = () => {
             labels: aviacionMeses,
             datasets: [
                 {
-                    label: 'Aviacion general pasajeros',
+                    label: 'Aviación General Pasajeros',
                     data: aviacionValores,
                     fill: false,
-                    borderColor: documentStyle.getPropertyValue('--green-500'),
+                    borderColor: documentStyle.getPropertyValue('--blue-500'),
                     tension: 0.4
                 },
             ]
@@ -132,10 +132,10 @@ export const GraficasClientes = () => {
             labels: cargaMeses,
             datasets: [
                 {
-                    label: 'Carga',
+                    label: 'Aviación de Carga (Kg)',
                     data: cargaValores,
                     fill: false,
-                    borderColor: documentStyle.getPropertyValue('--red-500'),
+                    borderColor: documentStyle.getPropertyValue('--blue-500'),
                     tension: 0.4
                 },
             ]
@@ -176,7 +176,7 @@ export const GraficasClientes = () => {
 
     return (
         <>
-            <h3 className="text-center">Clientes</h3>
+            <h3 className="text-center">CLIENTES</h3>
             <div>
                 <Chart className="tamanio-graficas" type="line" data={datosPasajerosComer} options={opcionesPasajerosComer} />
             </div>
