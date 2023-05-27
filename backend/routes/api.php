@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TablasGeneralesController;
-
+use App\Http\Controllers\ListasEditarController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -59,7 +59,7 @@ Route::post('/informacion-vuelos', [TablasGeneralesController::class, 'guardarIn
 Route::put('/informacion-vuelos/{id}', [TablasGeneralesController::class, 'actualizarInformacionVuelos']);
 
 Route::get('/infraestructura', [TablasGeneralesController::class, 'getinfraestructura']);
-Route::post('/iinfraestructura', [TablasGeneralesController::class, 'guardarInfraestructura']);
+Route::post('/infraestructura', [TablasGeneralesController::class, 'guardarInfraestructura']);
 Route::put('/infraestructura/{id}', [TablasGeneralesController::class, 'actualizarInfraestructura']);
 
 Route::get('/ingresos', [TablasGeneralesController::class, 'getingresos']);
@@ -74,4 +74,14 @@ Route::get('/locales-comerciales', [TablasGeneralesController::class, 'getLocale
 Route::put('/locales-comerciales/{id}', [TablasGeneralesController::class, 'actualizarLocalesComerciales']);
 
 Route::get('/aerolineas', [TablasGeneralesController::class, 'getAerolineas']);
+Route::put('/aerolineas/{id}', [TablasGeneralesController::class, 'actualizarAerolineas']);
 
+/* Listas */
+Route::get('/lst-infraestructura', [ListasEditarController::class, 'getLstInfraestructura']);
+Route::get('/lst-informacion-vuelos', [ListasEditarController::class, 'getLstInfoVuelos']);
+Route::get('/lst-atencion-personalizada', [ListasEditarController::class, 'getLstAtencionPersonalizada']);
+Route::get('/lst-locales-comerciales', [ListasEditarController::class, 'getLstLocalesComerciales']);
+Route::get('/lst-aerolineas', [ListasEditarController::class, 'getLstAerolinea']);
+Route::get('/lst-ingresos', [ListasEditarController::class, 'getLstIngresos']);
+Route::get('/lst-egresos', [ListasEditarController::class, 'getLstEgresos']);
+Route::get('/lst-encuesta-calidad', [ListasEditarController::class, 'getLstEncuestaCalidad']);

@@ -18,7 +18,7 @@ class Ingresos extends Authenticatable
     protected $casts = [
         'date' => 'string',
         'fecha' => 'string',
-        'participantes' => 'int',
+        'participaciones' => 'int',
         'ventaBienes' => 'int',
         'ingresosFinancieros' => 'int',
         'otros' => 'int'
@@ -32,7 +32,7 @@ class Ingresos extends Authenticatable
     protected $fillable = [
         'date',
         'fecha',
-        'participantes',
+        'participaciones',
         'ventaBienes',
         'ingresosFinancieros',
         'otros'

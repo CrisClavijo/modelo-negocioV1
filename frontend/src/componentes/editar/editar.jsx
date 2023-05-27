@@ -1,4 +1,4 @@
-import React, { createRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { Dropdown } from 'primereact/dropdown';
@@ -9,29 +9,77 @@ import XDate from "xdate";
 import { useTablasGeneralStore } from "../../redux/hooks/useTablasGenerales";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import { FormInputText } from "../customComponente/formInputText"
+import { useListasStore } from "../../redux/hooks/useListasStore"
+import { FormDropdown } from "../customComponente/formDropdown";
+
 
 export const Editar = () => {
     const methods = useForm({ shouldUnregister: true });
     const { userInfo } = useSelector(state => state.user)
     const {
-        updateValoresDefecto
-    } = useTablasGeneralStore();
+        updateValoresDefecto,
 
+        updateInfraestructura,
+        updateInfoVuelos,
+        updateAtencionPerso,
+        updateLocalesComerciales,
+        updateAerolinea,
+        updateIngresos,
+        updateEgresos,
+        updateEncuestaCalidad,
+
+        saveInfoVuelos,
+        saveInfraestructura,
+        saveAtencionPerso,
+        saveIngresos,
+        saveEgresos,
+        saveEncuestaCalidad
+    } = useTablasGeneralStore();
+    const {
+        lstInfraestructura,
+        lstInfoVuelos,
+        lstAtencionPersonalizada,
+        lstlocalesComerciales,
+        lstAerolinea,
+        lstIngresos,
+        lstEgresos,
+        lstEncuestaCalidad,
+        startLstInfraestructura,
+        startLstInfoVuelos,
+        startLstAtencionPersonalizada,
+        startLstLocalesComerciales,
+        startLstAerolineas,
+        startLstIngresos,
+        startLstEgresos,
+        startLstEncuestaCalidad,
+    } = useListasStore();
+
+    useEffect(() => {
+        startLstInfraestructura()
+        startLstInfoVuelos()
+        startLstAtencionPersonalizada()
+        startLstLocalesComerciales()
+        startLstAerolineas()
+        startLstIngresos()
+        startLstEgresos()
+        startLstEncuestaCalidad()
+    }, []);
 
     const [mostrarAerolineas, setMostrarAerolineas] = useState(false);
+    const [mostrarLocales, setMostrarLocales] = useState(false);
+    const [mostrarIngresos, setMostrarIngresos] = useState(false);
+    const [mostrarEgresos, setMostrarEgresos] = useState(false);
+    const [mostrarEncuesta, setMostrarEncuesta] = useState(false);
     const [mostrarFiltro, setMostrarFiltro] = useState(false);
     const [headerFiltro, setHeaderFiltro] = useState("")
     const [idFiltro, setIdFiltro] = useState(0)
-
-    const [selectedCity, setSelectedCity] = useState(null);
-    const [value4, setValue4] = useState(50);
-    const cities = [
-        { name: 'New York', code: 'NY' },
-        { name: 'Rome', code: 'RM' },
-        { name: 'London', code: 'LDN' },
-        { name: 'Istanbul', code: 'IST' },
-        { name: 'Paris', code: 'PRS' }
-    ];
+    const [headerEditar, setHeaderEditar] = useState("")
+    const [mostrarEditar, setMostrarEditar] = useState(false);
+    const [banderaBoton, setBanderaBtn] = useState(false);
+    const [banderaLista, setBanderaLista] = useState([]);
+    const [opcionesId, setOpcionesId] = useState("")
+    const [modalId, setModalId] = useState(0)
 
     const consultaCertificados = (data) => {
         if (idFiltro === 8 || idFiltro === 9 || idFiltro === 10) {
@@ -40,7 +88,7 @@ export const Editar = () => {
                     fechaInicial: XDate(data.fechaInicio).toString("yyyy-MM-01"),
                     fechaFinal: XDate(data.fechaFin).toString("yyyy-MM-01")
                 }
-                console.log("completo",body, idFiltro)
+                console.log("completo", body, idFiltro)
                 updateValoresDefecto(body, idFiltro)
                 setHeaderFiltro("")
                 setIdFiltro(0)
@@ -53,18 +101,235 @@ export const Editar = () => {
                     target: '.p-dialog'
                 })
             }
-        }else{
+        } else {
             let body = {
                 fechaInicial: XDate(data.fechaInicio).toString("yyyy-MM-01"),
                 fechaFinal: XDate(data.fechaInicio).toString("yyyy-MM-01")
             }
-            console.log("Solo inicial",body, idFiltro)
+            console.log("Solo inicial", body, idFiltro)
             updateValoresDefecto(body, idFiltro)
             setHeaderFiltro("")
             setIdFiltro(0)
             setMostrarFiltro(false)
         }
 
+    }
+
+    const verificarModal = (accion, titulo, idModal, btn) => {
+        setHeaderEditar(`${accion} ${titulo}`)
+        setBanderaBtn(btn)
+        setModalId(idModal)
+        if (idModal === 2 || idModal === 3 || idModal === 4) {
+            setMostrarEditar(true)
+            if (idModal === 2) {
+                setBanderaLista(lstInfraestructura)
+                setOpcionesId("idInfraestructura")
+                return
+            }
+            if (idModal === 3) {
+                setBanderaLista(lstInfoVuelos)
+                setOpcionesId("idVuelos")
+                return
+            }
+            if (idModal === 4) {
+                setBanderaLista(lstAtencionPersonalizada)
+                setOpcionesId("idServicio")
+                return
+            }
+        }
+        if (idModal === 5) {
+            setMostrarEncuesta(true)
+            setBanderaLista(lstEncuestaCalidad)
+            setOpcionesId("idCalidad")
+            return
+        }
+        if (idModal === 9) {
+            setMostrarIngresos(true)
+            setBanderaLista(lstIngresos)
+            setOpcionesId("idIngresos")
+            return
+        }
+        if (idModal === 10) {
+            setMostrarEgresos(true)
+            setBanderaLista(lstEgresos)
+            setOpcionesId("idEgresos")
+            return
+        }
+
+    }
+
+    const onGuardarDatos = (data) => {
+        if (data.porcentaje <= 100) {
+            console.log(data)
+            if (banderaBoton) {
+                let body = {
+                    valor: +data.porcentaje
+                }
+                if (modalId === 2) {
+                    updateInfraestructura(body, data.idLst)
+                    return
+                }
+                if (modalId === 3) {
+                    updateInfoVuelos(body, data.idLst)
+                    return
+                }
+                if (modalId === 4) {
+                    updateAtencionPerso(body, data.idLst)
+                    return
+                }
+            } else {
+                let body = {
+                    fecha: XDate(data.fecha).toString("MMM yy"),
+                    date: XDate(data.fecha).toString("yyyy-MM-01"),
+                    valor: +data.porcentaje
+                }
+                if (modalId === 2) {
+                    saveInfraestructura(body)
+                    return
+                }
+                if (modalId === 3) {
+                    saveInfoVuelos(body)
+                    return
+                }
+                if (modalId === 4) {
+                    saveAtencionPerso(body)
+                    return
+                }
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: '¡Error!',
+                text: 'El porcentaje no puede ser mayor a 100',
+                target: '.p-dialog'
+            })
+        }
+    }
+
+    const onEditarlocalesComerciales = (data) => {
+        console.log(data)
+        let body = {
+            arrendados: data.arrendados,
+            disponibles: data.disponibles,
+            empresas: data.empresas,
+            enAdaptacion: data.enAdaptacion,
+            existentes: data.existentes,
+            operando: data.operando
+        }
+        updateLocalesComerciales(body, data.tipoGiro)
+        setMostrarLocales(false)
+        console.log("Actualizar local", body, data.tipoGiro)
+    }
+
+    const onEditarlAerolineas = (data) => {
+        console.log(data)
+        let body = {
+            fop: +data.fop,
+            oper: +data.oper
+        }
+        console.log("Actualizar local", body, data.tipoAerolinea)
+        updateAerolinea(body, data.tipoAerolinea)
+        setMostrarAerolineas(false)
+    }
+
+    const onCambiarIngresos = (data) => {
+        console.log(data)
+        if (banderaBoton) {
+            let body = {
+                participaciones: data.participaciones,
+                ventaBienes: data.ventaBienes,
+                ingresosFinancieros: data.ingresosFinancieros,
+                otros: data.otros
+            }
+            console.log("actualziar", body, data.fechaIngresos)
+            updateIngresos(body, data.fechaIngresos)
+        } else {
+            console.log("guardar")
+            let body = {
+                fecha: XDate(data.fecha).toString("MMM yy"),
+                date: XDate(data.fecha).toString("yyyy-MM-01"),
+                participaciones: data.participaciones,
+                ventaBienes: data.ventaBienes,
+                ingresosFinancieros: data.ingresosFinancieros,
+                otros: data.otros
+            }
+            saveIngresos(body)
+        }
+    }
+
+    const onCambiarEgresos = (data) => {
+        console.log(data)
+        if (banderaBoton) {
+            let body = {
+                estimaciones: data.estimaciones,
+                materiales: data.materiales,
+                serPersonales: data.personas,
+                servGenerales: data.servGenerales,
+                otros: data.otros
+            }
+            console.log("actualziar", body, data.fechaEgresos)
+            updateEgresos(body, data.fechaEgresos)
+        } else {
+            console.log("guardar")
+            let body = {
+                fecha: XDate(data.fecha).toString("MMM yy"),
+                date: XDate(data.fecha).toString("yyyy-MM-01"),
+                estimaciones: data.estimaciones,
+                materiales: data.materiales,
+                serPersonales: data.personas,
+                servGenerales: data.servGenerales,
+                otros: data.otros
+            }
+            console.log("guardar", body)
+            saveEgresos(body)
+        }
+    }
+
+    const onCambiarEncuestaCalidad = (data) => {
+        console.log(data)
+        if (banderaBoton) {
+            let body = {
+                seguridad: data.seguridad,
+                limpieza: data.limpieza,
+                tiemDeEsper: data.tiemDeEsper,
+                infoVuelos: data.infoVuelos,
+                senializacion: data.senializacion,
+                atencionCliente: data.atencionCliente,
+                infraestructura: data.infraestructura,
+                servComerciales: data.servComerciales,
+                conectividadVial: data.conectividadVial,
+                satisfaGral: data.satisfaGral
+            }
+            console.log("actualziar", body, data.fechaEgresos)
+            updateEncuestaCalidad(body, data.fechaEgresos)
+        } else {
+            console.log("guardar")
+            let body = {
+                formatoFecha: XDate(data.fecha).toString("MMM yy"),
+                fecha: XDate(data.fecha).toString("yyyy-MM-01"),
+                seguridad: data.seguridad,
+                limpieza: data.limpieza,
+                tiemDeEsper: data.tiemDeEsper,
+                infoVuelos: data.infoVuelos,
+                senializacion: data.senializacion,
+                atencionCliente: data.atencionCliente,
+                infraestructura: data.infraestructura,
+                servComerciales: data.servComerciales,
+                conectividadVial: data.conectividadVial,
+                satisfaGral: data.satisfaGral
+            }
+            console.log("guardar", body)
+            saveEncuestaCalidad(body)
+        }
+    }
+
+    const onClearValores = () => {
+        setMostrarIngresos(false)
+        setMostrarEditar(false)
+        setBanderaLista([])
+        setHeaderEditar("")
+        setBanderaBtn(false)
+        setModalId(0)
     }
 
 
@@ -76,7 +341,8 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Tasa de Utilización de la Capacidad Instalada</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Nuevo", "", 0)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "", 0)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
                                 setHeaderFiltro("Tasa de utlización de la capacidad instalada");
@@ -87,7 +353,8 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Infraestructura y Tecnología Aeropuertuaria</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Infraestructura y Tecnología Aeropuertuaria", 2, false)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Infraestructura y Tecnología Aeropuertuaria", 2, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
                                 setHeaderFiltro("Infraestructura y tecnologias aeropuertuaria");
@@ -98,7 +365,8 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Información de Vuelos Precisa y Oportuna</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Información de Vuelos Precisa y Oportuna", 3, false)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Información de Vuelos Precisa y Oportuna", 3, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right"
                                 onClick={() => {
                                     setMostrarFiltro(true);
@@ -110,7 +378,8 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, false)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
                                 setHeaderFiltro("Atencion personalizada en un entorno seguro y con calidad en el servicio");
@@ -121,7 +390,8 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Encuesta de Satisfacción</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Encuesta de Satisfaccion", 5, false)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Encuesta de Satisfaccion", 5, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
                                 setHeaderFiltro("Encuesta de satisfacción");
@@ -132,7 +402,8 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aviación Comercial Pasajeros</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Nuevo", "", 0)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "", 0)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
                                 setHeaderFiltro("Pasajeros comerciales");
@@ -143,7 +414,8 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aviación General Pasajeros</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Nuevo", "", 0)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "", 0)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
                                 setHeaderFiltro("Aviacion general pasajeros");
@@ -154,7 +426,8 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aviación de Carga Kg</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Nuevo", "", 0)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "", 0)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
                                 setHeaderFiltro("Carga");
@@ -170,7 +443,8 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Ingresos</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Ingresos", 9, false)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Ingresos", 9, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
                                 setHeaderFiltro("Ingresos");
@@ -182,7 +456,8 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Egresos</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Egresos", 10, false)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Egresos", 10, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
                                 setHeaderFiltro("Egresos");
@@ -207,7 +482,7 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Locales Comerciales</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" />
+                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" onClick={() => setMostrarLocales(true)} />
                         </div>
                     </div>
                 </div>
@@ -269,39 +544,673 @@ export const Editar = () => {
                 </FormProvider>
             </Dialog>
 
+            <Dialog header={headerEditar} visible={mostrarEditar} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => onClearValores()}>
+                <FormProvider {...methods}>
+                    <div className=" mt-4">
+                        <form id="TacometroForm" onSubmit={methods.handleSubmit(onGuardarDatos)} >
+                            <div className="">
+                                <FormInputText
+                                    name="porcentaje"
+                                    label="Porcentaje*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo porcentaje es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="my-4">
 
-            <Dialog header="Socios clave aerolineas" visible={mostrarAerolineas} style={{ width: '50vw' }} onHide={() => setMostrarAerolineas(false)}>
-                <div className="p-fluid">
-                    <Dropdown
-                        value={selectedCity}
-                        onChange={(e) => setSelectedCity(e.value)}
-                        options={cities}
-                        optionLabel="name"
-                        placeholder="Select a City"
-                        className=""
-                    />
-                    <InputNumber
-                        useGrouping={false}
-                        inputId="minmax"
-                        value={value4}
-                        onValueChange={(e) => setValue4(e.value)}
-                        min={0}
-                        max={100}
-                        suffix="%"
-                    />
-                    <InputNumber
-                        useGrouping={false}
-                        inputId="minmax"
-                        value={value4}
-                        onValueChange={(e) => setValue4(e.value)}
-                        min={0}
-                        max={100}
-                        suffix="%"
-                    />
+                                {banderaBoton ? (
+                                    <FormDropdown
+                                        name="idLst"
+                                        label="Fecha"
+                                        options={banderaLista || []}
+                                        className='w-full'
+                                        optionLabel="fecha"
+                                        optionValue={opcionesId}
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo es requerido",
+                                            },
+                                        }}
+                                    />
+                                ) : (
+                                    <FormCalendar
+                                        name="fecha"
+                                        label="Fecha*"
+                                        yearRange="2022:2030"
+                                        className="w-full"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo Fecha es requerido",
+                                            },
+                                        }}
+                                    />
+                                )}
 
-                </div>
+                            </div>
+
+                            <div className="">
+                                <Button
+                                    type="submit"
+                                    icon="pi pi-save"
+                                    iconPos="right"
+                                    label={banderaBoton ? "Actualizar" : "Guardar"}
+                                    className=""
+                                />
+                            </div>
+
+                        </form>
+                    </div>
+                </FormProvider>
             </Dialog>
 
+            <Dialog header="Editar locales comerciales" visible={mostrarLocales} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarLocales(false)}>
+                <FormProvider {...methods}>
+                    <div className=" mt-4">
+                        <form id="LocalesForm" onSubmit={methods.handleSubmit(onEditarlocalesComerciales)} >
+                            <div className="">
+                                <FormDropdown
+                                    name="tipoGiro"
+                                    label="Giro"
+                                    options={lstlocalesComerciales || []}
+                                    className='w-full'
+                                    optionLabel="giros"
+                                    optionValue="idLocales"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo giro es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="existentes"
+                                    label="Existentes*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo existentes es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="">
+                                <FormInputText
+                                    name="arrendados"
+                                    label="Arrendados*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo arrendados es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="operando"
+                                    label="Operando*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo operando es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="">
+                                <FormInputText
+                                    name="enAdaptacion"
+                                    label="En adaptacion*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo en adaptacion es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="disponibles"
+                                    label="Disponibles*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo disponibles es requerido",
+                                        },
+                                    }}
+                                />
+                            </div><div className="mb-4">
+                                <FormInputText
+                                    name="empresas"
+                                    label="Empresas*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo empresas es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+
+                            <div className="">
+                                <Button
+                                    type="submit"
+                                    icon="pi pi-save"
+                                    iconPos="right"
+                                    label={"Actualizar"}
+                                    className=""
+                                />
+                            </div>
+
+                        </form>
+                    </div>
+                </FormProvider>
+            </Dialog>
+
+            <Dialog header="Editar aerolineas" visible={mostrarAerolineas} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarAerolineas(false)}>
+                <FormProvider {...methods}>
+                    <div className=" mt-4">
+                        <form id="AerolineasForm" onSubmit={methods.handleSubmit(onEditarlAerolineas)} >
+                            <div className="">
+                                <FormDropdown
+                                    name="tipoAerolinea"
+                                    label="Aerolinea"
+                                    options={lstAerolinea || []}
+                                    className='w-full'
+                                    optionLabel="aerolinea"
+                                    optionValue="idAerolineas"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo aerolinea es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="fop"
+                                    label="Fop*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo fop es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <FormInputText
+                                    name="oper"
+                                    label="Oper*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo oper es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+
+                            <div className="">
+                                <Button
+                                    type="submit"
+                                    icon="pi pi-save"
+                                    iconPos="right"
+                                    label={"Actualizar"}
+                                    className=""
+                                />
+                            </div>
+
+                        </form>
+                    </div>
+                </FormProvider>
+            </Dialog>
+
+            <Dialog header={headerEditar} visible={mostrarIngresos} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarIngresos(false)}>
+                <FormProvider {...methods}>
+                    <div className=" mt-4">
+                        <form id="IngresosForm" onSubmit={methods.handleSubmit(onCambiarIngresos)} >
+                            <div className="">
+                                {banderaBoton ? (
+                                    <FormDropdown
+                                        name="fechaIngresos"
+                                        label="Fecha"
+                                        options={banderaLista || []}
+                                        className='w-full'
+                                        optionLabel="fecha"
+                                        optionValue={opcionesId}
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo fecha es requerido",
+                                            },
+                                        }}
+                                    />
+                                ) : (
+                                    <FormCalendar
+                                        name="fecha"
+                                        label="Fecha*"
+                                        yearRange="2022:2030"
+                                        className="w-full"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo Fecha es requerido",
+                                            },
+                                        }}
+                                    />
+                                )}
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="participaciones"
+                                    label="Participaciones*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo participaciones es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="">
+                                <FormInputText
+                                    name="ventaBienes"
+                                    label="Venta de bienes*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo venta de bienes es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="ingresosFinancieros"
+                                    label="Ingresos financieros*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo ingresos financieros es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <FormInputText
+                                    name="otros"
+                                    label="Otros*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo otros es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+
+                            <div className="">
+                                <Button
+                                    type="submit"
+                                    icon="pi pi-save"
+                                    iconPos="right"
+                                    label={banderaBoton ? "Actualizar" : "Guardar"}
+                                    className=""
+                                />
+                            </div>
+
+                        </form>
+                    </div>
+                </FormProvider>
+            </Dialog>
+
+            <Dialog header={headerEditar} visible={mostrarEgresos} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarEgresos(false)}>
+                <FormProvider {...methods}>
+                    <div className=" mt-4">
+                        <form id="EgresosForm" onSubmit={methods.handleSubmit(onCambiarEgresos)} >
+                            <div className="">
+                                {banderaBoton ? (
+                                    <FormDropdown
+                                        name="fechaEgresos"
+                                        label="Fecha"
+                                        options={banderaLista || []}
+                                        className='w-full'
+                                        optionLabel="fecha"
+                                        optionValue={opcionesId}
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo fecha es requerido",
+                                            },
+                                        }}
+                                    />
+                                ) : (
+                                    <FormCalendar
+                                        name="fecha"
+                                        label="Fecha*"
+                                        yearRange="2022:2030"
+                                        className="w-full"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo Fecha es requerido",
+                                            },
+                                        }}
+                                    />
+                                )}
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="servGenerales"
+                                    label="Servicios generales*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo servcios generales es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="">
+                                <FormInputText
+                                    name="personas"
+                                    label="Servicios personales*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo servicios personales es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="materiales"
+                                    label="Materiales*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo materiales es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="">
+                                <FormInputText
+                                    name="estimaciones"
+                                    label="Estimaciones*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo estimaciones es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="otros"
+                                    label="Otros*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo otros es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+
+                            <div className="">
+                                <Button
+                                    type="submit"
+                                    icon="pi pi-save"
+                                    iconPos="right"
+                                    label={banderaBoton ? "Actualizar" : "Guardar"}
+                                    className=""
+                                />
+                            </div>
+
+                        </form>
+                    </div>
+                </FormProvider>
+            </Dialog>
+
+            <Dialog header={headerEditar} visible={mostrarEncuesta} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarEncuesta(false)}>
+                <FormProvider {...methods}>
+                    <div className=" mt-4">
+                        <form id="EncuestaForm" onSubmit={methods.handleSubmit(onCambiarEncuestaCalidad)} >
+                            <div className="">
+                                {banderaBoton ? (
+                                    <FormDropdown
+                                        name="fechaEgresos"
+                                        label="Fecha"
+                                        options={banderaLista || []}
+                                        className='w-full'
+                                        optionLabel="formatoFecha"
+                                        optionValue={opcionesId}
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo fecha es requerido",
+                                            },
+                                        }}
+                                    />
+                                ) : (
+                                    <FormCalendar
+                                        name="fecha"
+                                        label="Fecha*"
+                                        yearRange="2022:2030"
+                                        className="w-full"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo Fecha es requerido",
+                                            },
+                                        }}
+                                    />
+                                )}
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="seguridad"
+                                    label="Seguridad*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo seguridad es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="">
+                                <FormInputText
+                                    name="limpieza"
+                                    label="Limpieza*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo limpieza es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="tiemDeEsper"
+                                    label="Tiempo de espera*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo tiempo de espera es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="">
+                                <FormInputText
+                                    name="infoVuelos"
+                                    label="Informacion de vuelos*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo informacion de vuelos es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="senializacion"
+                                    label="Señalizacion*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo señalizacion es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="">
+                                <FormInputText
+                                    name="atencionCliente"
+                                    label="Atencion al cliente*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo atencion al cliente es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="infraestructura"
+                                    label="Infraestructura*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo infraestructura es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="">
+                                <FormInputText
+                                    name="servComerciales"
+                                    label="Servicios comerciales*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo servicios comerciales es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="conectividadVial"
+                                    label="Conectividad vial*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo conectividad vial es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <FormInputText
+                                    name="satisfaGral"
+                                    label="Satisfaccion general*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo satisfaccion general es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            <div className="">
+                                <Button
+                                    type="submit"
+                                    icon="pi pi-save"
+                                    iconPos="right"
+                                    label={banderaBoton ? "Actualizar" : "Guardar"}
+                                    className=""
+                                />
+                            </div>
+
+                        </form>
+                    </div>
+                </FormProvider>
+            </Dialog>
         </div>
     )
 }

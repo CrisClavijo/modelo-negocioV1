@@ -225,3 +225,7 @@ body {
 .swal2-html-container{
   font-weight: 900 !important;
 }
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item{
+  font-weight: 800 !important;
+}

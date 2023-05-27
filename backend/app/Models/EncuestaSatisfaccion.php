@@ -26,7 +26,8 @@ class EncuestaSatisfaccion extends Authenticatable
         'servComerciales' => 'int',
         'satisfaGral' => 'int',
         'fecha' => 'int',
-        'date' => 'string',
+        'formatoFecha' => 'string',
+        'conectividadVial' => 'int'
     ];
 
     protected $dates = [
@@ -45,7 +46,8 @@ class EncuestaSatisfaccion extends Authenticatable
         'servComerciales',
         'satisfaGral',
         'fecha',
-        'date',
+        'formatoFecha',
+        'conectividadVial'
     ];
 
 }

@@ -18,7 +18,7 @@ export const FormDropdown = ({
             control={control}
             render={({ field: { onChange, value }, fieldState }) => (
                 <div>
-                    <span className="p-float-label ">
+                    <span className="p-float-label texto-drop">
                         <Dropdown
                             onChange={(e) => {
                                 onChange(e.value);

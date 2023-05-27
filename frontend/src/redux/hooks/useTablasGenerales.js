@@ -235,8 +235,179 @@ export const useTablasGeneralStore = () => {
     }
 
     //Guardar nuevos valores
+    const saveInfraestructura = async (body) => {
+        startLoading(true)
+        const url = `infraestructura`;
+        await axiosClient
+            .post(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Guardado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo guardar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
 
+    const saveInfoVuelos = async (body) => {
+        startLoading(true)
+        const url = `informacion-vuelos`;
+        await axiosClient
+            .post(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Guardado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo guardar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
 
+    const saveAtencionPerso = async (body) => {
+        startLoading(true)
+        const url = `calidad-servicio`;
+        await axiosClient
+            .post(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Guardado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo guardar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const saveIngresos = async (body) => {
+        startLoading(true)
+        const url = `ingresos`;
+        await axiosClient
+            .post(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Guardado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo guardar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const saveEgresos = async (body) => {
+        startLoading(true)
+        const url = `egresos`;
+        await axiosClient
+            .post(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Guardado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo guardar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const saveEncuestaCalidad = async (body) => {
+        startLoading(true)
+        const url = `encuesta-satisfaccion`;
+        await axiosClient
+            .post(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Guardado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo guardar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
 
     //Actualizar valores
 
@@ -252,6 +423,7 @@ export const useTablasGeneralStore = () => {
                     icon: "success",
                     confirmButtonColor: "#9b0000",
                     confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
                 });
                 startLoading(false)
                 console.log(data)
@@ -261,13 +433,244 @@ export const useTablasGeneralStore = () => {
                     text: 'No se pudo actualizar correctamente',
                     icon: "error",
                     confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
                 });
                 console.log(error)
                 startLoading(false)
             });
     }
 
+    const updateInfraestructura = async (body, id) => {
+        startLoading(true)
+        const url = `infraestructura/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
 
+    const updateInfoVuelos = async (body, id) => {
+        startLoading(true)
+        const url = `informacion-vuelos/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const updateAtencionPerso = async (body, id) => {
+        startLoading(true)
+        const url = `calidad-servicio/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const updateLocalesComerciales = async (body, id) => {
+        startLoading(true)
+        const url = `locales-comerciales/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const updateAerolinea = async (body, id) => {
+        startLoading(true)
+        const url = `aerolineas/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const updateIngresos = async (body, id) => {
+        startLoading(true)
+        const url = `ingresos/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const updateEgresos = async (body, id) => {
+        startLoading(true)
+        const url = `egresos/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const updateEncuestaCalidad = async (body, id) => {
+        startLoading(true)
+        const url = `encuesta-satisfaccion/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
 
     return {
         /**Propiedades **/
@@ -289,6 +692,22 @@ export const useTablasGeneralStore = () => {
         /** Métodos **/
         getValoresDefecto,
         updateValoresDefecto,
+
+        saveInfoVuelos,
+        saveInfraestructura,
+        saveAtencionPerso,
+        saveIngresos,
+        saveEgresos,
+        saveEncuestaCalidad,
+
+        updateInfraestructura,
+        updateInfoVuelos,
+        updateAtencionPerso,
+        updateLocalesComerciales,
+        updateAerolinea,
+        updateIngresos,
+        updateEgresos,
+        updateEncuestaCalidad
     };
 
 };

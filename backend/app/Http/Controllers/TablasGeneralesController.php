@@ -13,7 +13,7 @@ use App\Models\AviacionCarga;
 use App\Models\CalidadServicio;
 use App\Models\EncuestaSatisfaccion;
 use App\Models\InformacionVuelos;
-use App\Models\Infraesctructura;
+use App\Models\Infraestructura;
 use App\Models\PasajerosGenerales;
 use App\Models\Egresos;
 use App\Models\Ingresos;
@@ -317,9 +317,7 @@ class TablasGeneralesController extends Controller
     {
         $data = $request->toArray();
         $valida = ValidateRoule::valida($data, [
-            'date' => ['required', 'string'],
-            'fecha' => ['required', 'string'],
-            'valor' => ['required', 'integer'],
+            'valor' => ['required', 'integer']
         ]);
         if ($valida["status"] == "error") {
             return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);
@@ -369,7 +367,7 @@ class TablasGeneralesController extends Controller
             $existeTransaccion ?: DB::beginTransaction();
             $request = $data->toArray();
             $valida = ValidateRoule::valida($request, [
-                'date' => ['required', 'string'],
+                'formatoFecha' => ['required', 'string'],
                 'fecha' => ['required', 'string'],
                 'seguridad' => ['required', 'integer'],
                 'limpieza' => ['required', 'integer'],
@@ -379,7 +377,7 @@ class TablasGeneralesController extends Controller
                 'atencionCliente' => ['required', 'integer'],
                 'infraestructura' => ['required', 'integer'],
                 'servComerciales' => ['required', 'integer'],
-                'conectividadGral' => ['required', 'integer'],
+                'conectividadVial' => ['required', 'integer'],
                 'satisfaGral' => ['required', 'integer']
             ]);
             if ($valida["status"] == "error") {
@@ -404,8 +402,6 @@ class TablasGeneralesController extends Controller
     {
         $data = $request->toArray();
         $valida = ValidateRoule::valida($data, [
-            'date' => ['required', 'string'],
-            'fecha' => ['required', 'string'],
             'seguridad' => ['required', 'integer'],
             'limpieza' => ['required', 'integer'],
             'tiemDeEsper' => ['required', 'integer'],
@@ -414,7 +410,7 @@ class TablasGeneralesController extends Controller
             'atencionCliente' => ['required', 'integer'],
             'infraestructura' => ['required', 'integer'],
             'servComerciales' => ['required', 'integer'],
-            'conectividadGral' => ['required', 'integer'],
+            'conectividadVial' => ['required', 'integer'],
             'satisfaGral' => ['required', 'integer']
         ]);
         if ($valida["status"] == "error") {
@@ -482,9 +478,7 @@ class TablasGeneralesController extends Controller
     {
         $data = $request->toArray();
         $valida = ValidateRoule::valida($data, [
-            'date' => ['required', 'string'],
-            'fecha' => ['required', 'string'],
-            'valor' => ['required', 'integer'],
+            'valor' => ['required', 'integer']
         ]);
         if ($valida["status"] == "error") {
             return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);
@@ -533,7 +527,7 @@ class TablasGeneralesController extends Controller
                 return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);
             }
 
-            $documentoImagenes = Infraesctructura::create($request);
+            $documentoImagenes = Infraestructura::create($request);
 
 
             $documentoImagenes = $documentoImagenes->toArray();
@@ -551,14 +545,12 @@ class TablasGeneralesController extends Controller
     {
         $data = $request->toArray();
         $valida = ValidateRoule::valida($data, [
-            'date' => ['required', 'string'],
-            'fecha' => ['required', 'string'],
-            'valor' => ['required', 'integer'],
+            'valor' => ['required', 'integer']
         ]);
         if ($valida["status"] == "error") {
             return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);
         } else {
-            $agenda = Infraesctructura::findOrFail($id);
+            $agenda = Infraestructura::findOrFail($id);
             $agenda->fill($data)->save();
             return NormalizeResult::index([$agenda], 200);
         }
@@ -626,8 +618,6 @@ class TablasGeneralesController extends Controller
     {
         $data = $request->toArray();
         $valida = ValidateRoule::valida($data, [
-            'date' => ['required', 'string'],
-            'fecha' => ['required', 'string'],
             'participaciones' => ['required', 'integer'],
             'ventaBienes' => ['required', 'integer'],
             'ingresosFinancieros' => ['required', 'integer'],
@@ -706,8 +696,6 @@ class TablasGeneralesController extends Controller
     {
         $data = $request->toArray();
         $valida = ValidateRoule::valida($data, [
-            'date' => ['required', 'string'],
-            'fecha' => ['required', 'string'],
             'servGenerales' => ['required', 'integer'],
             'serPersonales' => ['required', 'integer'],
             'materiales' => ['required', 'integer'],
@@ -733,6 +721,22 @@ class TablasGeneralesController extends Controller
         $data = Aerolineas::all();
 
         return NormalizeResult::index($data->toArray());
+    }
+
+    public function actualizarAerolineas(Request $request, $id)
+    {
+        $data = $request->toArray();
+        $valida = ValidateRoule::valida($data, [
+            'fop' => ['required', 'integer'],
+            'oper' => ['required', 'integer']
+        ]);
+        if ($valida["status"] == "error") {
+            return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);
+        } else {
+            $agenda = Aerolineas::findOrFail($id);
+            $agenda->fill($data)->save();
+            return NormalizeResult::index([$agenda], 200);
+        }
     }
 
     /**
@@ -765,8 +769,12 @@ class TablasGeneralesController extends Controller
     {
         $data = $request->toArray();
         $valida = ValidateRoule::valida($data, [
-            'fechaFinal' => ['required', 'string'],
-            'fechaInicial' => ['required', 'string'],
+            'existentes' => ['required', 'integer'],
+            'arrendados' => ['required', 'integer'],
+            'operando' => ['required', 'integer'],
+            'enAdaptacion' => ['required', 'integer'],
+            'disponibles' => ['required', 'integer'],
+            'empresas' => ['required', 'integer'],
         ]);
         if ($valida["status"] == "error") {
             return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);

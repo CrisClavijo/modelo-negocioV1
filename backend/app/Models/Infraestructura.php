@@ -8,7 +8,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Infraesctructura extends Authenticatable
+class Infraestructura extends Authenticatable
 {
     protected $table = 'infraestructura';
     protected $primaryKey = 'idInfraestructura';

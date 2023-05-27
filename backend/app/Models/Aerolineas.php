@@ -17,7 +17,6 @@ class Aerolineas extends Authenticatable
 
     protected $casts = [
         'aerolinea' => 'string',
-        'fecha' => 'string',
         'fop' => 'int',
         'oper' => 'int'
     ];
@@ -29,8 +28,7 @@ class Aerolineas extends Authenticatable
 
     protected $fillable = [
         'aerolinea',
-        'fecha',
-        'for',
+        'fop',
         'oper'
     ];
 
