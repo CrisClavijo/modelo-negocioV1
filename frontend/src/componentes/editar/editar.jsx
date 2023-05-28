@@ -129,7 +129,7 @@ export const Editar = () => {
                 fechaInicial: XDate(data.fechaInicio).toString("yyyy-MM-01"),
                 fechaFinal: XDate(data.fechaInicio).toString("yyyy-MM-01")
             }
-            console.log("Solo inicial", body, idFiltro)
+            console.log("Solo Inicial", body, idFiltro)
             updateValoresDefecto(body, idFiltro)
             onClearValores()
         }
@@ -245,7 +245,7 @@ export const Editar = () => {
             Swal.fire({
                 icon: 'error',
                 title: '¡Error!',
-                text: 'El porcentaje no puede ser mayor a 100',
+                text: 'El porcentaje no puede ser mayor a 100 %',
                 target: '.p-dialog'
             })
         }
@@ -264,7 +264,7 @@ export const Editar = () => {
         updateLocalesComerciales(body, data.tipoGiro)
         setMostrarLocales(false)
         onClearValores()
-        console.log("Actualizar local", body, data.tipoGiro)
+        console.log("Actualizar Local", body, data.tipoGiro)
     }
 
     const onEditarlAerolineas = (data) => {
@@ -273,7 +273,7 @@ export const Editar = () => {
             fop: +data.fop,
             oper: +data.oper
         }
-        console.log("Actualizar local", body, data.tipoAerolinea)
+        console.log("Actualizar Local", body, data.tipoAerolinea)
         updateAerolinea(body, data.tipoAerolinea)
         setMostrarAerolineas(false)
         onClearValores()
@@ -456,7 +456,7 @@ export const Editar = () => {
                             <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "", 0)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
-                                setHeaderFiltro("Tasa de utlización de la capacidad instalada");
+                                setHeaderFiltro("Tasa de Utilización de la Capacidad Instalada");
                                 setIdFiltro(3)
                             }} />
                         </div>
@@ -468,7 +468,7 @@ export const Editar = () => {
                             <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Infraestructura y Tecnología Aeropuertuaria", 2, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
-                                setHeaderFiltro("Infraestructura y tecnologias aeropuertuaria");
+                                setHeaderFiltro("Infraestructura y Tecnología Aeropuertuaria");
                                 setIdFiltro(4)
                             }} />
                         </div>
@@ -481,19 +481,19 @@ export const Editar = () => {
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right"
                                 onClick={() => {
                                     setMostrarFiltro(true);
-                                    setHeaderFiltro("Información de vuelos precisa y oportuna");
+                                    setHeaderFiltro("Información de Vuelos Precisa y Oportuna");
                                     setIdFiltro(5)
                                 }} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
-                        <h3>Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio</h3>
+                        <h3>Atención Personalizada en un Entorno Seguro y con Calidad en el Servicio</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, false)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, true)} />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Atención Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, false)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Atención Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
-                                setHeaderFiltro("Atencion personalizada en un entorno seguro y con calidad en el servicio");
+                                setHeaderFiltro("Atención Personalizada en un Entorno Seguro y con Calidad en el Servicio");
                                 setIdFiltro(6)
                             }} />
                         </div>
@@ -501,11 +501,11 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Encuesta de Satisfacción</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Encuesta de Satisfaccion", 5, false)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Encuesta de Satisfaccion", 5, true)} />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Encuesta de Satisfacción", 5, false)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Encuesta de Satisfacción", 5, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
-                                setHeaderFiltro("Encuesta de satisfacción");
+                                setHeaderFiltro("Encuesta de Satisfacción");
                                 setIdFiltro(7)
                             }} />
                         </div>
@@ -517,7 +517,7 @@ export const Editar = () => {
                             <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Aviación Comercial Pasajeros", 6, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
-                                setHeaderFiltro("Pasajeros comerciales");
+                                setHeaderFiltro("Aviación General Pasajeros");
                                 setIdFiltro(8)
                             }} />
                         </div>
@@ -529,7 +529,7 @@ export const Editar = () => {
                             <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Aviación General Pasajeros", 7, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
-                                setHeaderFiltro("Aviacion general pasajeros");
+                                setHeaderFiltro("Aviación General Pasajeros");
                                 setIdFiltro(9)
                             }} />
                         </div>
@@ -541,7 +541,7 @@ export const Editar = () => {
                             <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Aviación de Carga Kg", 8, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
-                                setHeaderFiltro("Carga");
+                                setHeaderFiltro("Aviación de Carga Kg");
                                 setIdFiltro(10)
                             }} />
                         </div>
@@ -722,7 +722,7 @@ export const Editar = () => {
                 </FormProvider>
             </Dialog>
 
-            <Dialog header="Editar locales comerciales" visible={mostrarLocales} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarLocales(false)}>
+            <Dialog header="Editar Locales Comerciales" visible={mostrarLocales} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarLocales(false)}>
                 <FormProvider {...methods}>
                     <div className=" mt-4">
                         <form id="LocalesForm" onSubmit={methods.handleSubmit(onEditarlocalesComerciales)} >
@@ -841,7 +841,7 @@ export const Editar = () => {
                 </FormProvider>
             </Dialog>
 
-            <Dialog header="Editar aerolineas" visible={mostrarAerolineas} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarAerolineas(false)}>
+            <Dialog header="Editar Aerolineas" visible={mostrarAerolineas} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarAerolineas(false)}>
                 <FormProvider {...methods}>
                     <div className=" mt-4">
                         <form id="AerolineasForm" onSubmit={methods.handleSubmit(onEditarlAerolineas)} >
