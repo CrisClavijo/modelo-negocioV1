@@ -12,12 +12,10 @@ import Swal from "sweetalert2";
 import { FormInputText } from "../customComponente/formInputText"
 import { useListasStore } from "../../redux/hooks/useListasStore"
 import { FormDropdown } from "../customComponente/formDropdown";
-import { useLoadingStore } from "../../redux/hooks/useLoadingStore";
 
 export const Editar = () => {
     const methods = useForm({ shouldUnregister: true });
     const { userInfo } = useSelector(state => state.user)
-    const { startLoading } = useLoadingStore();
 
     const {
         updateValoresDefecto,

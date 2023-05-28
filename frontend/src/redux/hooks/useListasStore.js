@@ -10,7 +10,9 @@ import {
     lstEncuestaCalidadReducer,
     lstAviacionComercialReducer,
     lstAviacionGeneralReducer,
-    lstAviacionCargaReducer
+    lstAviacionCargaReducer,
+    ocupacionCargaReducer,
+    ocupacionPasajerosReducer
 } from "../../redux/listasSlice";
 import axiosClient from "../../componentes/axios-client";
 
@@ -29,6 +31,8 @@ export const useListasStore = () => {
         lstAviacionComercial,
         lstAviacionGeneral,
         lstAviacionCarga,
+        ocupacionCarga,
+        ocupacionPasajeros
     } = useSelector((state) => state.listas);
 
     const startLstInfraestructura = async () => {
@@ -152,6 +156,28 @@ export const useListasStore = () => {
             });
     }
 
+    const startOcupacionPasajeros = async () => {
+        const url = `ocupacion-pasajeros`;
+        await axiosClient
+            .get(url)
+            .then(({ data }) => {
+                dispatch(ocupacionPasajerosReducer(data?.data))
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+
+    const startOcupacionCarga = async () => {
+        const url = `ocupacion-carga`;
+        await axiosClient
+            .get(url)
+            .then(({ data }) => {
+                dispatch(ocupacionCargaReducer(data?.data))
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+
     return {
         /**Propiedades **/
         lstInfraestructura,
@@ -165,6 +191,8 @@ export const useListasStore = () => {
         lstAviacionComercial,
         lstAviacionGeneral,
         lstAviacionCarga,
+        ocupacionCarga,
+        ocupacionPasajeros,
         /** Métodos **/
         startLstInfraestructura,
         startLstInfoVuelos,
@@ -176,7 +204,9 @@ export const useListasStore = () => {
         startLstEncuestaCalidad,
         startLstAviacionComercial,
         startLstAviacionGeneral,
-        startLstAviacionCarga
+        startLstAviacionCarga,
+        startOcupacionPasajeros,
+        startOcupacionCarga
     };
 
 };

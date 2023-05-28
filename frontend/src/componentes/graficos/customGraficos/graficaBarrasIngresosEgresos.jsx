@@ -13,7 +13,7 @@ export const IngresosEgresos = () => {
     const [chartOptions, setChartOptions] = useState({});
 
     useEffect(() => {
-        let sumaIngresos = ingresos?.participaciones + ingresos?.ventaBienes + ingresos?.ingresosFinancieros + ingresos?.otros;
+        let sumaIngresos = ingresos?.participaciones + ingresos?.ventaBienes + ingresos?.ingresosFinancieros + ingresos?.otros - 1327938493.95;
         let sumaEgresos = egresos?.servGenerales + egresos?.serPersonales + egresos?.materiales + egresos?.estimaciones + egresos?.otros;
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
