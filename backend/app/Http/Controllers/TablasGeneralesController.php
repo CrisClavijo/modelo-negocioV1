@@ -58,7 +58,7 @@ class TablasGeneralesController extends Controller
         $data = DB::connection('mysql')->table('pasajeos_comerciales')
             ->selectRaw("
             pasajeos_comerciales.id,
-            pasajeos_comerciales.fechaFormart,
+            pasajeos_comerciales.formatoFecha,
             pasajeos_comerciales.fecha,
             pasajeos_comerciales.valor
             ")
@@ -80,7 +80,7 @@ class TablasGeneralesController extends Controller
             $existeTransaccion ?: DB::beginTransaction();
             $request = $data->toArray();
             $valida = ValidateRoule::valida($request, [
-                'fechaFormart' => ['required', 'string'],
+                'formatoFecha' => ['required', 'string'],
                 'fecha' => ['required', 'string'],
                 'valor' => ['required', 'integer'],
             ]);
@@ -106,9 +106,7 @@ class TablasGeneralesController extends Controller
     {
         $data = $request->toArray();
         $valida = ValidateRoule::valida($data, [
-            'fechaFormart' => ['required', 'string'],
-            'fecha' => ['required', 'string'],
-            'valor' => ['required', 'integer'],
+            'valor' => ['required', 'integer']
         ]);
         if ($valida["status"] == "error") {
             return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);
@@ -177,8 +175,6 @@ class TablasGeneralesController extends Controller
     {
         $data = $request->toArray();
         $valida = ValidateRoule::valida($data, [
-            'formatoFecha' => ['required', 'string'],
-            'fecha' => ['required', 'string'],
             'carga' => ['required', 'integer'],
         ]);
         if ($valida["status"] == "error") {
@@ -248,8 +244,6 @@ class TablasGeneralesController extends Controller
     {
         $data = $request->toArray();
         $valida = ValidateRoule::valida($data, [
-            'formatoFecha' => ['required', 'string'],
-            'fecha' => ['required', 'string'],
             'valor' => ['required', 'integer'],
         ]);
         if ($valida["status"] == "error") {

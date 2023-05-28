@@ -12,11 +12,13 @@ import Swal from "sweetalert2";
 import { FormInputText } from "../customComponente/formInputText"
 import { useListasStore } from "../../redux/hooks/useListasStore"
 import { FormDropdown } from "../customComponente/formDropdown";
-
+import { useLoadingStore } from "../../redux/hooks/useLoadingStore";
 
 export const Editar = () => {
     const methods = useForm({ shouldUnregister: true });
     const { userInfo } = useSelector(state => state.user)
+    const { startLoading } = useLoadingStore();
+
     const {
         updateValoresDefecto,
 
@@ -28,14 +30,21 @@ export const Editar = () => {
         updateIngresos,
         updateEgresos,
         updateEncuestaCalidad,
+        updateAviacionComercial,
+        updateAviacionGeneral,
+        updateAviacionCarga,
 
         saveInfoVuelos,
         saveInfraestructura,
         saveAtencionPerso,
         saveIngresos,
         saveEgresos,
-        saveEncuestaCalidad
+        saveEncuestaCalidad,
+        saveAviacionComercial,
+        saveAviacionGeneral,
+        saveAviacionCarga,
     } = useTablasGeneralStore();
+
     const {
         lstInfraestructura,
         lstInfoVuelos,
@@ -45,6 +54,9 @@ export const Editar = () => {
         lstIngresos,
         lstEgresos,
         lstEncuestaCalidad,
+        lstAviacionComercial,
+        lstAviacionGeneral,
+        lstAviacionCarga,
         startLstInfraestructura,
         startLstInfoVuelos,
         startLstAtencionPersonalizada,
@@ -53,18 +65,30 @@ export const Editar = () => {
         startLstIngresos,
         startLstEgresos,
         startLstEncuestaCalidad,
+        startLstAviacionComercial,
+        startLstAviacionGeneral,
+        startLstAviacionCarga
     } = useListasStore();
 
     useEffect(() => {
-        startLstInfraestructura()
-        startLstInfoVuelos()
-        startLstAtencionPersonalizada()
-        startLstLocalesComerciales()
-        startLstAerolineas()
-        startLstIngresos()
-        startLstEgresos()
-        startLstEncuestaCalidad()
-    }, []);
+        if(userInfo?.rol === 1 || userInfo?.rol === 3){
+            startLstInfraestructura()
+            startLstInfoVuelos()
+            startLstAtencionPersonalizada()
+            startLstEncuestaCalidad()
+            startLstAviacionComercial()
+            startLstAviacionGeneral()
+            startLstAviacionCarga()
+        }
+        if(userInfo?.rol === 1 || userInfo?.rol === 4){
+            startLstIngresos()
+            startLstEgresos()
+        }
+        if(userInfo?.rol === 1 || userInfo?.rol === 5 ){
+            startLstLocalesComerciales()
+            startLstAerolineas()
+        }
+    }, [userInfo]);
 
     const [mostrarAerolineas, setMostrarAerolineas] = useState(false);
     const [mostrarLocales, setMostrarLocales] = useState(false);
@@ -72,6 +96,7 @@ export const Editar = () => {
     const [mostrarEgresos, setMostrarEgresos] = useState(false);
     const [mostrarEncuesta, setMostrarEncuesta] = useState(false);
     const [mostrarFiltro, setMostrarFiltro] = useState(false);
+    const [mostrarAviacion, setMostrarAviacion] = useState(false);
     const [headerFiltro, setHeaderFiltro] = useState("")
     const [idFiltro, setIdFiltro] = useState(0)
     const [headerEditar, setHeaderEditar] = useState("")
@@ -90,9 +115,7 @@ export const Editar = () => {
                 }
                 console.log("completo", body, idFiltro)
                 updateValoresDefecto(body, idFiltro)
-                setHeaderFiltro("")
-                setIdFiltro(0)
-                setMostrarFiltro(false)
+                onClearValores()
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -108,9 +131,7 @@ export const Editar = () => {
             }
             console.log("Solo inicial", body, idFiltro)
             updateValoresDefecto(body, idFiltro)
-            setHeaderFiltro("")
-            setIdFiltro(0)
-            setMostrarFiltro(false)
+            onClearValores()
         }
 
     }
@@ -143,6 +164,24 @@ export const Editar = () => {
             setOpcionesId("idCalidad")
             return
         }
+        if (idModal === 6 || idModal === 7 || idModal === 8) {
+            setMostrarAviacion(true)
+            if (idModal === 6) {
+                setBanderaLista(lstAviacionComercial)
+                setOpcionesId("id")
+                return
+            }
+            if (idModal === 7) {
+                setBanderaLista(lstAviacionGeneral)
+                setOpcionesId("idGeneralPasajeros")
+                return
+            }
+            if (idModal === 8) {
+                setBanderaLista(lstAviacionCarga)
+                setOpcionesId("idCarga")
+                return
+            }
+        }
         if (idModal === 9) {
             setMostrarIngresos(true)
             setBanderaLista(lstIngresos)
@@ -167,14 +206,17 @@ export const Editar = () => {
                 }
                 if (modalId === 2) {
                     updateInfraestructura(body, data.idLst)
+                    onClearValores()
                     return
                 }
                 if (modalId === 3) {
                     updateInfoVuelos(body, data.idLst)
+                    onClearValores()
                     return
                 }
                 if (modalId === 4) {
                     updateAtencionPerso(body, data.idLst)
+                    onClearValores()
                     return
                 }
             } else {
@@ -185,14 +227,17 @@ export const Editar = () => {
                 }
                 if (modalId === 2) {
                     saveInfraestructura(body)
+                    onClearValores()
                     return
                 }
                 if (modalId === 3) {
                     saveInfoVuelos(body)
+                    onClearValores()
                     return
                 }
                 if (modalId === 4) {
                     saveAtencionPerso(body)
+                    onClearValores()
                     return
                 }
             }
@@ -218,6 +263,7 @@ export const Editar = () => {
         }
         updateLocalesComerciales(body, data.tipoGiro)
         setMostrarLocales(false)
+        onClearValores()
         console.log("Actualizar local", body, data.tipoGiro)
     }
 
@@ -230,6 +276,7 @@ export const Editar = () => {
         console.log("Actualizar local", body, data.tipoAerolinea)
         updateAerolinea(body, data.tipoAerolinea)
         setMostrarAerolineas(false)
+        onClearValores()
     }
 
     const onCambiarIngresos = (data) => {
@@ -255,6 +302,7 @@ export const Editar = () => {
             }
             saveIngresos(body)
         }
+        onClearValores()
     }
 
     const onCambiarEgresos = (data) => {
@@ -283,6 +331,7 @@ export const Editar = () => {
             console.log("guardar", body)
             saveEgresos(body)
         }
+        onClearValores()
     }
 
     const onCambiarEncuestaCalidad = (data) => {
@@ -321,17 +370,79 @@ export const Editar = () => {
             console.log("guardar", body)
             saveEncuestaCalidad(body)
         }
+        onClearValores()
+    }
+
+    const onCambiaAviacion = (data) =>{
+        console.log(data)
+        if (banderaBoton) {
+            let body = {
+                valor: +data.valor
+            }
+            if (modalId === 6) {
+                updateAviacionComercial(body, data.fechaEgresos)
+                onClearValores()
+                return
+            }
+            if (modalId === 7) {
+                updateAviacionGeneral(body, data.fechaEgresos)
+                onClearValores()
+                return
+            }
+            if (modalId === 8) {
+                let bodyCarga = {
+                    carga: +data.valor
+                }
+                updateAviacionCarga(bodyCarga, data.fechaEgresos)
+                onClearValores()
+                return
+            }
+        } else {
+            let body = {
+                formatoFecha: XDate(data.fecha).toString("MMM yy"),
+                fecha: XDate(data.fecha).toString("yyyy-MM-01"),
+                valor: +data.valor
+            }
+            if (modalId === 6) {
+                saveAviacionComercial(body)
+                onClearValores()
+                return
+            }
+            if (modalId === 7) {
+                saveAviacionGeneral(body)
+                onClearValores()
+                return
+            }
+            if (modalId === 8) {
+                let bodyCarga = {
+                    formatoFecha: XDate(data.fecha).toString("MMM yy"),
+                    fecha: XDate(data.fecha).toString("yyyy-MM-01"),
+                    carga: +data.valor
+                }
+                saveAviacionCarga(bodyCarga)
+                onClearValores()
+                return
+            }
+        }
     }
 
     const onClearValores = () => {
-        setMostrarIngresos(false)
-        setMostrarEditar(false)
-        setBanderaLista([])
+        setMostrarAerolineas(false);
+        setMostrarLocales(false);
+        setMostrarIngresos(false);
+        setMostrarEgresos(false);
+        setMostrarAviacion(false);
+        setMostrarEncuesta(false);
+        setMostrarFiltro(false);
+        setHeaderFiltro("")
+        setIdFiltro(0)
         setHeaderEditar("")
-        setBanderaBtn(false)
+        setMostrarEditar(false);
+        setBanderaBtn(false);
+        setBanderaLista([]);
+        setOpcionesId("")
         setModalId(0)
     }
-
 
     return (
         <div className="h-full p-5 col-11 mx-auto ">
@@ -402,8 +513,8 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aviación Comercial Pasajeros</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Nuevo", "", 0)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "", 0)} />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Aviación Comercial Pasajeros", 6, false)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Aviación Comercial Pasajeros", 6, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
                                 setHeaderFiltro("Pasajeros comerciales");
@@ -414,8 +525,8 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aviación General Pasajeros</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Nuevo", "", 0)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "", 0)} />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Aviación General Pasajeros", 7, false)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Aviación General Pasajeros", 7, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
                                 setHeaderFiltro("Aviacion general pasajeros");
@@ -426,8 +537,8 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aviación de Carga Kg</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Nuevo", "", 0)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "", 0)} />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Aviación de Carga Kg", 8, false)} />
+                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Aviación de Carga Kg", 8, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
                                 setMostrarFiltro(true);
                                 setHeaderFiltro("Carga");
@@ -1197,6 +1308,71 @@ export const Editar = () => {
                                     }}
                                 />
                             </div>
+                            <div className="">
+                                <Button
+                                    type="submit"
+                                    icon="pi pi-save"
+                                    iconPos="right"
+                                    label={banderaBoton ? "Actualizar" : "Guardar"}
+                                    className=""
+                                />
+                            </div>
+
+                        </form>
+                    </div>
+                </FormProvider>
+            </Dialog>
+
+            <Dialog header={headerEditar} visible={mostrarAviacion} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarAviacion(false)}>
+                <FormProvider {...methods}>
+                    <div className=" mt-4">
+                        <form id="EncuestaForm" onSubmit={methods.handleSubmit(onCambiaAviacion)} >
+                            <div className="">
+                                {banderaBoton ? (
+                                    <FormDropdown
+                                        name="fechaEgresos"
+                                        label="Fecha"
+                                        options={banderaLista || []}
+                                        className='w-full'
+                                        optionLabel="formatoFecha"
+                                        optionValue={opcionesId}
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo fecha es requerido",
+                                            },
+                                        }}
+                                    />
+                                ) : (
+                                    <FormCalendar
+                                        name="fecha"
+                                        label="Fecha*"
+                                        yearRange="2022:2030"
+                                        className="w-full"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo Fecha es requerido",
+                                            },
+                                        }}
+                                    />
+                                )}
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="valor"
+                                    label="Valor*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo valor es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            
                             <div className="">
                                 <Button
                                     type="submit"

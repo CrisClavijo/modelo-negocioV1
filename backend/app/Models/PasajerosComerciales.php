@@ -20,7 +20,7 @@ class PasajerosComerciales extends Authenticatable
 
     protected $casts = [
         'fecha' => 'string',
-        'fechaFormart' => 'string',
+        'formatoFecha' => 'string',
         'valor' => 'int'
     ];
 
@@ -30,7 +30,7 @@ class PasajerosComerciales extends Authenticatable
     ];
 
     protected $fillable = [
-        'fechaFormart',
+        'formatoFecha',
         'fecha',
         'valor',
     ];

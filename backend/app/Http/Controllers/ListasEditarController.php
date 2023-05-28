@@ -86,4 +86,25 @@ class ListasEditarController extends Controller
 
         return NormalizeResult::index($data->toArray());
     }
+
+    public function getLstAviacionComercialPasajeros()
+    {
+        $data = PasajerosComerciales::all(["id", "formatoFecha"]);
+
+        return NormalizeResult::index($data->toArray());
+    }
+
+    public function getLstAviacionGeneralPasajeros()
+    {
+        $data = PasajerosGenerales::all(["idGeneralPasajeros", "formatoFecha"]);
+
+        return NormalizeResult::index($data->toArray());
+    }
+
+    public function getLstAviacioCarga()
+    {
+        $data = AviacionCarga::all(["idCarga", "formatoFecha"]);
+
+        return NormalizeResult::index($data->toArray());
+    }
 }

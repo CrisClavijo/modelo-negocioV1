@@ -91,7 +91,7 @@ export const useTablasGeneralStore = () => {
                 })
 
                 let newMesesPasajerosComerciales = data?.data?.map((data, index) => {
-                    let valorPasajeros = data?.fechaFormart
+                    let valorPasajeros = data?.formatoFecha
                     return valorPasajeros
                 })
                 let datos = [newValorPasajerosComerciales, newMesesPasajerosComerciales]
@@ -409,6 +409,93 @@ export const useTablasGeneralStore = () => {
             });
     }
 
+    const saveAviacionComercial = async (body) => {
+        startLoading(true)
+        const url = `pasajeros-comerciales`;
+        await axiosClient
+            .post(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Guardado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo guardar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const saveAviacionGeneral = async (body) => {
+        startLoading(true)
+        const url = `aviacion-general`;
+        await axiosClient
+            .post(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Guardado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo guardar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const saveAviacionCarga = async (body) => {
+        startLoading(true)
+        const url = `aviacion-carga`;
+        await axiosClient
+            .post(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Guardado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo guardar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
     //Actualizar valores
 
     const updateValoresDefecto = async (body, id) => {
@@ -672,6 +759,93 @@ export const useTablasGeneralStore = () => {
             });
     }
 
+    const updateAviacionComercial = async (body, id) => {
+        startLoading(true)
+        const url = `pasajeros-comerciales/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const updateAviacionGeneral = async (body, id) => {
+        startLoading(true)
+        const url = `aviacion-general/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const updateAviacionCarga = async (body, id) => {
+        startLoading(true)
+        const url = `aviacion-carga/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
     return {
         /**Propiedades **/
         valoresDefecto,
@@ -699,6 +873,9 @@ export const useTablasGeneralStore = () => {
         saveIngresos,
         saveEgresos,
         saveEncuestaCalidad,
+        saveAviacionComercial,
+        saveAviacionGeneral,
+        saveAviacionCarga,
 
         updateInfraestructura,
         updateInfoVuelos,
@@ -707,7 +884,10 @@ export const useTablasGeneralStore = () => {
         updateAerolinea,
         updateIngresos,
         updateEgresos,
-        updateEncuestaCalidad
+        updateEncuestaCalidad,
+        updateAviacionComercial,
+        updateAviacionGeneral,
+        updateAviacionCarga
     };
 
 };

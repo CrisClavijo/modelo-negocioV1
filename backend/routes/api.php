@@ -85,3 +85,6 @@ Route::get('/lst-aerolineas', [ListasEditarController::class, 'getLstAerolinea']
 Route::get('/lst-ingresos', [ListasEditarController::class, 'getLstIngresos']);
 Route::get('/lst-egresos', [ListasEditarController::class, 'getLstEgresos']);
 Route::get('/lst-encuesta-calidad', [ListasEditarController::class, 'getLstEncuestaCalidad']);
+Route::get('/lst-aviacion-comercial', [ListasEditarController::class, 'getLstAviacionComercialPasajeros']);
+Route::get('/lst-aviacion-general', [ListasEditarController::class, 'getLstAviacionGeneralPasajeros']);
+Route::get('/lst-aviacion-carga', [ListasEditarController::class, 'getLstAviacioCarga']);

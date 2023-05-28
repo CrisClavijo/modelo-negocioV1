@@ -8,6 +8,9 @@ import {
     lstIngresosReducer,
     lstEgresosReducer,
     lstEncuestaCalidadReducer,
+    lstAviacionComercialReducer,
+    lstAviacionGeneralReducer,
+    lstAviacionCargaReducer
 } from "../../redux/listasSlice";
 import axiosClient from "../../componentes/axios-client";
 
@@ -23,6 +26,9 @@ export const useListasStore = () => {
         lstIngresos,
         lstEgresos,
         lstEncuestaCalidad,
+        lstAviacionComercial,
+        lstAviacionGeneral,
+        lstAviacionCarga,
     } = useSelector((state) => state.listas);
 
     const startLstInfraestructura = async () => {
@@ -113,6 +119,39 @@ export const useListasStore = () => {
             });
     }
 
+    const startLstAviacionComercial = async () => {
+        const url = `lst-aviacion-comercial`;
+        await axiosClient
+            .get(url)
+            .then(({ data }) => {
+                dispatch(lstAviacionComercialReducer(data?.data))
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+
+    const startLstAviacionGeneral = async () => {
+        const url = `lst-aviacion-general`;
+        await axiosClient
+            .get(url)
+            .then(({ data }) => {
+                dispatch(lstAviacionGeneralReducer(data?.data))
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+
+    const startLstAviacionCarga = async () => {
+        const url = `lst-aviacion-carga`;
+        await axiosClient
+            .get(url)
+            .then(({ data }) => {
+                dispatch(lstAviacionCargaReducer(data?.data))
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+
     return {
         /**Propiedades **/
         lstInfraestructura,
@@ -123,6 +162,9 @@ export const useListasStore = () => {
         lstIngresos,
         lstEgresos,
         lstEncuestaCalidad,
+        lstAviacionComercial,
+        lstAviacionGeneral,
+        lstAviacionCarga,
         /** Métodos **/
         startLstInfraestructura,
         startLstInfoVuelos,
@@ -132,6 +174,9 @@ export const useListasStore = () => {
         startLstIngresos,
         startLstEgresos,
         startLstEncuestaCalidad,
+        startLstAviacionComercial,
+        startLstAviacionGeneral,
+        startLstAviacionCarga
     };
 
 };
