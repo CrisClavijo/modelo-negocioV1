@@ -34,7 +34,7 @@ export const GraficaTrends = () => {
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
         const data = {
-            labels: ['Seguridad', 'Limpieza', 'Tiempos de espera', 'Info. de vuelos', 'Señalización', 'Atencion al cliente', 'infraestructura', 'Servicios comerciales', 'Conectividad vial'],
+            labels: ['Seguridad', 'Limpieza', 'T. de espera', 'Info. de vuelos', 'Señalización', 'At. al cliente', 'Infraestructura', 'Serv. com.', 'Conectividad vial'],
             datasets: [
                 {
                     label: 'Satisfacción',

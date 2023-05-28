@@ -88,3 +88,6 @@ Route::get('/lst-encuesta-calidad', [ListasEditarController::class, 'getLstEncue
 Route::get('/lst-aviacion-comercial', [ListasEditarController::class, 'getLstAviacionComercialPasajeros']);
 Route::get('/lst-aviacion-general', [ListasEditarController::class, 'getLstAviacionGeneralPasajeros']);
 Route::get('/lst-aviacion-carga', [ListasEditarController::class, 'getLstAviacioCarga']);
+
+Route::get('/ocupacion-pasajeros', [ListasEditarController::class, 'getOcupacionPasajeros']);
+Route::get('/ocupacion-carga', [ListasEditarController::class, 'getOcupacionCarga']);

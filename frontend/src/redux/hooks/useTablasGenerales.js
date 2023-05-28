@@ -16,6 +16,7 @@ import {
 import axiosClient from "../../componentes/axios-client";
 import { useLoadingStore } from "../../redux/hooks/useLoadingStore";
 import { alertNotification } from "../../componentes/customComponente/helpers/helpers";
+import { useListasStore } from "../../redux/hooks/useListasStore"
 
 export const useTablasGeneralStore = () => {
     const dispatch = useDispatch();
@@ -37,6 +38,10 @@ export const useTablasGeneralStore = () => {
         ingresos
     } = useSelector((state) => state.table);
     const { startLoading } = useLoadingStore();
+    const {
+        startOcupacionPasajeros,
+        startOcupacionCarga
+    } = useListasStore();
 
     //Obtener valores
 
@@ -59,6 +64,8 @@ export const useTablasGeneralStore = () => {
                 getIngresosValores(response[10].fechaInicial);
                 getLocalesComerciales(response[1].fechaInicial);
                 getAerolineasExistentes()
+                startOcupacionPasajeros()
+        startOcupacionCarga()
                 setTimeout(() => {
                     startLoading(false)
                 }, 15000);

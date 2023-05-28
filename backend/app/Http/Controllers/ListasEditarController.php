@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\PasajerosComerciales;
-use App\Models\ValoresDefecto;
 use App\Models\AviacionCarga;
 use App\Models\CalidadServicio;
 use App\Models\EncuestaSatisfaccion;
@@ -19,6 +18,8 @@ use App\Models\Egresos;
 use App\Models\Ingresos;
 use App\Models\LocalesComerciales;
 use App\Models\Aerolineas;
+use App\Models\OcupacionCarga;
+use App\Models\OcupacionPasajeros;
 use App\Http\Controllers\Normalize\ValidateRoule;
 use App\Http\Controllers\Normalize\NormalizeResult;
 
@@ -89,21 +90,35 @@ class ListasEditarController extends Controller
 
     public function getLstAviacionComercialPasajeros()
     {
-        $data = PasajerosComerciales::all(["id", "formatoFecha"]);
+        $data = PasajerosComerciales::all(["id", "formatoFecha", "valor"]);
 
         return NormalizeResult::index($data->toArray());
     }
 
     public function getLstAviacionGeneralPasajeros()
     {
-        $data = PasajerosGenerales::all(["idGeneralPasajeros", "formatoFecha"]);
+        $data = PasajerosGenerales::all(["idGeneralPasajeros", "formatoFecha", "valor"]);
 
         return NormalizeResult::index($data->toArray());
     }
 
     public function getLstAviacioCarga()
     {
-        $data = AviacionCarga::all(["idCarga", "formatoFecha"]);
+        $data = AviacionCarga::all(["idCarga", "formatoFecha", "carga"]);
+
+        return NormalizeResult::index($data->toArray());
+    }
+
+    public function getOcupacionCarga()
+    {
+        $data = OcupacionCarga::all(["idOcupacion", "formatoFecha", "cargaKg"]);
+
+        return NormalizeResult::index($data->toArray());
+    }
+
+    public function getOcupacionPasajeros()
+    {
+        $data = OcupacionPasajeros::all(["idOcupacion", "formatoFecha", "numPasajeros"]);
 
         return NormalizeResult::index($data->toArray());
     }
