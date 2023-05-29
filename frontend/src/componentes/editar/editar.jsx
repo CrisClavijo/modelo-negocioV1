@@ -148,7 +148,7 @@ export const Editar = () => {
                 fechaInicial: XDate(data.fechaInicio).toString("yyyy-MM-01"),
                 fechaFinal: XDate(data.fechaInicio).toString("yyyy-MM-01")
             }
-            console.log("Solo inicial", body, idFiltro)
+            console.log("Solo Inicial", body, idFiltro)
             updateValoresDefecto(body, idFiltro)
             onClearValores()
         }
@@ -333,7 +333,7 @@ export const Editar = () => {
             Swal.fire({
                 icon: 'error',
                 title: '¡Error!',
-                text: 'El porcentaje no puede ser mayor a 100',
+                text: 'El porcentaje no puede ser mayor a 100 %',
                 target: '.p-dialog'
             })
         }
@@ -352,7 +352,7 @@ export const Editar = () => {
         updateLocalesComerciales(body, data.tipoGiro)
         setMostrarLocales(false)
         onClearValores()
-        console.log("Actualizar local", body, data.tipoGiro)
+        console.log("Actualizar Local", body, data.tipoGiro)
     }
 
     const onEditarlAerolineas = (data) => {
@@ -361,7 +361,7 @@ export const Editar = () => {
             fop: +data.fop,
             oper: +data.oper
         }
-        console.log("Actualizar local", body, data.tipoAerolinea)
+        console.log("Actualizar Local", body, data.tipoAerolinea)
         updateAerolinea(body, data.tipoAerolinea)
         setMostrarAerolineas(false)
         onClearValores()
@@ -583,7 +583,7 @@ export const Editar = () => {
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Tasa de Utilización de la Capacidad Instalada", 1, false)} />
                             <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Tasa de Utilización de la Capacidad Instalada", 1, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Tasa de utlización de la capacidad instalada", 3)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Tasa de utilización de la capacidad instalada", 3)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
@@ -604,7 +604,7 @@ export const Editar = () => {
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
-                        <h3>Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio</h3>
+                        <h3>Atención Personalizada en un Entorno Seguro y con Calidad en el Servicio</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, false)} />
                             <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, true)} />
@@ -812,7 +812,7 @@ export const Editar = () => {
                 </FormProvider>
             </Dialog>
 
-            <Dialog header="Actualizar locales comerciales" visible={mostrarLocales} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarLocales(false)}>
+            <Dialog header="Actualizar Locales Comerciales" visible={mostrarLocales} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarLocales(false)}>
                 <FormProvider {...methods}>
                     <div className=" mt-4">
                         <form id="LocalesForm" onSubmit={methods.handleSubmit(onEditarlocalesComerciales)} >
@@ -931,7 +931,7 @@ export const Editar = () => {
                 </FormProvider>
             </Dialog>
 
-            <Dialog header="Actualizar aerolineas" visible={mostrarAerolineas} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarAerolineas(false)}>
+            <Dialog header="Actualizar Aerolineas" visible={mostrarAerolineas} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarAerolineas(false)}>
                 <FormProvider {...methods}>
                     <div className=" mt-4">
                         <form id="AerolineasForm" onSubmit={methods.handleSubmit(onEditarlAerolineas)} >
