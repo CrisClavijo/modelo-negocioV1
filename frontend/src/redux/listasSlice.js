@@ -13,7 +13,8 @@ const initialState = {
     lstAviacionGeneral: null,
     lstAviacionCarga: null,
     ocupacionPasajeros: null,
-    ocupacionCarga: null
+    ocupacionCarga: null,
+    ultimaActualizacion: null
 }
 
 export const listaSlice = createSlice({
@@ -58,7 +59,11 @@ export const listaSlice = createSlice({
         },
         ocupacionPasajerosReducer: (state, action) => {
             state.ocupacionPasajeros = action.payload
+        },
+        ultimaActualizacionReducer: (state, action) => {
+            state.ultimaActualizacion = action.payload
         }
+        
     }
 })
 
@@ -75,6 +80,7 @@ export const {
     lstAviacionGeneralReducer,
     lstAviacionCargaReducer,
     ocupacionCargaReducer,
-    ocupacionPasajerosReducer
+    ocupacionPasajerosReducer,
+    ultimaActualizacionReducer
 } = listaSlice.actions;
 export default listaSlice.reducer

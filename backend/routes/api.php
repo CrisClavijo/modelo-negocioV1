@@ -99,3 +99,6 @@ Route::get('/lst-aviacion-carga', [ListasEditarController::class, 'getLstAviacio
 
 Route::get('/ocupacion-pasajeros', [ListasEditarController::class, 'getOcupacionPasajeros']);
 Route::get('/ocupacion-carga', [ListasEditarController::class, 'getOcupacionCarga']);
+
+Route::get('/ultima-actualizacion', [ListasEditarController::class, 'obtenerUltimoRegistro']);
+

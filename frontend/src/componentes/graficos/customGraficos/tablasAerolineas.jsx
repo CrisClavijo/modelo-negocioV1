@@ -17,7 +17,9 @@ export const TablasAerolineas = () => {
     const imgAerolineas = (data) =>{
         return (
             <div>
-                <div className="logo-aeromexico"></div>
+                <div className="logo-aeromexico">
+                <img alt="Card" src="../../../assets/aeromexico-logo.png" />
+                </div>
             </div>
         )
     }
