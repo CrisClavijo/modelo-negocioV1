@@ -53,18 +53,20 @@ export const Users = () => {
     const actionBodyTemplate = (data) => {
         return (
             <div>
-                <Link className="btn-edit" to={'/users/' + data.id}><Button icon="pi pi-pencil" rounded outlined className="mr-2" /></Link>
-
+                {/*<Link className="btn-edit" to={'/users/' + data.id}><Button icon="pi pi-pencil" rounded outlined className="mr-2" /></Link>*/}
                 <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={ev => onDeleteClick(data)} />
             </div>
         );
+    };
+    const numeroFila = (rowData, props) => {
+        return props.rowIndex + 1;
     };
 
     return (
         <div>
             <div className="">
                 <DataTable value={users} header={header} tableStyle={{ minWidth: '60rem' }}>
-                    <Column field="id" header="No."></Column>
+                    <Column body={numeroFila} header="No."></Column>
                     <Column header="Nombre" field="name"></Column>
                     <Column field="email" header="Correo" ></Column>
                     <Column field="created_at" header="Fecha de Registro"></Column>
