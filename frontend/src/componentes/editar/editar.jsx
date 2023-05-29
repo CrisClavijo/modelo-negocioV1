@@ -16,6 +16,7 @@ export const Editar = () => {
     const methods = useForm({ shouldUnregister: true });
     const { userInfo } = useSelector(state => state.user)
     const { startLoading } = useLoadingStore();
+
     const {
         valoresDefecto,
         updateValoresDefecto,
@@ -125,8 +126,8 @@ export const Editar = () => {
     const consultaCertificados = (data) => {
         console.log(data)
         console.log(data.fechaFin >= data.fechaInicio)
-        
-        if (idFiltro === 8 || idFiltro === 9 || idFiltro === 10) {
+
+        if (idFiltro === 8 || idFiltro === 9 || idFiltro === 10 || idFiltro === 3) {
             if (data.fechaFin >= data.fechaInicio) {
                 let body = {
                     fechaInicial: XDate(data.fechaInicio).toString("yyyy-MM-01"),
@@ -160,8 +161,9 @@ export const Editar = () => {
         setHeaderFiltro(titulo);
         setIdFiltro(filtroId)
         if (filtroId === 3) {
-            setListaFiltro([])
-            setOpcionesFiltro("")
+            setListaFiltro(ocupacionPasajeros)
+            setOpcionesFiltro("formatoFecha")
+            setValueFiltro("fecha")
             return
         }
         if (filtroId === 4) {
@@ -711,7 +713,7 @@ export const Editar = () => {
                                     }}
                                 />
                             </div>
-                            {idFiltro === 8 || idFiltro === 9 || idFiltro === 10 ? (
+                            {idFiltro === 8 || idFiltro === 9 || idFiltro === 10 || idFiltro === 3 ? (
                                 <div className="col-12 sm:col-4 md:col-4 lg:col-4 xl:col-4">
                                     <FormDropdown
                                         name="fechaFin"

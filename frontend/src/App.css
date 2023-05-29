@@ -229,3 +229,8 @@ body {
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item{
   font-weight: 800 !important;
 }
+
+.contenedor-cantidad{
+  background-color: #468284 !important;
+  color: #fff !important;
+}

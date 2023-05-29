@@ -35,11 +35,7 @@ const router = createBrowserRouter([
                 element: <UserForm key="userCreate" />
             },
             {
-                path: '/users/:id',
-                element: <UserForm key="userUpdate" />
-            },
-            {
-                path: '/edit',
+                path: '/editar',
                 element: <Editar />
             }
         ]
@@ -51,10 +47,6 @@ const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login />
-            },
-            {
-                path: '/signup',
-                element: <Signup />
             }
         ]
     },

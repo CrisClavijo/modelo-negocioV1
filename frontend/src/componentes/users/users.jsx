@@ -6,30 +6,52 @@ import { Button } from 'primereact/button';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { useLoadingStore } from "../../redux/hooks/useLoadingStore";
 
 export const Users = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const { setNotification } = useStateContext()
     const { userInfo } = useSelector(state => state.user)
+    const { startLoading } = useLoadingStore();
 
     useEffect(() => {
-        getUsers();
-    }, [])
-
-    if (userInfo?.rol === 3) {
-        return <Navigate to="/" />
-    }
-
-    const onDeleteClick = user => {
-        if (!window.confirm("Are you sure you want to delete this user?")) {
-            return
+        if (userInfo?.rol === 1) {
+            startLoading(true)
+            getUsers();
         }
-        axiosClient.delete(`/users/${user.id}`)
-            .then(() => {
-                setNotification('User was successfully deleted')
-                getUsers()
-            })
+        
+    }, [userInfo])
+
+    
+
+    
+    const onDeleteClick = user => {
+        Swal.fire({
+            title: '¡Advertencia!',
+            text: "¿Esta seguro de eliminar este usuario?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosClient.delete(`/users/${user.id}`)
+                    .then(() => {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Usuario eliminado con éxito',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        getUsers()
+                    })
+            }
+        })
+
     }
 
     const getUsers = () => {
@@ -38,15 +60,18 @@ export const Users = () => {
             .then(({ data }) => {
                 setLoading(false)
                 setUsers(data.data)
+                startLoading(false)
             })
             .catch(() => {
                 setLoading(false)
+                startLoading(false)
             })
     }
+
     const header = (
         <div className="flex flex-wrap align-items-center justify-content-between gap-2">
             <span className="text-xl text-900 font-bold">Usuarios</span>
-            <Link className="btn-add" to="/users/new"><Button label="Agregar Usuario" severity="success" /></Link>
+            {userInfo?.rol === 1 && (<Link className="btn-add" to="/users/new"><Button label="Agregar Usuario" severity="success" /></Link>)}
         </div>
     );
 
@@ -54,7 +79,7 @@ export const Users = () => {
         return (
             <div>
                 {/*<Link className="btn-edit" to={'/users/' + data.id}><Button icon="pi pi-pencil" rounded outlined className="mr-2" /></Link>*/}
-                <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={ev => onDeleteClick(data)} />
+                {userInfo?.rol === 1 && (<Button icon="pi pi-trash" rounded outlined severity="danger" onClick={ev => onDeleteClick(data)} />)}
             </div>
         );
     };
@@ -64,7 +89,7 @@ export const Users = () => {
 
     return (
         <div>
-            <div className="">
+            <div className="px-5">
                 <DataTable value={users} header={header} tableStyle={{ minWidth: '60rem' }}>
                     <Column body={numeroFila} header="No."></Column>
                     <Column header="Nombre" field="name"></Column>

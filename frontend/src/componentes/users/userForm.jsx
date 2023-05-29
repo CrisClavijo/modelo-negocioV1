@@ -5,9 +5,11 @@ import { useStateContext } from "../context/contextProvider";
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
-
+import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 
 export const UserForm = () => {
+    const { userInfo } = useSelector(state => state.user)
     const navigate = useNavigate();
     let { id } = useParams();
     const [user, setUser] = useState({
@@ -70,11 +72,31 @@ export const UserForm = () => {
             console.log(userPrepare)
             axiosClient.post('/users', userPrepare)
                 .then(() => {
-                    setNotification('User was successfully created')
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Usuario creado con éxito',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     navigate('/users')
                 })
                 .catch(err => {
                     const response = err.response;
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Ocurrio un error`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Reintentar'
+                    }).then((result) => {
+                        if (!result.isConfirmed) {
+                            navigate('/users')
+                        }
+                    })
+
                     if (response && response.status === 422) {
                         setErrors(response.data.errors)
                     }
@@ -84,37 +106,42 @@ export const UserForm = () => {
 
     return (
         <>
-            {user.id && <h1>Editar usuario: {user.name}</h1>}
-            {!user.id && <h1>Nuevo usuario</h1>}
-            <div className="card animated fadeInDown">
-                {loading && (
-                    <div className="text-center">
-                        Loading...
-                    </div>
-                )}
-                {errors &&
-                    <div className="alert col-5 mx-auto">
-                        {Object.keys(errors).map(key => (
-                            <p key={key}>{errors[key][0]}</p>
-                        ))}
-                    </div>
-                }
-                {!loading && (
-                    <div className="col-10 flex flex-wrap p-fluid mx-auto justify-content-center">
-                        <form onSubmit={onSubmit} className="card">
-                            <InputText value={user.name} onChange={ev => setUser({ ...user, name: ev.target.value })} placeholder="Nombre" />
-                            <InputText value={user.email} onChange={ev => setUser({ ...user, email: ev.target.value })} placeholder="Correo" className="my-4" />
-                            <InputText type="password" onChange={ev => setUser({ ...user, password: ev.target.value })} placeholder="Contraseña" />
-                            <InputText type="password" onChange={ev => setUser({ ...user, password_confirmation: ev.target.value })} placeholder="Confirmar contraseña" className="my-4" />
-                            <Dropdown value={user.rol} onChange={ev => setUser({ ...user, rol: ev.target.value })} options={roles} optionLabel="tipo"
-                                placeholder="Selecciona un rol"/>
-                            <div className="col-4 mx-auto">
-                                <Button label="Guardar" severity="success" rounded />
+            {userInfo?.rol === 1 ? (
+                <>
+                    {user.id && <h1>Editar usuario: {user.name}</h1>}
+                    {!user.id && <h1 className="text-center">Nuevo usuario</h1>}
+                    <div className="card animated fadeInDown">
+                        {loading && (
+                            <div className="text-center">
+                                Loading...
                             </div>
-                        </form>
+                        )}
+                        {errors &&
+                            <div className="alert col-5 mx-auto">
+                                {Object.keys(errors).map(key => (
+                                    <p key={key}>{errors[key][0]}</p>
+                                ))}
+                            </div>
+                        }
+                        {!loading && (
+                            <div className="col-10 flex flex-wrap p-fluid mx-auto justify-content-center">
+                                <form onSubmit={onSubmit} className="card">
+                                    <InputText value={user.name} onChange={ev => setUser({ ...user, name: ev.target.value })} placeholder="Nombre" />
+                                    <InputText value={user.email} onChange={ev => setUser({ ...user, email: ev.target.value })} placeholder="Correo" className="my-4" />
+                                    <InputText type="password" onChange={ev => setUser({ ...user, password: ev.target.value })} placeholder="Contraseña" />
+                                    <InputText type="password" onChange={ev => setUser({ ...user, password_confirmation: ev.target.value })} placeholder="Confirmar contraseña" className="my-4" />
+                                    <Dropdown value={user.rol} onChange={ev => setUser({ ...user, rol: ev.target.value })} options={roles} optionLabel="tipo"
+                                        placeholder="Selecciona un rol" />
+                                    <div className="col-4 mx-auto">
+                                        {userInfo?.rol === 1 && (<Button label="Guardar" severity="success" rounded />)}
+                                    </div>
+                                </form>
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
+                </>
+            ) : null}
+
         </>
     )
 }
