@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
-import { Dropdown } from 'primereact/dropdown';
-import { InputNumber } from 'primereact/inputnumber';
 import { FormCalendar } from "../customComponente/formCalendar"
 import { FormProvider, useForm } from "react-hook-form";
 import XDate from "xdate";
@@ -12,12 +10,14 @@ import Swal from "sweetalert2";
 import { FormInputText } from "../customComponente/formInputText"
 import { useListasStore } from "../../redux/hooks/useListasStore"
 import { FormDropdown } from "../customComponente/formDropdown";
+import { useLoadingStore } from "../../redux/hooks/useLoadingStore";
 
 export const Editar = () => {
     const methods = useForm({ shouldUnregister: true });
     const { userInfo } = useSelector(state => state.user)
-
+    const { startLoading } = useLoadingStore();
     const {
+        valoresDefecto,
         updateValoresDefecto,
 
         updateInfraestructura,
@@ -31,6 +31,8 @@ export const Editar = () => {
         updateAviacionComercial,
         updateAviacionGeneral,
         updateAviacionCarga,
+        updateOcupacionCarga,
+        updateOcupacionPasajeros,
 
         saveInfoVuelos,
         saveInfraestructura,
@@ -41,6 +43,8 @@ export const Editar = () => {
         saveAviacionComercial,
         saveAviacionGeneral,
         saveAviacionCarga,
+        saveOcupacionCarga,
+        saveOcupacionPasajeros,
     } = useTablasGeneralStore();
 
     const {
@@ -55,6 +59,8 @@ export const Editar = () => {
         lstAviacionComercial,
         lstAviacionGeneral,
         lstAviacionCarga,
+        ocupacionCarga,
+        ocupacionPasajeros,
         startLstInfraestructura,
         startLstInfoVuelos,
         startLstAtencionPersonalizada,
@@ -65,11 +71,16 @@ export const Editar = () => {
         startLstEncuestaCalidad,
         startLstAviacionComercial,
         startLstAviacionGeneral,
-        startLstAviacionCarga
+        startLstAviacionCarga,
+        startOcupacionPasajeros,
+        startOcupacionCarga
     } = useListasStore();
 
     useEffect(() => {
-        if(userInfo?.rol === 1 || userInfo?.rol === 3){
+        startLoading(true)
+        if (userInfo?.rol === 1 || userInfo?.rol === 3) {
+            startOcupacionPasajeros()
+            startOcupacionCarga()
             startLstInfraestructura()
             startLstInfoVuelos()
             startLstAtencionPersonalizada()
@@ -78,14 +89,17 @@ export const Editar = () => {
             startLstAviacionGeneral()
             startLstAviacionCarga()
         }
-        if(userInfo?.rol === 1 || userInfo?.rol === 4){
+        if (userInfo?.rol === 1 || userInfo?.rol === 4) {
             startLstIngresos()
             startLstEgresos()
         }
-        if(userInfo?.rol === 1 || userInfo?.rol === 5 ){
+        if (userInfo?.rol === 1 || userInfo?.rol === 5) {
             startLstLocalesComerciales()
             startLstAerolineas()
         }
+        setTimeout(() => {
+            startLoading(false)
+        }, 6000);
     }, [userInfo]);
 
     const [mostrarAerolineas, setMostrarAerolineas] = useState(false);
@@ -93,6 +107,7 @@ export const Editar = () => {
     const [mostrarIngresos, setMostrarIngresos] = useState(false);
     const [mostrarEgresos, setMostrarEgresos] = useState(false);
     const [mostrarEncuesta, setMostrarEncuesta] = useState(false);
+    const [mostrarTasaUtil, setMostrarTasaUtil] = useState(false);
     const [mostrarFiltro, setMostrarFiltro] = useState(false);
     const [mostrarAviacion, setMostrarAviacion] = useState(false);
     const [headerFiltro, setHeaderFiltro] = useState("")
@@ -103,8 +118,14 @@ export const Editar = () => {
     const [banderaLista, setBanderaLista] = useState([]);
     const [opcionesId, setOpcionesId] = useState("")
     const [modalId, setModalId] = useState(0)
+    const [listaFiltro, setListaFiltro] = useState([]);
+    const [opcionesFiltro, setOpcionesFiltro] = useState("")
+    const [valueFiltro, setValueFiltro] = useState("")
 
     const consultaCertificados = (data) => {
+        console.log(data)
+        console.log(data.fechaFin >= data.fechaInicio)
+        
         if (idFiltro === 8 || idFiltro === 9 || idFiltro === 10) {
             if (data.fechaFin >= data.fechaInicio) {
                 let body = {
@@ -134,10 +155,79 @@ export const Editar = () => {
 
     }
 
+    const verificarFiltro = (modalFiltro, titulo, filtroId) => {
+        setMostrarFiltro(modalFiltro);
+        setHeaderFiltro(titulo);
+        setIdFiltro(filtroId)
+        if (filtroId === 3) {
+            setListaFiltro([])
+            setOpcionesFiltro("")
+            return
+        }
+        if (filtroId === 4) {
+            setListaFiltro(lstInfraestructura)
+            setOpcionesFiltro("fecha")
+            setValueFiltro("date")
+            return
+        }
+        if (filtroId === 5) {
+            setListaFiltro(lstInfoVuelos)
+            setOpcionesFiltro("fecha")
+            setValueFiltro("date")
+            return
+        }
+        if (filtroId === 6) {
+            setListaFiltro(lstAtencionPersonalizada)
+            setOpcionesFiltro("fecha")
+            setValueFiltro("date")
+            return
+        }
+        if (filtroId === 7) {
+            setListaFiltro(lstEncuestaCalidad)
+            setOpcionesFiltro("formatoFecha")
+            setValueFiltro("fecha")
+            return
+        }
+        if (filtroId === 8) {
+            setListaFiltro(lstAviacionComercial)
+            setOpcionesFiltro("formatoFecha")
+            setValueFiltro("fecha")
+            return
+        }
+        if (filtroId === 9) {
+            setListaFiltro(lstAviacionGeneral)
+            setOpcionesFiltro("formatoFecha")
+            setValueFiltro("fecha")
+            return
+        }
+        if (filtroId === 10) {
+            setListaFiltro(lstAviacionCarga)
+            setOpcionesFiltro("formatoFecha")
+            setValueFiltro("fecha")
+            return
+        }
+        if (filtroId === 11) {
+            setListaFiltro(lstIngresos)
+            setOpcionesFiltro("fecha")
+            setValueFiltro("date")
+            return
+        }
+        if (filtroId === 12) {
+            setListaFiltro(lstEgresos)
+            setOpcionesFiltro("fecha")
+            setValueFiltro("date")
+            return
+        }
+    }
+
     const verificarModal = (accion, titulo, idModal, btn) => {
         setHeaderEditar(`${accion} ${titulo}`)
         setBanderaBtn(btn)
         setModalId(idModal)
+        if (idModal === 1) {
+            setMostrarTasaUtil(true)
+            return
+        }
         if (idModal === 2 || idModal === 3 || idModal === 4) {
             setMostrarEditar(true)
             if (idModal === 2) {
@@ -371,7 +461,7 @@ export const Editar = () => {
         onClearValores()
     }
 
-    const onCambiaAviacion = (data) =>{
+    const onCambiaAviacion = (data) => {
         console.log(data)
         if (banderaBoton) {
             let body = {
@@ -424,7 +514,45 @@ export const Editar = () => {
         }
     }
 
+    const onCambiaOcupacion = (data) => {
+        console.log(data)
+        if (banderaBoton) {
+            console.log("Actualiza")
+            let bodyCarga = {
+                cargaKg: +data.valorCarga
+            }
+            let bodyPasajeros = {
+                numPasajeros: +data.valorUtilPasajero
+            }
+            updateOcupacionCarga(bodyCarga, data.fechaCarga)
+            updateOcupacionPasajeros(bodyPasajeros, data.fechaPasajeros)
+            onClearValores()
+            return
+        } else {
+            console.log("guarda")
+            let bodyCarga = {
+                formatoFecha: XDate(data.fecha).toString("MMM yy"),
+                fecha: XDate(data.fecha).toString("yyyy-MM-01"),
+                cargaKg: +data.valorCarga,
+                estimado: 470000000
+            }
+
+            let bodyPasajeros = {
+                formatoFecha: XDate(data.fechautilPasajeros).toString("MMM yy"),
+                fecha: XDate(data.fechautilPasajeros).toString("yyyy-MM-01"),
+                numPasajeros: +data.valorUtilPasajero,
+                estimado: 19500000
+            }
+            saveOcupacionCarga(bodyCarga)
+            saveOcupacionPasajeros(bodyPasajeros)
+            onClearValores()
+            return
+
+        }
+    }
+
     const onClearValores = () => {
+        setMostrarTasaUtil(false)
         setMostrarAerolineas(false);
         setMostrarLocales(false);
         setMostrarIngresos(false);
@@ -439,7 +567,10 @@ export const Editar = () => {
         setBanderaBtn(false);
         setBanderaLista([]);
         setOpcionesId("")
-        setModalId(0)
+        setModalId(0);
+        setListaFiltro([]);
+        setOpcionesFiltro("");
+        setValueFiltro("");
     }
 
     return (
@@ -450,98 +581,66 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Tasa de Utilización de la Capacidad Instalada</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Nuevo", "", 0)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "", 0)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
-                                setMostrarFiltro(true);
-                                setHeaderFiltro("Tasa de utlización de la capacidad instalada");
-                                setIdFiltro(3)
-                            }} />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Tasa de Utilización de la Capacidad Instalada", 1, false)} />
+                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Tasa de Utilización de la Capacidad Instalada", 1, true)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Tasa de utlización de la capacidad instalada", 3)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Infraestructura y Tecnología Aeropuertuaria</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Infraestructura y Tecnología Aeropuertuaria", 2, false)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Infraestructura y Tecnología Aeropuertuaria", 2, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
-                                setMostrarFiltro(true);
-                                setHeaderFiltro("Infraestructura y tecnologias aeropuertuaria");
-                                setIdFiltro(4)
-                            }} />
+                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Infraestructura y Tecnología Aeropuertuaria", 2, true)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Infraestructura y tecnologias aeropuertuaria", 4)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Información de Vuelos Precisa y Oportuna</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Información de Vuelos Precisa y Oportuna", 3, false)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Información de Vuelos Precisa y Oportuna", 3, true)} />
+                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Información de Vuelos Precisa y Oportuna", 3, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right"
-                                onClick={() => {
-                                    setMostrarFiltro(true);
-                                    setHeaderFiltro("Información de vuelos precisa y oportuna");
-                                    setIdFiltro(5)
-                                }} />
+                                onClick={() => verificarFiltro(true, "Información de vuelos precisa y oportuna", 5)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, false)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
-                                setMostrarFiltro(true);
-                                setHeaderFiltro("Atencion personalizada en un entorno seguro y con calidad en el servicio");
-                                setIdFiltro(6)
-                            }} />
+                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, true)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Atencion personalizada en un entorno seguro y con calidad en el servicio", 6)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Encuesta de Satisfacción</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Encuesta de Satisfaccion", 5, false)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Encuesta de Satisfaccion", 5, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
-                                setMostrarFiltro(true);
-                                setHeaderFiltro("Encuesta de satisfacción");
-                                setIdFiltro(7)
-                            }} />
+                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Encuesta de Satisfaccion", 5, true)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Encuesta de satisfacción", 7)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aviación Comercial Pasajeros</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Aviación Comercial Pasajeros", 6, false)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Aviación Comercial Pasajeros", 6, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
-                                setMostrarFiltro(true);
-                                setHeaderFiltro("Pasajeros comerciales");
-                                setIdFiltro(8)
-                            }} />
+                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Aviación Comercial Pasajeros", 6, true)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Pasajeros comerciales", 8)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aviación General Pasajeros</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Aviación General Pasajeros", 7, false)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Aviación General Pasajeros", 7, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
-                                setMostrarFiltro(true);
-                                setHeaderFiltro("Aviacion general pasajeros");
-                                setIdFiltro(9)
-                            }} />
+                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Aviación General Pasajeros", 7, true)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Aviacion general pasajeros", 9)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aviación de Carga Kg</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Aviación de Carga Kg", 8, false)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Aviación de Carga Kg", 8, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
-                                setMostrarFiltro(true);
-                                setHeaderFiltro("Carga");
-                                setIdFiltro(10)
-                            }} />
+                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Aviación de Carga Kg", 8, true)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Carga", 10)} />
                         </div>
                     </div>
                 </div>
@@ -553,12 +652,8 @@ export const Editar = () => {
                         <h3>Ingresos</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Ingresos", 9, false)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Ingresos", 9, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
-                                setMostrarFiltro(true);
-                                setHeaderFiltro("Ingresos");
-                                setIdFiltro(11)
-                            }} />
+                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Ingresos", 9, true)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Ingresos", 11)} />
                         </div>
                     </div>
 
@@ -566,13 +661,8 @@ export const Editar = () => {
                         <h3>Egresos</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Egresos", 10, false)} />
-                            <Button label="Editar" severity="warning" icon="pi pi-pencil" iconPos="right" onClick={() => verificarModal("Editar", "Egresos", 10, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => {
-                                setMostrarFiltro(true);
-                                setHeaderFiltro("Egresos");
-                                setIdFiltro(12)
-                            }}
-                            />
+                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Egresos", 10, true)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Egresos", 12)} />
                         </div>
                     </div>
                 </div>
@@ -583,7 +673,7 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aerolíneas</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" onClick={() => setMostrarAerolineas(true)} />
+                            <Button label="Actualizar" severity="danger" icon="pi pi-refresh" iconPos="right" onClick={() => setMostrarAerolineas(true)} />
 
                         </div>
 
@@ -591,13 +681,11 @@ export const Editar = () => {
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Locales Comerciales</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Editar" severity="danger" icon="pi pi-pencil" iconPos="right" onClick={() => setMostrarLocales(true)} />
+                            <Button label="Actualizar" severity="danger" icon="pi pi-refresh" iconPos="right" onClick={() => setMostrarLocales(true)} />
                         </div>
                     </div>
                 </div>
             ) : null}
-
-
 
             <Dialog header={`Filtrar ${headerFiltro}`} visible={mostrarFiltro} style={{ width: '50vw' }} onHide={() => setMostrarFiltro(false)}>
                 <FormProvider {...methods}>
@@ -608,11 +696,13 @@ export const Editar = () => {
                             className="p-fluid grid mt-2"
                         >
                             <div className="col-12 sm:col-4 md:col-4 lg:col-4 xl:col-4">
-                                <FormCalendar
+                                <FormDropdown
                                     name="fechaInicio"
                                     label="Fecha Inicio*"
-                                    yearRange="2022:2030"
                                     className="w-full"
+                                    options={listaFiltro || []}
+                                    optionLabel={opcionesFiltro}
+                                    optionValue={valueFiltro}
                                     rules={{
                                         required: {
                                             value: true,
@@ -623,11 +713,13 @@ export const Editar = () => {
                             </div>
                             {idFiltro === 8 || idFiltro === 9 || idFiltro === 10 ? (
                                 <div className="col-12 sm:col-4 md:col-4 lg:col-4 xl:col-4">
-                                    <FormCalendar
+                                    <FormDropdown
                                         name="fechaFin"
                                         label="Fecha Final*"
-                                        yearRange="2022:2030"
                                         className="w-full"
+                                        options={listaFiltro || []}
+                                        optionLabel={opcionesFiltro}
+                                        optionValue={valueFiltro}
                                         rules={{
                                             required: {
                                                 value: true,
@@ -720,7 +812,7 @@ export const Editar = () => {
                 </FormProvider>
             </Dialog>
 
-            <Dialog header="Editar locales comerciales" visible={mostrarLocales} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarLocales(false)}>
+            <Dialog header="Actualizar locales comerciales" visible={mostrarLocales} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarLocales(false)}>
                 <FormProvider {...methods}>
                     <div className=" mt-4">
                         <form id="LocalesForm" onSubmit={methods.handleSubmit(onEditarlocalesComerciales)} >
@@ -839,7 +931,7 @@ export const Editar = () => {
                 </FormProvider>
             </Dialog>
 
-            <Dialog header="Editar aerolineas" visible={mostrarAerolineas} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarAerolineas(false)}>
+            <Dialog header="Actualizar aerolineas" visible={mostrarAerolineas} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarAerolineas(false)}>
                 <FormProvider {...methods}>
                     <div className=" mt-4">
                         <form id="AerolineasForm" onSubmit={methods.handleSubmit(onEditarlAerolineas)} >
@@ -1324,7 +1416,7 @@ export const Editar = () => {
             <Dialog header={headerEditar} visible={mostrarAviacion} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarAviacion(false)}>
                 <FormProvider {...methods}>
                     <div className=" mt-4">
-                        <form id="EncuestaForm" onSubmit={methods.handleSubmit(onCambiaAviacion)} >
+                        <form id="AviacionForm" onSubmit={methods.handleSubmit(onCambiaAviacion)} >
                             <div className="">
                                 {banderaBoton ? (
                                     <FormDropdown
@@ -1370,7 +1462,119 @@ export const Editar = () => {
                                     }}
                                 />
                             </div>
-                            
+
+                            <div className="">
+                                <Button
+                                    type="submit"
+                                    icon="pi pi-save"
+                                    iconPos="right"
+                                    label={banderaBoton ? "Actualizar" : "Guardar"}
+                                    className=""
+                                />
+                            </div>
+
+                        </form>
+                    </div>
+                </FormProvider>
+            </Dialog>
+
+            <Dialog header={headerEditar} visible={mostrarTasaUtil} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarTasaUtil(false)}>
+                <FormProvider {...methods}>
+                    <div className=" mt-4">
+                        <form id="TasaForm" onSubmit={methods.handleSubmit(onCambiaOcupacion)} >
+                            <div className="">
+                                {banderaBoton ? (
+                                    <FormDropdown
+                                        name="fechaCarga"
+                                        label="Fecha de carga"
+                                        options={ocupacionCarga || []}
+                                        className='w-full'
+                                        optionLabel="formatoFecha"
+                                        optionValue="idOcupacion"
+
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo fecha de carga es requerido",
+                                            },
+                                        }}
+                                    />
+                                ) : (
+                                    <FormCalendar
+                                        name="fecha"
+                                        label="Fecha de carga*"
+                                        yearRange="2022:2030"
+                                        className="w-full"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo Fecha de carga es requerido",
+                                            },
+                                        }}
+                                    />
+                                )}
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="valorCarga"
+                                    label="Valor carga*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo valor de carga es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+
+                            <div className="">
+                                {banderaBoton ? (
+                                    <FormDropdown
+                                        name="fechaPasajeros"
+                                        label="Fecha de pasajeros"
+                                        options={ocupacionPasajeros || []}
+                                        className='w-full'
+                                        optionLabel="formatoFecha"
+                                        optionValue="idOcupacion"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo fecha de pasajeros es requerido",
+                                            },
+                                        }}
+                                    />
+                                ) : (
+                                    <FormCalendar
+                                        name="fechautilPasajeros"
+                                        label="Fecha de pasajeros*"
+                                        yearRange="2022:2030"
+                                        className="w-full"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: "El campo Fecha de pasajeros es requerido",
+                                            },
+                                        }}
+                                    />
+                                )}
+                            </div>
+                            <div className="my-4">
+                                <FormInputText
+                                    name="valorUtilPasajero"
+                                    label="Valor pasajero*"
+                                    keyfilter="int"
+                                    className="w-full"
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: "El campo valor de pasajero es requerido",
+                                        },
+                                    }}
+                                />
+                            </div>
+
                             <div className="">
                                 <Button
                                     type="submit"

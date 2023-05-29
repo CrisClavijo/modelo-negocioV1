@@ -31,7 +31,9 @@ const DefaultLayout = () => {
                 setToken(null)
                 onStartLogout(null)
                 localStorage.removeItem('AuthUser');
+                window.location.reload()
             })
+        
     }
 
     /* useEffect(() => {

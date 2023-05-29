@@ -25,7 +25,7 @@ class EncuestaSatisfaccion extends Authenticatable
         'infraestructura' => 'int',
         'servComerciales' => 'int',
         'satisfaGral' => 'int',
-        'fecha' => 'int',
+        'fecha' => 'string',
         'formatoFecha' => 'string',
         'conectividadVial' => 'int'
     ];

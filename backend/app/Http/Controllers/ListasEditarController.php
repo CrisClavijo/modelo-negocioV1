@@ -34,21 +34,21 @@ class ListasEditarController extends Controller
 
     public function getLstInfraestructura()
     {
-        $data = Infraestructura::all(["idInfraestructura", "fecha"]);
+        $data = Infraestructura::all(["idInfraestructura", "fecha", "date"]);
 
         return NormalizeResult::index($data->toArray());
     }
 
     public function getLstInfoVuelos()
     {
-        $data = InformacionVuelos::all(["idVuelos", "fecha"]);
+        $data = InformacionVuelos::all(["idVuelos", "fecha", "date"]);
 
         return NormalizeResult::index($data->toArray());
     }
 
     public function getLstAtencionPersonalizada()
     {
-        $data = CalidadServicio::all(["idServicio", "fecha"]);
+        $data = CalidadServicio::all(["idServicio", "fecha", "date"]);
 
         return NormalizeResult::index($data->toArray());
     }
@@ -69,56 +69,56 @@ class ListasEditarController extends Controller
 
     public function getLstIngresos()
     {
-        $data = Ingresos::all(["idIngresos", "fecha"]);
+        $data = Ingresos::all(["idIngresos", "fecha", "date"]);
 
         return NormalizeResult::index($data->toArray());
     }
 
     public function getLstEgresos()
     {
-        $data = Egresos::all(["idEgresos", "fecha"]);
+        $data = Egresos::all(["idEgresos", "fecha", "date"]);
 
         return NormalizeResult::index($data->toArray());
     }
 
     public function getLstEncuestaCalidad()
     {
-        $data = EncuestaSatisfaccion::all(["idCalidad", "formatoFecha"]);
+        $data = EncuestaSatisfaccion::all(["idCalidad", "formatoFecha", "fecha"]);
 
         return NormalizeResult::index($data->toArray());
     }
 
     public function getLstAviacionComercialPasajeros()
     {
-        $data = PasajerosComerciales::all(["id", "formatoFecha", "valor"]);
+        $data = PasajerosComerciales::all(["id", "formatoFecha", "valor", "fecha"]);
 
         return NormalizeResult::index($data->toArray());
     }
 
     public function getLstAviacionGeneralPasajeros()
     {
-        $data = PasajerosGenerales::all(["idGeneralPasajeros", "formatoFecha", "valor"]);
+        $data = PasajerosGenerales::all(["idGeneralPasajeros", "formatoFecha", "valor", "fecha"]);
 
         return NormalizeResult::index($data->toArray());
     }
 
     public function getLstAviacioCarga()
     {
-        $data = AviacionCarga::all(["idCarga", "formatoFecha", "carga"]);
+        $data = AviacionCarga::all(["idCarga", "formatoFecha", "carga", "fecha"]);
 
         return NormalizeResult::index($data->toArray());
     }
 
     public function getOcupacionCarga()
     {
-        $data = OcupacionCarga::all(["idOcupacion", "formatoFecha", "cargaKg"]);
+        $data = OcupacionCarga::all(["idOcupacion", "formatoFecha", "cargaKg", "fecha"]);
 
         return NormalizeResult::index($data->toArray());
     }
 
     public function getOcupacionPasajeros()
     {
-        $data = OcupacionPasajeros::all(["idOcupacion", "formatoFecha", "numPasajeros"]);
+        $data = OcupacionPasajeros::all(["idOcupacion", "formatoFecha", "numPasajeros", "fecha"]);
 
         return NormalizeResult::index($data->toArray());
     }

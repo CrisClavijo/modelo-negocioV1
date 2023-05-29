@@ -19,6 +19,8 @@ use App\Models\Egresos;
 use App\Models\Ingresos;
 use App\Models\LocalesComerciales;
 use App\Models\Aerolineas;
+use App\Models\OcupacionCarga;
+use App\Models\OcupacionPasajeros;
 use App\Http\Controllers\Normalize\ValidateRoule;
 use App\Http\Controllers\Normalize\NormalizeResult;
 
@@ -774,6 +776,106 @@ class TablasGeneralesController extends Controller
             return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);
         } else {
             $agenda = LocalesComerciales::findOrFail($id);
+            $agenda->fill($data)->save();
+            return NormalizeResult::index([$agenda], 200);
+        }
+    }
+
+    /**
+     * Apis ocupacion de carga
+     *
+     */
+
+    public function guardarOcupacionCarga(Request $data)
+    {
+        try {
+            $existeTransaccion = DB::transactionLevel() ? true : false;
+            $existeTransaccion ?: DB::beginTransaction();
+            $request = $data->toArray();
+            $valida = ValidateRoule::valida($request, [
+                'formatoFecha' => ['required', 'string'],
+                'fecha' => ['required', 'string'],
+                'cargaKg' => ['required', 'integer'],
+                'estimado' => ['required', 'integer']
+            ]);
+            if ($valida["status"] == "error") {
+                return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);
+            }
+
+            $documentoImagenes = OcupacionCarga::create($request);
+
+
+            $documentoImagenes = $documentoImagenes->toArray();
+
+            $existeTransaccion ?: DB::commit();
+            return NormalizeResult::index([$documentoImagenes], 201);
+        } catch (Exception $e) {
+            Log::alert($e);
+            $existeTransaccion ?: DB::rollBack();
+            return NormalizeResult::error($e->getMessage(), [], 500);
+        }
+    }
+
+    public function actualizarOcupacionCarga(Request $request, $id)
+    {
+        $data = $request->toArray();
+        $valida = ValidateRoule::valida($data, [
+            'cargaKg' => ['required', 'integer']
+        ]);
+        if ($valida["status"] == "error") {
+            return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);
+        } else {
+            $agenda = OcupacionCarga::findOrFail($id);
+            $agenda->fill($data)->save();
+            return NormalizeResult::index([$agenda], 200);
+        }
+    }
+
+    /**
+     * Apis ocupacion de pasajeros
+     *
+     */
+
+    public function guardarOcupacionPasajeros(Request $data)
+    {
+        try {
+            $existeTransaccion = DB::transactionLevel() ? true : false;
+            $existeTransaccion ?: DB::beginTransaction();
+            $request = $data->toArray();
+            $valida = ValidateRoule::valida($request, [
+                'formatoFecha' => ['required', 'string'],
+                'fecha' => ['required', 'string'],
+                'numPasajeros' => ['required', 'integer'],
+                'estimado' => ['required', 'integer']
+            ]);
+            if ($valida["status"] == "error") {
+                return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);
+            }
+
+            $documentoImagenes = OcupacionPasajeros::create($request);
+
+
+            $documentoImagenes = $documentoImagenes->toArray();
+
+            $existeTransaccion ?: DB::commit();
+            return NormalizeResult::index([$documentoImagenes], 201);
+        } catch (Exception $e) {
+            Log::alert($e);
+            $existeTransaccion ?: DB::rollBack();
+            return NormalizeResult::error($e->getMessage(), [], 500);
+        }
+    }
+
+    public function actualizarOcupacionPasajeros(Request $request, $id)
+    {
+        $data = $request->toArray();
+        $valida = ValidateRoule::valida($data, [
+            'numPasajeros' => ['required', 'integer']
+        ]);
+        if ($valida["status"] == "error") {
+            return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);
+        } else {
+            $agenda = OcupacionPasajeros::findOrFail($id);
             $agenda->fill($data)->save();
             return NormalizeResult::index([$agenda], 200);
         }

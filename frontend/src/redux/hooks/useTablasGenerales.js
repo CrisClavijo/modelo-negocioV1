@@ -39,6 +39,17 @@ export const useTablasGeneralStore = () => {
     } = useSelector((state) => state.table);
     const { startLoading } = useLoadingStore();
     const {
+        startLstInfraestructura,
+        startLstInfoVuelos,
+        startLstAtencionPersonalizada,
+        startLstLocalesComerciales,
+        startLstAerolineas,
+        startLstIngresos,
+        startLstEgresos,
+        startLstEncuestaCalidad,
+        startLstAviacionComercial,
+        startLstAviacionGeneral,
+        startLstAviacionCarga,
         startOcupacionPasajeros,
         startOcupacionCarga
     } = useListasStore();
@@ -65,7 +76,7 @@ export const useTablasGeneralStore = () => {
                 getLocalesComerciales(response[1].fechaInicial);
                 getAerolineasExistentes()
                 startOcupacionPasajeros()
-        startOcupacionCarga()
+                startOcupacionCarga()
                 setTimeout(() => {
                     startLoading(false)
                 }, 15000);
@@ -256,6 +267,7 @@ export const useTablasGeneralStore = () => {
                     confirmButtonText: "Aceptar",
                     target: '.p-dialog'
                 });
+                startLstInfraestructura()
                 startLoading(false)
                 console.log(data)
             }).catch((error) => {
@@ -287,6 +299,8 @@ export const useTablasGeneralStore = () => {
                 });
                 startLoading(false)
                 console.log(data)
+
+                startLstInfoVuelos()
             }).catch((error) => {
                 alertNotification({
                     title: `Ha ocurrido un error`,
@@ -316,6 +330,8 @@ export const useTablasGeneralStore = () => {
                 });
                 startLoading(false)
                 console.log(data)
+
+                startLstAtencionPersonalizada()
             }).catch((error) => {
                 alertNotification({
                     title: `Ha ocurrido un error`,
@@ -344,6 +360,8 @@ export const useTablasGeneralStore = () => {
                     target: '.p-dialog'
                 });
                 startLoading(false)
+                startLstIngresos()
+
                 console.log(data)
             }).catch((error) => {
                 alertNotification({
@@ -374,6 +392,8 @@ export const useTablasGeneralStore = () => {
                 });
                 startLoading(false)
                 console.log(data)
+                startLstEgresos()
+
             }).catch((error) => {
                 alertNotification({
                     title: `Ha ocurrido un error`,
@@ -403,6 +423,8 @@ export const useTablasGeneralStore = () => {
                 });
                 startLoading(false)
                 console.log(data)
+                startLstEncuestaCalidad()
+
             }).catch((error) => {
                 alertNotification({
                     title: `Ha ocurrido un error`,
@@ -432,6 +454,8 @@ export const useTablasGeneralStore = () => {
                 });
                 startLoading(false)
                 console.log(data)
+                startLstAviacionComercial()
+
             }).catch((error) => {
                 alertNotification({
                     title: `Ha ocurrido un error`,
@@ -461,6 +485,8 @@ export const useTablasGeneralStore = () => {
                 });
                 startLoading(false)
                 console.log(data)
+                startLstAviacionGeneral()
+
             }).catch((error) => {
                 alertNotification({
                     title: `Ha ocurrido un error`,
@@ -489,6 +515,69 @@ export const useTablasGeneralStore = () => {
                     target: '.p-dialog'
                 });
                 startLoading(false)
+                console.log(data)
+
+                startLstAviacionCarga()
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo guardar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const saveOcupacionCarga = async (body) => {
+        startLoading(true)
+        const url = `ocupacion-carga`;
+        await axiosClient
+            .post(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Guardado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+
+                startOcupacionCarga()
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo guardar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const saveOcupacionPasajeros = async (body) => {
+        startLoading(true)
+        const url = `ocupacion-pasajeros`;
+        await axiosClient
+            .post(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Guardado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                startOcupacionPasajeros()
                 console.log(data)
             }).catch((error) => {
                 alertNotification({
@@ -853,6 +942,64 @@ export const useTablasGeneralStore = () => {
             });
     }
 
+    const updateOcupacionCarga = async (body, id) => {
+        startLoading(true)
+        const url = `ocupacion-carga/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
+    const updateOcupacionPasajeros = async (body, id) => {
+        startLoading(true)
+        const url = `ocupacion-pasajeros/${id}`;
+        await axiosClient
+            .put(url, body)
+            .then(({ data }) => {
+                alertNotification({
+                    title: "¡Correcto!",
+                    text: "Actualizado Correctamente",
+                    icon: "success",
+                    confirmButtonColor: "#9b0000",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                startLoading(false)
+                console.log(data)
+            }).catch((error) => {
+                alertNotification({
+                    title: `Ha ocurrido un error`,
+                    text: 'No se pudo actualizar correctamente',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    target: '.p-dialog'
+                });
+                console.log(error)
+                startLoading(false)
+            });
+    }
+
     return {
         /**Propiedades **/
         valoresDefecto,
@@ -883,6 +1030,8 @@ export const useTablasGeneralStore = () => {
         saveAviacionComercial,
         saveAviacionGeneral,
         saveAviacionCarga,
+        saveOcupacionCarga,
+        saveOcupacionPasajeros,
 
         updateInfraestructura,
         updateInfoVuelos,
@@ -894,7 +1043,9 @@ export const useTablasGeneralStore = () => {
         updateEncuestaCalidad,
         updateAviacionComercial,
         updateAviacionGeneral,
-        updateAviacionCarga
+        updateAviacionCarga,
+        updateOcupacionCarga,
+        updateOcupacionPasajeros
     };
 
 };

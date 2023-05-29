@@ -59,7 +59,7 @@ export const TasaUtilizacionInstalada = () => {
         ocupacionCarga?.forEach((item) => {
             total += item.cargaKg;
         });
-        let ocupacionSuma = (total * 100)/ 19500000;
+        let ocupacionSuma = (((total * 100)/ 470000000)*10);
         let restante = 100 - ocupacionSuma
         const data = {
             labels: [`Ocupacion ${ocupacionSuma.toFixed(2)}`, `Restante ${restante.toFixed(2)}`],
