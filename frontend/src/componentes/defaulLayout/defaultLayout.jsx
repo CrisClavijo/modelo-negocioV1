@@ -70,7 +70,7 @@ const DefaultLayout = () => {
 
     const start = <img alt="logo" src="https://aifa.aero/lib/img/logo.svg" height="60" className="mr-2"></img>;
     const end =
-        <div className="">
+        <div className="hidden md:block">
             Bienvenido {userInfo?.name}
             <div>Actualización: {ultimaActualizacion?.formatoFecha}</div>
             <div>Corte: {ultimaActualizacion?.corte}</div>
