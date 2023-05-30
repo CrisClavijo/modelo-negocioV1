@@ -27,7 +27,6 @@ export const TasasDesenpenio = () => {
             <div className="card flex flex-wrap justify-content-center">
                 <Knob
                     value={infraestrutura||0}
-                    //onChange={(e) => console.log(e)}
                     valueTemplate={'{value}%'}
                     valueColor="#58D68D"
                     step={infraestrutura}

@@ -168,16 +168,12 @@ export const Editar = () => {
     const [valueFiltro, setValueFiltro] = useState("")
 
     const consultaCertificados = (data) => {
-        console.log(data)
-        console.log(data.fechaFin >= data.fechaInicio)
-
         if (idFiltro === 8 || idFiltro === 9 || idFiltro === 10 || idFiltro === 3) {
             if (data.fechaFin >= data.fechaInicio) {
                 let body = {
                     fechaInicial: XDate(data.fechaInicio).toString("yyyy-MM-01"),
                     fechaFinal: XDate(data.fechaFin).toString("yyyy-MM-01")
                 }
-                console.log("completo", body, idFiltro)
                 updateValoresDefecto(body, idFiltro)
                 onClearValores()
             } else {
@@ -193,7 +189,6 @@ export const Editar = () => {
                 fechaInicial: XDate(data.fechaInicio).toString("yyyy-MM-01"),
                 fechaFinal: XDate(data.fechaInicio).toString("yyyy-MM-01")
             }
-            console.log("Solo Inicial", body, idFiltro)
             updateValoresDefecto(body, idFiltro)
             onClearValores()
         }
@@ -333,7 +328,6 @@ export const Editar = () => {
 
     const onGuardarDatos = (data) => {
         if (data.porcentaje <= 100) {
-            console.log(data)
             if (banderaBoton) {
                 let body = {
                     valor: +data.porcentaje
@@ -386,7 +380,6 @@ export const Editar = () => {
     }
 
     const onEditarlocalesComerciales = (data) => {
-        console.log(data)
         let body = {
             arrendados: data.arrendados,
             disponibles: data.disponibles,
@@ -398,23 +391,19 @@ export const Editar = () => {
         updateLocalesComerciales(body, data.tipoGiro)
         setMostrarLocales(false)
         onClearValores()
-        console.log("Actualizar Local", body, data.tipoGiro)
     }
 
     const onEditarlAerolineas = (data) => {
-        console.log(data)
         let body = {
             fop: +data.fop,
             oper: +data.oper
         }
-        console.log("Actualizar Local", body, data.tipoAerolinea)
         updateAerolinea(body, data.tipoAerolinea)
         setMostrarAerolineas(false)
         onClearValores()
     }
 
     const onCambiarIngresos = (data) => {
-        console.log(data)
         if (banderaBoton) {
             let body = {
                 participaciones: data.participaciones,
@@ -422,10 +411,8 @@ export const Editar = () => {
                 ingresosFinancieros: data.ingresosFinancieros,
                 otros: data.otros
             }
-            console.log("actualziar", body, data.fechaIngresos)
             updateIngresos(body, data.fechaIngresos)
         } else {
-            console.log("guardar")
             let body = {
                 fecha: XDate(data.fecha).toString("MMM yy"),
                 date: XDate(data.fecha).toString("yyyy-MM-01"),
@@ -440,7 +427,6 @@ export const Editar = () => {
     }
 
     const onCambiarEgresos = (data) => {
-        console.log(data)
         if (banderaBoton) {
             let body = {
                 estimaciones: data.estimaciones,
@@ -449,10 +435,8 @@ export const Editar = () => {
                 servGenerales: data.servGenerales,
                 otros: data.otros
             }
-            console.log("actualziar", body, data.fechaEgresos)
             updateEgresos(body, data.fechaEgresos)
         } else {
-            console.log("guardar")
             let body = {
                 fecha: XDate(data.fecha).toString("MMM yy"),
                 date: XDate(data.fecha).toString("yyyy-MM-01"),
@@ -462,14 +446,12 @@ export const Editar = () => {
                 servGenerales: data.servGenerales,
                 otros: data.otros
             }
-            console.log("guardar", body)
             saveEgresos(body)
         }
         onClearValores()
     }
 
     const onCambiarEncuestaCalidad = (data) => {
-        console.log(data)
         if (banderaBoton) {
             let body = {
                 seguridad: data.seguridad,
@@ -483,10 +465,8 @@ export const Editar = () => {
                 conectividadVial: data.conectividadVial,
                 satisfaGral: data.satisfaGral
             }
-            console.log("actualziar", body, data.fechaEgresos)
             updateEncuestaCalidad(body, data.fechaEgresos)
         } else {
-            console.log("guardar")
             let body = {
                 formatoFecha: XDate(data.fecha).toString("MMM yy"),
                 fecha: XDate(data.fecha).toString("yyyy-MM-01"),
@@ -501,14 +481,12 @@ export const Editar = () => {
                 conectividadVial: data.conectividadVial,
                 satisfaGral: data.satisfaGral
             }
-            console.log("guardar", body)
             saveEncuestaCalidad(body)
         }
         onClearValores()
     }
 
     const onCambiaAviacion = (data) => {
-        console.log(data)
         if (banderaBoton) {
             let body = {
                 valor: +data.valor
@@ -567,9 +545,7 @@ export const Editar = () => {
     }
 
     const onCambiaOcupacion = (data) => {
-        console.log(data)
         if (banderaBoton) {
-            console.log("Actualiza")
             let bodyCarga = {
                 cargaKg: +data.valorCarga
             }
@@ -581,7 +557,6 @@ export const Editar = () => {
             onClearValores()
             return
         } else {
-            console.log("guarda")
             let bodyCarga = {
                 formatoFecha: XDate(data.fecha).toString("MMM yy"),
                 fecha: XDate(data.fecha).toString("yyyy-MM-01"),

@@ -69,7 +69,6 @@ export const UserForm = () => {
                 password_confirmation: user.password_confirmation,
                 rol: user?.rol?.code
             }
-            console.log(userPrepare)
             axiosClient.post('/users', userPrepare)
                 .then(() => {
                     Swal.fire({

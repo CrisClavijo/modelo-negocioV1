@@ -8,8 +8,6 @@ const MapaGoogleTrends = () => {
     const property = "";
     const comparison = keywords.map((q) => ({ keyword: q, geo: geo, time: time }));
     const keyword = keywords.join();
-    /*console.log(comparison);
-    console.log(keyword);*/
     return (
         <div id="widget">
             <GoogleTrends
