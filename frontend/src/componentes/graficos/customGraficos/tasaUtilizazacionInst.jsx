@@ -24,7 +24,7 @@ export const TasaUtilizacionInstalada = () => {
         let ocupacionSuma = (total * 100)/ 19500000;
         let restante = 100 - ocupacionSuma
         const data = {
-            labels: [`Ocupacion ${ocupacionSuma.toFixed(2)}`, `Restante ${restante.toFixed(2)}`],
+            labels: [`Ocupación:${ocupacionSuma.toFixed(2)}%`, `Sin Ocupar:${restante.toFixed(2)}%`],
             datasets: [
                 {
                     data: [ocupacionSuma.toFixed(2), restante.toFixed(2)],
@@ -63,7 +63,7 @@ export const TasaUtilizacionInstalada = () => {
         let ocupacionSuma = (((total * 100)/ 470000000)*10);
         let restante = 100 - ocupacionSuma
         const data = {
-            labels: [`Ocupacion ${ocupacionSuma.toFixed(2)}`, `Restante ${restante.toFixed(2)}`],
+            labels: [`Ocupación:${ocupacionSuma.toFixed(2)}%`, `Sin Ocupar:${restante.toFixed(2)}%`],
             datasets: [
                 {
                     data: [ocupacionSuma.toFixed(2), restante.toFixed(2)],
@@ -95,13 +95,13 @@ export const TasaUtilizacionInstalada = () => {
 
     return (
         <div className="flex flex-wrap text-center">
-            <h4 className="m-0 p-1">Tasa de utilización de la capacidad instalada</h4>
+            <h4 className="m-0 p-1">TASA DE UTILIZACIÓN DE LA CAPACIDAD INSTALADA</h4>
             <div className="col-12 ">
-                <h4 className="m-0 p-1">Terminal de pasajeros</h4>
+                <h4 className="m-0 p-1">Terminal de Pasajeros</h4>
                 <Chart type="pie" data={dataPasajeros} options={optionsPasajeros} />
             </div>
             <div className="col-12 ">
-                <h4 className="m-0 p-1">Terminal de carga</h4>
+                <h4 className="m-0 p-1">Terminal de Carga</h4>
                 <Chart type="pie" data={dataCarga} options={optionsCarga} />
             </div>
         </div>

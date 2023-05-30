@@ -219,18 +219,18 @@ export const GraficasClientes = () => {
     return (
         <>
             <h3 className="text-center">CLIENTES</h3>
-            <h4 className="text-center p-card mx-3 py-2 contenedor-cantidad">Acumulado pasajeros comercial y general: {acumuladoGeneral?.toLocaleString()}</h4>
+            <h4 className="text-center p-card mx-3 py-2 contenedor-cantidad">Total de Pasajeros Transportados: {acumuladoGeneral?.toLocaleString()}</h4>
             <div>
                 <Chart className="tamanio-graficas" type="line" data={datosPasajerosComer} options={opcionesPasajerosComer} />
-                <h4 className="text-center p-card mx-3 py-2 contenedor-cantidad">Total pasajeros comerciales: {sumaPasajerosComercial?.toLocaleString()}</h4>
+                <h4 className="text-center p-card mx-3 py-2 contenedor-cantidad">Acumulado de Aviación Comercial: {sumaPasajerosComercial?.toLocaleString()}</h4>
             </div>
             <div className="m-3">
                 <Chart className="tamanio-graficas" type="line" data={generalPasajeros} options={opcionesGeneralesP} />
-                <h4 className="text-center p-card mx-3 py-2 contenedor-cantidad">Total pasajeros generales: {sumaPasajerosGeneral?.toLocaleString()}</h4>
+                <h4 className="text-center p-card mx-3 py-2 contenedor-cantidad">Acumulado de Aviación General: {sumaPasajerosGeneral?.toLocaleString()}</h4>
             </div>
             <div>
                 <Chart className="tamanio-graficas" type="line" data={chartData} options={chartOptions} />
-                <h4 className="text-center p-card mx-3 py-2 contenedor-cantidad">Carga total: {sumaCarga?.toLocaleString()} kg</h4>
+                <h4 className="text-center p-card mx-3 py-2 contenedor-cantidad">Acumulado de Aviación de Carga: {sumaCarga?.toLocaleString()} kg</h4>
             </div>
         </>
     )
