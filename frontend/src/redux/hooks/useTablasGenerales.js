@@ -176,7 +176,6 @@ export const useTablasGeneralStore = () => {
             .get(url, { params: { fechaDesde: inicial, fechaHasta: final } })
             .then(({ data }) => {
                 dispatch(getFechasOcupCargaReducer(data.data))
-                console.log(data)
             }).catch((error) => {
                 console.log(error)
             });
@@ -188,7 +187,6 @@ export const useTablasGeneralStore = () => {
             .get(url, { params: { fechaDesde: inicial, fechaHasta: final } })
             .then(({ data }) => {
                 dispatch(getFechasOcupPasajerosReducer(data.data))
-                console.log(data)
             }).catch((error) => {
                 console.log(error)
             });
@@ -622,6 +620,15 @@ export const useTablasGeneralStore = () => {
             });
     }
 
+    const saveUltimaActualizacion = async (body) => {
+        const url = `ultima-actualizacion`;
+        await axiosClient
+            .post(url, body)
+            .then(({ data }) => {
+            }).catch((error) => {
+            });
+    }
+    
     //Actualizar valores
 
     const updateValoresDefecto = async (body, id) => {
@@ -1064,6 +1071,7 @@ export const useTablasGeneralStore = () => {
         saveAviacionCarga,
         saveOcupacionCarga,
         saveOcupacionPasajeros,
+        saveUltimaActualizacion,
 
         updateInfraestructura,
         updateInfoVuelos,

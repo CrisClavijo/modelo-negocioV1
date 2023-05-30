@@ -81,6 +81,7 @@ const DefaultLayout = () => {
         <div className="">
             Bienvenido {userInfo?.name}
             <div>Actualización: {ultimaActualizacion?.formatoFecha}</div>
+            <div>Corte: {ultimaActualizacion?.corte}</div>
         </div>
     return (
         <div id="defaultLayout" className="overflow-x-hidden deafult-color">

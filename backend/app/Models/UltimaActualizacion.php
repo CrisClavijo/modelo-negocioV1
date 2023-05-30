@@ -16,7 +16,8 @@ class UltimaActualizacion extends Authenticatable
     const CREATED_AT = "fechaCreacion";
 
     protected $casts = [
-        'fecha' => 'string'
+        'formatoFecha' => 'string',
+        'corte' => 'string'
     ];
 
     protected $dates = [
@@ -25,7 +26,8 @@ class UltimaActualizacion extends Authenticatable
     ];
 
     protected $fillable = [
-        'fecha'
+        'formatoFecha',
+        'corte'
     ];
 
 }

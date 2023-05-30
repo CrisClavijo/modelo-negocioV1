@@ -101,4 +101,6 @@ Route::get('/ocupacion-pasajeros', [ListasEditarController::class, 'getOcupacion
 Route::get('/ocupacion-carga', [ListasEditarController::class, 'getOcupacionCarga']);
 
 Route::get('/ultima-actualizacion', [ListasEditarController::class, 'obtenerUltimoRegistro']);
+Route::post('/ultima-actualizacion', [ListasEditarController::class, 'guardarActualizacion']);
+
 

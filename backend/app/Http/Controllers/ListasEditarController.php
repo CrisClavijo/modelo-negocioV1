@@ -130,4 +130,32 @@ class ListasEditarController extends Controller
 
         return NormalizeResult::index($ultimoRegistro->toArray());
     }
+
+    public function guardarActualizacion(Request $data)
+    {
+        try {
+            $existeTransaccion = DB::transactionLevel() ? true : false;
+            $existeTransaccion ?: DB::beginTransaction();
+            $request = $data->toArray();
+            $valida = ValidateRoule::valida($request, [
+                'formatoFecha' => ['required', 'string'],
+                'corte' => ['required', 'string']
+            ]);
+            if ($valida["status"] == "error") {
+                return NormalizeResult::error($valida["error_msg"], [], $valida["code"]);
+            }
+
+            $documentoImagenes = UltimaActualizacion::create($request);
+
+
+            $documentoImagenes = $documentoImagenes->toArray();
+
+            $existeTransaccion ?: DB::commit();
+            return NormalizeResult::index([$documentoImagenes], 201);
+        } catch (Exception $e) {
+            Log::alert($e);
+            $existeTransaccion ?: DB::rollBack();
+            return NormalizeResult::error($e->getMessage(), [], 500);
+        }
+    }
 }

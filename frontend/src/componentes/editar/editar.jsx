@@ -13,6 +13,49 @@ import { FormDropdown } from "../customComponente/formDropdown";
 import { useLoadingStore } from "../../redux/hooks/useLoadingStore";
 
 export const Editar = () => {
+    XDate.locales['es'] = {
+        monthNames: [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre",
+        ],
+        monthNamesShort: [
+            "Ene",
+            "Feb",
+            "Mar",
+            "Abr",
+            "May",
+            "Jun",
+            "Jul",
+            "Ago",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dic",
+        ],
+        dayNames:  [
+            "domingo",
+            "lunes",
+            "martes",
+            "miércoles",
+            "jueves",
+            "viernes",
+            "sábado",
+        ],
+        dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"]
+    };
+
+    XDate.defaultLocale = 'es';
+
     const methods = useForm({ shouldUnregister: true });
     const { userInfo } = useSelector(state => state.user)
     const { startLoading } = useLoadingStore();
@@ -46,6 +89,7 @@ export const Editar = () => {
         saveAviacionCarga,
         saveOcupacionCarga,
         saveOcupacionPasajeros,
+        saveUltimaActualizacion
     } = useTablasGeneralStore();
 
     const {
@@ -494,7 +538,13 @@ export const Editar = () => {
                 valor: +data.valor
             }
             if (modalId === 6) {
+                const fechaActualizar = new Date();
+                let fechaUltima = {
+                    formatoFecha: XDate(fechaActualizar).toString("d MMMM yyyy", { locale: 'es' }),
+                    corte: XDate(fechaActualizar).toString(`${fechaActualizar.getDate() - 1} MMMM yyyy`, { locale: 'es' })
+                }
                 saveAviacionComercial(body)
+                saveUltimaActualizacion(fechaUltima)
                 onClearValores()
                 return
             }
