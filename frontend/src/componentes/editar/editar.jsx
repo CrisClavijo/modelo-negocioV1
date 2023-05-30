@@ -583,7 +583,7 @@ export const Editar = () => {
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Tasa de Utilización de la Capacidad Instalada", 1, false)} />
                             <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Tasa de Utilización de la Capacidad Instalada", 1, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Tasa de utilización de la capacidad instalada", 3)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Tasa de Utilización de la Capacidad Instalada", 3)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
@@ -591,7 +591,7 @@ export const Editar = () => {
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Infraestructura y Tecnología Aeropuertuaria", 2, false)} />
                             <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Infraestructura y Tecnología Aeropuertuaria", 2, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Infraestructura y tecnologias aeropuertuaria", 4)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Infraestructura y Tecnología Aeropuertuaria", 4)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
@@ -600,23 +600,23 @@ export const Editar = () => {
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Información de Vuelos Precisa y Oportuna", 3, false)} />
                             <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Información de Vuelos Precisa y Oportuna", 3, true)} />
                             <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right"
-                                onClick={() => verificarFiltro(true, "Información de vuelos precisa y oportuna", 5)} />
+                                onClick={() => verificarFiltro(true, "Información de Vuelos Precisa y Oportuna", 5)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Atención Personalizada en un Entorno Seguro y con Calidad en el Servicio</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, false)} />
-                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Atencion Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Atencion personalizada en un entorno seguro y con calidad en el servicio", 6)} />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Atención Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, false)} />
+                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Atención Personalizada en un Entorno Seguro y con Calidad en el Servicio", 4, true)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Atención Personalizada en un Entorno Seguro y con Calidad en el Servicio", 6)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Encuesta de Satisfacción</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
-                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Encuesta de Satisfaccion", 5, false)} />
-                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Encuesta de Satisfaccion", 5, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Encuesta de satisfacción", 7)} />
+                            <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Encuesta de Satisfacción", 5, false)} />
+                            <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Encuesta de Satisfacción", 5, true)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Encuesta de Satisfacción", 7)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
@@ -624,7 +624,7 @@ export const Editar = () => {
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Aviación Comercial Pasajeros", 6, false)} />
                             <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Aviación Comercial Pasajeros", 6, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Pasajeros comerciales", 8)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Aviación Comercial Pasajeros", 8)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
@@ -632,7 +632,7 @@ export const Editar = () => {
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Aviación General Pasajeros", 7, false)} />
                             <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Aviación General Pasajeros", 7, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Aviacion general pasajeros", 9)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Aviación General Pasajeros", 9)} />
                         </div>
                     </div>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
@@ -640,14 +640,14 @@ export const Editar = () => {
                         <div className="gap-2 flex flex-wrap justify-content-center">
                             <Button label="Nuevo" severity="danger" icon="pi pi-plus" iconPos="right" onClick={() => verificarModal("Agregar", "Aviación de Carga Kg", 8, false)} />
                             <Button label="Actualizar" severity="warning" icon="pi pi-refresh" iconPos="right" onClick={() => verificarModal("Actualizar", "Aviación de Carga Kg", 8, true)} />
-                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Carga", 10)} />
+                            <Button label="Filtro" severity="success" icon="pi pi-filter" iconPos="right" onClick={() => verificarFiltro(true, "Aviación de Carga Kg", 10)} />
                         </div>
                     </div>
                 </div>
             ) : null}
             {userInfo?.rol === 1 || userInfo?.rol === 4 ? (
                 <div className="flex flex-wrap gap-3 mb-3">
-                    <h2 className="col-12 m-0">Departamento de finanzas</h2>
+                    <h2 className="col-12 m-0">Departamento de Finanzas</h2>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Ingresos</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
@@ -669,7 +669,7 @@ export const Editar = () => {
             ) : null}
             {userInfo?.rol === 1 || userInfo?.rol === 5 ? (
                 <div className="flex flex-wrap gap-3 mb-3">
-                    <h2 className="col-12 m-0">Departamento de Planeación</h2>
+                    <h2 className="col-12 m-0">Departamento de Planeación Estrategica</h2>
                     <div className="p-card lg:col-2 md:col-3 sm:col-4 col-12 text-center">
                         <h3>Aerolíneas</h3>
                         <div className="gap-2 flex flex-wrap justify-content-center">
@@ -706,7 +706,7 @@ export const Editar = () => {
                                     rules={{
                                         required: {
                                             value: true,
-                                            message: "El campo Fecha Inicio es requerido",
+                                            message: "El campo fecha inicio es requerido",
                                         },
                                     }}
                                 />
@@ -723,7 +723,7 @@ export const Editar = () => {
                                         rules={{
                                             required: {
                                                 value: true,
-                                                message: "El campo Fecha Final es requerido",
+                                                message: "El campo fecha final es requerido",
                                             },
                                         }}
                                     />
@@ -776,7 +776,7 @@ export const Editar = () => {
                                         rules={{
                                             required: {
                                                 value: true,
-                                                message: "El campo es requerido",
+                                                message: "El campo fecha es requerido",
                                             },
                                         }}
                                     />
@@ -789,7 +789,7 @@ export const Editar = () => {
                                         rules={{
                                             required: {
                                                 value: true,
-                                                message: "El campo Fecha es requerido",
+                                                message: "El campo fecha es requerido",
                                             },
                                         }}
                                     />
@@ -877,13 +877,13 @@ export const Editar = () => {
                             <div className="">
                                 <FormInputText
                                     name="enAdaptacion"
-                                    label="En adaptacion*"
+                                    label="En Adaptación*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
                                         required: {
                                             value: true,
-                                            message: "El campo en adaptacion es requerido",
+                                            message: "El campo en adaptación es requerido",
                                         },
                                     }}
                                 />
@@ -931,14 +931,14 @@ export const Editar = () => {
                 </FormProvider>
             </Dialog>
 
-            <Dialog header="Actualizar Aerolineas" visible={mostrarAerolineas} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarAerolineas(false)}>
+            <Dialog header="Actualizar Aerolíneas" visible={mostrarAerolineas} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal className="p-fluid" onHide={() => setMostrarAerolineas(false)}>
                 <FormProvider {...methods}>
                     <div className=" mt-4">
                         <form id="AerolineasForm" onSubmit={methods.handleSubmit(onEditarlAerolineas)} >
                             <div className="">
                                 <FormDropdown
                                     name="tipoAerolinea"
-                                    label="Aerolinea"
+                                    label="Aerolínea"
                                     options={lstAerolinea || []}
                                     className='w-full'
                                     optionLabel="aerolinea"
@@ -946,7 +946,7 @@ export const Editar = () => {
                                     rules={{
                                         required: {
                                             value: true,
-                                            message: "El campo aerolinea es requerido",
+                                            message: "El campo aerolínea es requerido",
                                         },
                                     }}
                                 />
@@ -954,7 +954,7 @@ export const Editar = () => {
                             <div className="my-4">
                                 <FormInputText
                                     name="fop"
-                                    label="Fop*"
+                                    label="Factor de Ocupación Promedio(FOP)*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
@@ -968,7 +968,7 @@ export const Editar = () => {
                             <div className="mb-4">
                                 <FormInputText
                                     name="oper"
-                                    label="Oper*"
+                                    label="Operaciones(OPER)*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
@@ -1024,7 +1024,7 @@ export const Editar = () => {
                                         rules={{
                                             required: {
                                                 value: true,
-                                                message: "El campo Fecha es requerido",
+                                                message: "El campo fecha es requerido",
                                             },
                                         }}
                                     />
@@ -1047,7 +1047,7 @@ export const Editar = () => {
                             <div className="">
                                 <FormInputText
                                     name="ventaBienes"
-                                    label="Venta de bienes*"
+                                    label="Venta de Bienes*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
@@ -1061,7 +1061,7 @@ export const Editar = () => {
                             <div className="my-4">
                                 <FormInputText
                                     name="ingresosFinancieros"
-                                    label="Ingresos financieros*"
+                                    label="Ingresos Financieros*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
@@ -1131,7 +1131,7 @@ export const Editar = () => {
                                         rules={{
                                             required: {
                                                 value: true,
-                                                message: "El campo Fecha es requerido",
+                                                message: "El campo fecha es requerido",
                                             },
                                         }}
                                     />
@@ -1140,13 +1140,13 @@ export const Editar = () => {
                             <div className="my-4">
                                 <FormInputText
                                     name="servGenerales"
-                                    label="Servicios generales*"
+                                    label="Servicios Generales*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
                                         required: {
                                             value: true,
-                                            message: "El campo servcios generales es requerido",
+                                            message: "El campo servicios generales es requerido",
                                         },
                                     }}
                                 />
@@ -1154,7 +1154,7 @@ export const Editar = () => {
                             <div className="">
                                 <FormInputText
                                     name="personas"
-                                    label="Servicios personales*"
+                                    label="Servicios Personales*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
@@ -1252,7 +1252,7 @@ export const Editar = () => {
                                         rules={{
                                             required: {
                                                 value: true,
-                                                message: "El campo Fecha es requerido",
+                                                message: "El campo fecha es requerido",
                                             },
                                         }}
                                     />
@@ -1289,7 +1289,7 @@ export const Editar = () => {
                             <div className="my-4">
                                 <FormInputText
                                     name="tiemDeEsper"
-                                    label="Tiempo de espera*"
+                                    label="Tiempo de Espera*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
@@ -1303,13 +1303,13 @@ export const Editar = () => {
                             <div className="">
                                 <FormInputText
                                     name="infoVuelos"
-                                    label="Informacion de vuelos*"
+                                    label="Información de Vuelos*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
                                         required: {
                                             value: true,
-                                            message: "El campo informacion de vuelos es requerido",
+                                            message: "El campo información de vuelos es requerido",
                                         },
                                     }}
                                 />
@@ -1317,13 +1317,13 @@ export const Editar = () => {
                             <div className="my-4">
                                 <FormInputText
                                     name="senializacion"
-                                    label="Señalizacion*"
+                                    label="Señalización*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
                                         required: {
                                             value: true,
-                                            message: "El campo señalizacion es requerido",
+                                            message: "El campo señalización es requerido",
                                         },
                                     }}
                                 />
@@ -1331,13 +1331,13 @@ export const Editar = () => {
                             <div className="">
                                 <FormInputText
                                     name="atencionCliente"
-                                    label="Atencion al cliente*"
+                                    label="Atención al Cliente*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
                                         required: {
                                             value: true,
-                                            message: "El campo atencion al cliente es requerido",
+                                            message: "El campo atención al cliente es requerido",
                                         },
                                     }}
                                 />
@@ -1359,7 +1359,7 @@ export const Editar = () => {
                             <div className="">
                                 <FormInputText
                                     name="servComerciales"
-                                    label="Servicios comerciales*"
+                                    label="Servicios Comerciales*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
@@ -1373,7 +1373,7 @@ export const Editar = () => {
                             <div className="my-4">
                                 <FormInputText
                                     name="conectividadVial"
-                                    label="Conectividad vial*"
+                                    label="Conectividad Vial*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
@@ -1387,13 +1387,13 @@ export const Editar = () => {
                             <div className="mb-4">
                                 <FormInputText
                                     name="satisfaGral"
-                                    label="Satisfaccion general*"
+                                    label="Satisfacción General*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
                                         required: {
                                             value: true,
-                                            message: "El campo satisfaccion general es requerido",
+                                            message: "El campo satisfacción general es requerido",
                                         },
                                     }}
                                 />
@@ -1442,7 +1442,7 @@ export const Editar = () => {
                                         rules={{
                                             required: {
                                                 value: true,
-                                                message: "El campo Fecha es requerido",
+                                                message: "El campo fecha es requerido",
                                             },
                                         }}
                                     />
@@ -1486,7 +1486,7 @@ export const Editar = () => {
                                 {banderaBoton ? (
                                     <FormDropdown
                                         name="fechaCarga"
-                                        label="Fecha de carga"
+                                        label="Fecha de Carga"
                                         options={ocupacionCarga || []}
                                         className='w-full'
                                         optionLabel="formatoFecha"
@@ -1502,13 +1502,13 @@ export const Editar = () => {
                                 ) : (
                                     <FormCalendar
                                         name="fecha"
-                                        label="Fecha de carga*"
+                                        label="Fecha de Carga*"
                                         yearRange="2022:2030"
                                         className="w-full"
                                         rules={{
                                             required: {
                                                 value: true,
-                                                message: "El campo Fecha de carga es requerido",
+                                                message: "El campo fecha de carga es requerido",
                                             },
                                         }}
                                     />
@@ -1517,7 +1517,7 @@ export const Editar = () => {
                             <div className="my-4">
                                 <FormInputText
                                     name="valorCarga"
-                                    label="Valor carga*"
+                                    label="Valor de Carga*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{
@@ -1533,7 +1533,7 @@ export const Editar = () => {
                                 {banderaBoton ? (
                                     <FormDropdown
                                         name="fechaPasajeros"
-                                        label="Fecha de pasajeros"
+                                        label="Fecha de Pasajeros"
                                         options={ocupacionPasajeros || []}
                                         className='w-full'
                                         optionLabel="formatoFecha"
@@ -1548,13 +1548,13 @@ export const Editar = () => {
                                 ) : (
                                     <FormCalendar
                                         name="fechautilPasajeros"
-                                        label="Fecha de pasajeros*"
+                                        label="Fecha de Pasajeros*"
                                         yearRange="2022:2030"
                                         className="w-full"
                                         rules={{
                                             required: {
                                                 value: true,
-                                                message: "El campo Fecha de pasajeros es requerido",
+                                                message: "El campo fecha de pasajeros es requerido",
                                             },
                                         }}
                                     />
@@ -1563,7 +1563,7 @@ export const Editar = () => {
                             <div className="my-4">
                                 <FormInputText
                                     name="valorUtilPasajero"
-                                    label="Valor pasajero*"
+                                    label="Valor Pasajero*"
                                     keyfilter="int"
                                     className="w-full"
                                     rules={{

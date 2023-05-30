@@ -31,6 +31,7 @@ export const GraficasCanvas = () => {
             <div className="col-12 flex flex-wrap p-0 tamanio-columnas">
                 <div className="col-3 p-0 tamanio-columnas color-seccion">
                     <ScrollPanel style={{ width: '100%', height: '100%' }} className="custombar1" key='uparrow'>
+                    <b><h3 className="text-center">SOCIOS CLAVE</h3></b>
                         <MapaGoogleTrends />
 
                         <TablasAerolineas />
