@@ -12,7 +12,8 @@ import {
     lstAviacionGeneralReducer,
     lstAviacionCargaReducer,
     ocupacionCargaReducer,
-    ocupacionPasajerosReducer
+    ocupacionPasajerosReducer,
+    ultimaActualizacionReducer
 } from "../../redux/listasSlice";
 import axiosClient from "../../componentes/axios-client";
 
@@ -32,7 +33,8 @@ export const useListasStore = () => {
         lstAviacionGeneral,
         lstAviacionCarga,
         ocupacionCarga,
-        ocupacionPasajeros
+        ocupacionPasajeros,
+        ultimaActualizacion
     } = useSelector((state) => state.listas);
 
     const startLstInfraestructura = async () => {
@@ -178,6 +180,17 @@ export const useListasStore = () => {
             });
     }
 
+    const startUltimaActualizacion = async () => {
+        const url = `ultima-actualizacion`;
+        await axiosClient
+            .get(url)
+            .then(({ data }) => {
+                dispatch(ultimaActualizacionReducer(data?.data))
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+
     return {
         /**Propiedades **/
         lstInfraestructura,
@@ -193,6 +206,7 @@ export const useListasStore = () => {
         lstAviacionCarga,
         ocupacionCarga,
         ocupacionPasajeros,
+        ultimaActualizacion,
         /** Métodos **/
         startLstInfraestructura,
         startLstInfoVuelos,
@@ -206,7 +220,8 @@ export const useListasStore = () => {
         startLstAviacionGeneral,
         startLstAviacionCarga,
         startOcupacionPasajeros,
-        startOcupacionCarga
+        startOcupacionCarga,
+        startUltimaActualizacion
     };
 
 };

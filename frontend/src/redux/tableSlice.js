@@ -16,6 +16,8 @@ const initialState = {
     egresos: null,
     tablaLocales: null,
     aerolineas: null,
+    fechasCargaOcupacion: null,
+    fechasPasajerosOcupacion: null,
 }
 
 export const tableSlice = createSlice({
@@ -61,6 +63,12 @@ export const tableSlice = createSlice({
         getTablaAerolineasReducer: (state, action) => {
             state.aerolineas = action.payload
         },
+        getFechasOcupCargaReducer: (state, action) => {
+            state.fechasCargaOcupacion = action.payload
+        },
+        getFechasOcupPasajerosReducer: (state, action) => {
+            state.fechasPasajerosOcupacion = action.payload
+        },
     }
 })
 
@@ -76,6 +84,8 @@ export const {
     getIngresosReducer,
     getEgresosReducer,
     getTablaLocalesReducer,
-    getTablaAerolineasReducer
+    getTablaAerolineasReducer,
+    getFechasOcupCargaReducer,
+    getFechasOcupPasajerosReducer
 } = tableSlice.actions;
 export default tableSlice.reducer

@@ -76,9 +76,11 @@ Route::put('/locales-comerciales/{id}', [TablasGeneralesController::class, 'actu
 Route::get('/aerolineas', [TablasGeneralesController::class, 'getAerolineas']);
 Route::put('/aerolineas/{id}', [TablasGeneralesController::class, 'actualizarAerolineas']);
 
+Route::get('/ocupacion-carga-filtro', [TablasGeneralesController::class, 'getOcupacionCarga']);
 Route::post('/ocupacion-carga', [TablasGeneralesController::class, 'guardarOcupacionCarga']);
 Route::put('/ocupacion-carga/{id}', [TablasGeneralesController::class, 'actualizarOcupacionCarga']);
 
+Route::get('/ocupacion-pasajeros-filtro', [TablasGeneralesController::class, 'getOcupacionPasajeros']);
 Route::post('/ocupacion-pasajeros', [TablasGeneralesController::class, 'guardarOcupacionPasajeros']);
 Route::put('/ocupacion-pasajeros/{id}', [TablasGeneralesController::class, 'actualizarOcupacionPasajeros']);
 
@@ -97,3 +99,6 @@ Route::get('/lst-aviacion-carga', [ListasEditarController::class, 'getLstAviacio
 
 Route::get('/ocupacion-pasajeros', [ListasEditarController::class, 'getOcupacionPasajeros']);
 Route::get('/ocupacion-carga', [ListasEditarController::class, 'getOcupacionCarga']);
+
+Route::get('/ultima-actualizacion', [ListasEditarController::class, 'obtenerUltimoRegistro']);
+

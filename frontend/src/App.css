@@ -47,7 +47,7 @@
   overflow: hidden;
   height: 300px;
   width: 500px;
-  background-image: url('./assets/logo-aifa.png');
+  background-image: url('./assets/aifa-sin-fondo.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -154,7 +154,7 @@
 .logo-aeromexico{
   height: 40px;
   width: 100px;
-  background-image: url('./assets/aeromexico-logo.png');
+  /*background-image: url('./assets/aeromexico-logo.png');*/
   background-repeat: no-repeat;
   background-size: 100% 100%;
 
@@ -228,4 +228,9 @@ body {
 
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item{
   font-weight: 800 !important;
+}
+
+.contenedor-cantidad{
+  background-color: #468284 !important;
+  color: #fff !important;
 }

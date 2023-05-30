@@ -34,10 +34,13 @@ export const TablaLocalesComerciales = () => {
         }
     }, [tablaLocales]);
 
+    const headerAerolinea = (
+        <h4>Locales comerciales</h4>
+    );
 
     return (
-        <div className="border-800 border-1 text-center">
-            <DataTable value={nuevaTabla || []} className="">
+        <div className="text-center">
+            <DataTable value={nuevaTabla || []} header={headerAerolinea}  className="">
                 <Column field="giros" header="GIROS"></Column>
                 <Column field="existentes" header="EXISTENTES" ></Column>
                 <Column field="arrendados" header="ARRENDADOS" ></Column>

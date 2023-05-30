@@ -786,6 +786,27 @@ class TablasGeneralesController extends Controller
      *
      */
 
+    public function getOcupacionCarga(Request $request)
+    {
+        $data = DB::connection('mysql')->table('cargaocupacion')
+            ->selectRaw("
+            cargaocupacion.idOcupacion,
+            cargaocupacion.formatoFecha,
+            cargaocupacion.cargaKg,
+            cargaocupacion.fecha
+            ")
+            ->when($request->fechaDesde, function ($query) use ($request) {
+                $query->whereDate('cargaocupacion.fecha', '>=', "$request->fechaDesde");
+            })->when($request->fechaHasta, function ($query) use ($request) {
+                $query->whereDate('cargaocupacion.fecha', '<=', "$request->fechaHasta");
+            });
+
+        $data = NormalizeResult::paginate($data, $request);
+
+        return NormalizeResult::index($data->toArray());
+    }
+
+
     public function guardarOcupacionCarga(Request $data)
     {
         try {
@@ -835,6 +856,26 @@ class TablasGeneralesController extends Controller
      * Apis ocupacion de pasajeros
      *
      */
+
+    public function getOcupacionPasajeros(Request $request)
+    {
+        $data = DB::connection('mysql')->table('pasajerosocupacion')
+            ->selectRaw("
+            pasajerosocupacion.idOcupacion,
+            pasajerosocupacion.formatoFecha,
+            pasajerosocupacion.numPasajeros,
+            pasajerosocupacion.fecha
+            ")
+            ->when($request->fechaDesde, function ($query) use ($request) {
+                $query->whereDate('pasajerosocupacion.fecha', '>=', "$request->fechaDesde");
+            })->when($request->fechaHasta, function ($query) use ($request) {
+                $query->whereDate('pasajerosocupacion.fecha', '<=', "$request->fechaHasta");
+            });
+
+        $data = NormalizeResult::paginate($data, $request);
+
+        return NormalizeResult::index($data->toArray());
+    }
 
     public function guardarOcupacionPasajeros(Request $data)
     {

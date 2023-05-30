@@ -20,6 +20,7 @@ use App\Models\LocalesComerciales;
 use App\Models\Aerolineas;
 use App\Models\OcupacionCarga;
 use App\Models\OcupacionPasajeros;
+use App\Models\UltimaActualizacion;
 use App\Http\Controllers\Normalize\ValidateRoule;
 use App\Http\Controllers\Normalize\NormalizeResult;
 
@@ -121,5 +122,12 @@ class ListasEditarController extends Controller
         $data = OcupacionPasajeros::all(["idOcupacion", "formatoFecha", "numPasajeros", "fecha"]);
 
         return NormalizeResult::index($data->toArray());
+    }
+
+    public function obtenerUltimoRegistro()
+    {
+        $ultimoRegistro = UltimaActualizacion::latest()->first();
+
+        return NormalizeResult::index($ultimoRegistro->toArray());
     }
 }

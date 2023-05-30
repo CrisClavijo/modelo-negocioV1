@@ -8,13 +8,19 @@ import { useSelector } from "react-redux";
 import { useAuthStore } from "../../redux/hooks/useAuthStore";
 import { Loading } from '../loaderUi/loader';
 import { useLoadingStore } from "../../redux/hooks/useLoadingStore";
+import { useListasStore } from "../../redux/hooks/useListasStore"
 const DefaultLayout = () => {
     const { user, token, setUser, setToken, notification } = useStateContext();
     const { userInfo } = useSelector(state => state.user)
     const { startLogin, onStartLogout } = useAuthStore();
     const { loading } = useLoadingStore();
+    const {
+        ultimaActualizacion,
+        startUltimaActualizacion
+    } = useListasStore();
     useEffect(() => {
         startLogin();
+        startUltimaActualizacion();
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -33,7 +39,7 @@ const DefaultLayout = () => {
                 localStorage.removeItem('AuthUser');
                 window.location.reload()
             })
-        
+
     }
 
     /* useEffect(() => {
@@ -52,7 +58,7 @@ const DefaultLayout = () => {
         {
             label: 'Editar',
             icon: 'pi pi-fw pi-pencil',
-            url: "/edit",
+            url: "/editar",
             visible: userInfo?.rol != 2 || userInfo?.rol === 1 ? true : false
         },
         {
@@ -71,7 +77,11 @@ const DefaultLayout = () => {
     ];
 
     const start = <img alt="logo" src="https://aifa.aero/lib/img/logo.svg" height="60" className="mr-2"></img>;
-    const end = <div className="text-center">Bienvenido {userInfo?.name}</div>
+    const end =
+        <div className="">
+            Bienvenido {userInfo?.name}
+            <div>Ultima actualización: {ultimaActualizacion?.formatoFecha}</div>
+        </div>
     return (
         <div id="defaultLayout" className="overflow-x-hidden deafult-color">
 

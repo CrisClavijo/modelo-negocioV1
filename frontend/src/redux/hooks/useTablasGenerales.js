@@ -11,7 +11,9 @@ import {
     getIngresosReducer,
     getEgresosReducer,
     getTablaLocalesReducer,
-    getTablaAerolineasReducer
+    getTablaAerolineasReducer,
+    getFechasOcupCargaReducer,
+    getFechasOcupPasajerosReducer
 } from "../../redux/tableSlice";
 import axiosClient from "../../componentes/axios-client";
 import { useLoadingStore } from "../../redux/hooks/useLoadingStore";
@@ -35,7 +37,9 @@ export const useTablasGeneralStore = () => {
         tablaLocales,
         aerolineas,
         egresos,
-        ingresos
+        ingresos,
+        fechasCargaOcupacion,
+        fechasPasajerosOcupacion,
     } = useSelector((state) => state.table);
     const { startLoading } = useLoadingStore();
     const {
@@ -77,6 +81,8 @@ export const useTablasGeneralStore = () => {
                 getAerolineasExistentes()
                 startOcupacionPasajeros()
                 startOcupacionCarga()
+                getOcupacionCargaFechas(response[2].fechaInicial, response[2].fechaFinal)
+                getOcupacionPasajerosFechas(response[2].fechaInicial, response[2].fechaFinal)
                 setTimeout(() => {
                     startLoading(false)
                 }, 15000);
@@ -159,6 +165,30 @@ export const useTablasGeneralStore = () => {
                 let datos = [newValorPasajerosComerciales, newMesesPasajerosComerciales]
 
                 dispatch(getCarga(datos))
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+
+    const getOcupacionCargaFechas = async (inicial, final) => {
+        const url = `ocupacion-carga-filtro`;
+        await axiosClient
+            .get(url, { params: { fechaDesde: inicial, fechaHasta: final } })
+            .then(({ data }) => {
+                dispatch(getFechasOcupCargaReducer(data.data))
+                console.log(data)
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+
+    const getOcupacionPasajerosFechas = async (inicial, final) => {
+        const url = `ocupacion-pasajeros-filtro`;
+        await axiosClient
+            .get(url, { params: { fechaDesde: inicial, fechaHasta: final } })
+            .then(({ data }) => {
+                dispatch(getFechasOcupPasajerosReducer(data.data))
+                console.log(data)
             }).catch((error) => {
                 console.log(error)
             });
@@ -1017,6 +1047,8 @@ export const useTablasGeneralStore = () => {
         aerolineas,
         egresos,
         ingresos,
+        fechasCargaOcupacion,
+        fechasPasajerosOcupacion,
         /** Métodos **/
         getValoresDefecto,
         updateValoresDefecto,

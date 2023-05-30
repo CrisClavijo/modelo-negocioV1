@@ -17,14 +17,16 @@ export const TablasAerolineas = () => {
     const imgAerolineas = (data) =>{
         return (
             <div>
-                <div className="logo-aeromexico"></div>
+                <div className="logo-aeromexico">
+                <img alt="Card" src="../../../assets/aeromexico-logo.png" />
+                </div>
             </div>
         )
     }
 
 
     return (
-        <div className="border-800 border-1 text-center ">
+        <div className="text-center ">
             <div className="flex flex-wrap ">
                 <DataTable value={aerolineas} header={headerAerolinea} className="w-full">
                     <Column field="aerolinea" header="AEROLINEAS" body={imgAerolineas}></Column>
