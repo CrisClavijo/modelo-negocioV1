@@ -148,6 +148,17 @@
   }
 }
 
+.contenedor-scroll{
+  overflow-x: hidden !important;
+}
+
+@media (max-width: 600px) {
+  .contenedor-scroll{
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+  }
+}
+
 
 
 
@@ -157,7 +168,6 @@
   /*background-image: url('./assets/aeromexico-logo.png');*/
   background-repeat: no-repeat;
   background-size: 100% 100%;
-
 }
 
 

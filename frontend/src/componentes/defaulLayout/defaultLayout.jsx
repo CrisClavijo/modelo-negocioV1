@@ -39,15 +39,7 @@ const DefaultLayout = () => {
                 localStorage.removeItem('AuthUser');
                 window.location.reload()
             })
-
     }
-
-    /* useEffect(() => {
-         axiosClient.get('/user')
-             .then(({ data }) => {
-                 setUser(data)
-             })
-     }, [])*/
 
     const items = [
         {
@@ -89,18 +81,9 @@ const DefaultLayout = () => {
             {loading ? (
                 <Loading />
             ) : null}
-            {/*<aside>
-                <Link to="/dashboard">Dashboard</Link>
-                <Link to="/users">Users</Link>
-            </aside>*/}
             <div className="content">
                 <header>
                     <Menubar model={items} start={start} end={end} className="degradado text-200" />
-                    {/*<div>
-                        {user.name} &nbsp; &nbsp;
-                        <a onClick={onLogout} className="btn-logout" href="#">Logout</a>
-                        </div>
-                    */}
                 </header>
                 <main>
                     <Outlet />

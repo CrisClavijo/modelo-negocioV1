@@ -78,7 +78,6 @@ export const Users = () => {
     const actionBodyTemplate = (data) => {
         return (
             <div>
-                {/*<Link className="btn-edit" to={'/users/' + data.id}><Button icon="pi pi-pencil" rounded outlined className="mr-2" /></Link>*/}
                 {userInfo?.rol === 1 && (<Button icon="pi pi-trash" rounded outlined severity="danger" onClick={ev => onDeleteClick(data)} />)}
             </div>
         );

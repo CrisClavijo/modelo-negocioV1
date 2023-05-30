@@ -19,7 +19,7 @@ import axiosClient from "../../componentes/axios-client";
 import { useLoadingStore } from "../../redux/hooks/useLoadingStore";
 import { alertNotification } from "../../componentes/customComponente/helpers/helpers";
 import { useListasStore } from "../../redux/hooks/useListasStore"
-
+import Swal from "sweetalert2";
 export const useTablasGeneralStore = () => {
     const dispatch = useDispatch();
     const {
@@ -89,18 +89,22 @@ export const useTablasGeneralStore = () => {
 
 
             }).catch((error) => {
-                alertNotification({
+                startLoading(false)
+                Swal.fire({
                     title: `Ha ocurrido un error al obtener los datos`,
                     text: error?.response?.data?.error_msg,
                     icon: "error",
-                    confirmButtonText: "Aceptar",
+                    confirmButtonText: "Reintentar",
                     confirmButtonColor: "#6e7881",
                     html: `<h5>${error?.response?.data?.error_msg || "Hubo un problema"
                         }</h5>
                         <div id="lista-errores"></div>
                     `,
-                });
-                startLoading(false)
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.reload()
+                    }
+                })
             });
     }
 
@@ -628,7 +632,7 @@ export const useTablasGeneralStore = () => {
             }).catch((error) => {
             });
     }
-    
+
     //Actualizar valores
 
     const updateValoresDefecto = async (body, id) => {
